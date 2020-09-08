@@ -1,0 +1,40 @@
+= DISCIPLE ONLINE PORTAL
+
+=== ABOUT
+
+This is an application allowing the management and sponsorship
+of people in a church.
+
+image:/images/home.png?raw=true[home page image]
+
+=== INSTALLATION
+
+To install and run this project follow these steps:
+
+. Clone this repository
+
+. Install Gradle Dependency
+
+. Install mySQL and create the db_disciple Database (there are many youtube videos, which explain how to do this)
+
+. Run the Spring boot application (src/main/java/disciple/online/portal/PortalApplication.java)
+
+. The test users are present in the src/main/java/disciple/online/portal/scopes/user/entities/TestUser.java and you can use them to login or choose to register with your own data
+
+=== RUN TEST ?
+
+Some tests have been implemented with JUNIT and the Selenium Framework. Perform the following steps to be able to run the tests:
+
+. In the application.properties file, you must have spring.profiles.active = test
+
+. Create the db_disciple_test in your mySQL Database
+
+. Run the Tests in the Java Test folder
+
+=== SMTP
++ Don't forget to configure SMTP in application.properties file for the Email notificaion System
+
+=== LEARN MORE
+
+. Spring boot https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/[documentation]
+. How to setup https://www.selenium.dev/documentation/en/[Selenium] in my Project

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="../static/plugins/images/favicon.png">
+    <title>Disciple-Online Portal</title>
+    <th:block th:insert="util/import.html :: head"></th:block>
+    <th:block th:insert="util/import.html :: login"></th:block>
+</head>
+<body>
+<th:block th:insert="util/import.html :: loader"></th:block>
+<div id="wrapper">
+    <th:block th:insert="util/header.html :: header"></th:block>
+    <th:block th:insert="util/navigation.html :: navigation"></th:block>
+
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row bg-title">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title">Jahresabschluss: <span th:text="${year}"></span></h4> </div>
+            </div>
+
+            <div class="row">
+                <div class="card super-card">
+                    <div class="card-body p-0">
+                        <hr class="my-5">
+
+                        <div class="row pb-5 p-5">
+                            <div class="col-md-6">
+                                <p class="font-weight-bold mb-4">WICHTIGE INFORMATIONEN</p>
+                                <p class="mb-1" th:text="${user.getLastname() + ' ' + user.getFirstname()}"></p>
+                                <p th:text="${user.getEmail()}"></p>
+                                <p class="mb-1" th:text="${user.getPhone()}"></p>
+                                <p class="mb-1" th:text="${user.getCity()}"></p>
+                                <p class="mb-1" th:text="${user.getStreet()}"></p>
+                            </div>
+
+                            <div class="col-md-6 text-right">
+                                <p class="font-weight-bold mb-4" >CMGI FRANKFURT</p>
+                                <p class="mb-1"><span class="text-muted">Riesaer Straße 45 / Frankfurt</span></p>
+                                <p class="mb-1"><span class="text-muted">0145 0047 0556</span></p>
+                            </div>
+                        </div>
+                        <span class="month" th:text="Jahresabschluss + ${year}"></span>
+                        <div class="row p-5">
+                            <br><br>
+                            <div class="col-md-12">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th class="border-0 text-uppercase  font-weight-bold">Wochen Nr:</th>
+                                        <th class="border-0 text-uppercase  font-weight-bold">Bibel Kapitel:</th>
+                                        <th class="border-0 text-uppercase  font-weight-bold">Minuten des Gebets:</th>
+                                        <th class="border-0 text-uppercase  font-weight-bold">Anzahl der Meditation:</th>
+                                        <th class="border-0 text-uppercase  font-weight-bold">Minuten der Meditation:</th>
+                                        <th class="border-0 text-uppercase  font-weight-bold">Bücher:</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="ticket: ${tickets}" >
+                                        <td th:text="${ticket.week}"></td>
+                                        <td th:text="${ticket.bibleChapter}"></td>
+                                        <td th:text="${ticket.prayerMinutes}"></td>
+                                        <td th:text="${ticket.meditationNumber}"></td>
+                                        <td th:text="${ticket.meditationMinutes}"></td>
+                                        <td th:text="${ticket.book}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="d-flex bg-dark p-4">
+                            <div class="py-3 px-5">
+                                <div class="mb-2">Total gelesene Bible Kapitel:</div>
+                                <div class="h2 font-weight-light" th:text="${chapters}">$234,234</div>
+                            </div>
+
+                            <div class="py-3 px-5">
+                                <div class="mb-2">Total Gebetsstunden:</div>
+                                <div class="h2 font-weight-light" th:text="${prayerTime}"></div>
+                            </div>
+
+                            <div class="py-3 px-5">
+                                <div class="mb-2">Total Anzahl der Meditation: </div>
+                                <div class="h2 font-weight-light" th:text="${meditationNumber}">$32,432</div>
+                            </div>
+
+                            <div class="py-3 px-5">
+                                <div class="mb-2">Total  Meditationstunden: </div>
+                                <div class="h2 font-weight-light" th:text="${meditationTime}">$32,432</div>
+                            </div>
+
+                            <div class="py-3 px-5 print-view">
+                                <div class="mb-2">Drucken:</div>
+                                <div class="h2 font-weight-light">
+                                    <a class="btn btn-success" onClick="window.print()">
+                                        <i class="fa fa-print"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+        <th:block th:insert="util/footer.html :: footer"></th:block>
+    </div>
+</div>
+
+<th:block th:insert="util/import.html :: body"></th:block>
+<th:block th:insert="util/import.html :: reportYear"></th:block>
+</body>
+</html>

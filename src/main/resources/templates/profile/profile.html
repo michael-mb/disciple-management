@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Disciple Online</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
+    <title>Disciple Online</title>
+    <th:block th:insert="util/import.html :: head"></th:block>
+    <th:block th:insert="util/import.html :: login"></th:block>
+</head>
+<body>
+<th:block th:insert="util/import.html :: loader"></th:block>
+<div id="wrapper">
+    <th:block th:insert="util/header.html :: header"></th:block>
+    <th:block th:insert="util/navigation.html :: navigation"></th:block>
+
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row bg-title">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title">Profile</h4> </div>
+            </div>
+            <!-- /.row -->
+            <!-- .row -->
+            <div class="row">
+                <div class="col-md-4 col-xs-12 ">
+                    <div class="white-box">
+                        <div class="white-box">
+                            <div class="user-bg"> <img width="100%" alt="user" src="../plugins/images/large/img1.jpg">
+                                <div class="overlay-box">
+                                    <div class="user-content">
+                                        <h4 class="text-white" th:text="${user.lastname} + ' ' + ${user.firstname}">User Name</h4>
+                                        <h5 class="text-white" th:text="${user.email}">info@myadmin.com</h5> </div>
+                                </div>
+                            </div>
+                            <div class="user-btm-box">
+                                <div class="col-md-4 col-sm-4 text-center">
+                                    <p class="text-purple">Disciples</p>
+                                    <h1 th:text="${disciples.size()}"> 0 </h1> </div>
+                                <div class="col-md-4 col-sm-4 text-center">
+                                    <p class="text-blue">Berichte Anzahl</p>
+                                    <h1 th:text="${reports.size()}">0</h1> </div>
+                                <div class="col-md-4 col-sm-4 text-center">
+                                    <p class="text-danger">Klasse</p>
+                                    <h1>2</h1> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 col-xs-12">
+                    <div class="white-box">
+                        <form class="form-horizontal form-material" method="post"
+                              th:action="@{/profile/}+${user.id}" th:object="${userRegistrationDto}">
+                            <div class="form-group">
+                                <label class="col-md-12">Name</label>
+                                <div class="col-md-12">
+                                    <input type="text" name="lastName" id="lastName"
+                                           th:value ="${user.lastname}" placeholder="Doe" class="form-control form-control-line" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-12">Vorname</label>
+                                <div class="col-md-12">
+                                    <input type="text" placeholder="Johnathan"
+                                           th:value ="${user.firstname}" name="firstName" id="firstName" class="form-control form-control-line" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="col-md-12">Email</label>
+                                <div class="col-md-12">
+                                    <input type="email" name="email"
+                                           id="email" th:value ="${user.email}" placeholder="johnathan@admin.com"
+                                           class="form-control form-control-line" disabled required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-12">Passwort</label>
+                                <div class="col-md-12">
+                                    <input type="password" id="password"
+                                           name="password" class="form-control form-control-line" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-12">Passwort wiederholen</label>
+                                <div class="col-md-12">
+                                    <input type="password" id="passwordAgain" name="passwordAgain"
+                                           class="form-control form-control-line" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-12">Telefonnummer</label>
+                                <div class="col-md-12">
+                                    <input type="text" id="phone"
+                                           name="phone" th:value ="${user.phone}" placeholder="123 456 7890" class="form-control form-control-line" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="city" class="col-md-12">Stadt</label>
+                                <div class="col-md-12">
+                                    <input type="text" id="city"
+                                           name="city" th:value ="${user.city}" placeholder="Dresden" class="form-control form-control-line" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="street" class="col-md-12">Straße</label>
+                                <div class="col-md-12">
+                                    <input type="text" id="street"
+                                           name="street" th:value ="${user.street}" placeholder="Dresden" class="form-control form-control-line" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group" sec:authorize="hasAuthority('ADMIN')">
+                                <label for="discipleMakerMail" class="col-sm-12">Disciplemaker auswählen </label>
+                                <div class="col-sm-12">
+                                    <select  id="discipleMakerMail" name="discipleMakerMail" class="form-control form-control-line" required>
+                                        <th:block th:each="maker,iter : ${discipleMakers}">
+                                            <option th:value="${maker.email}" th:text="${iter.count} + '. '
+                                             + ${maker.lastname} +' ' + ${maker.firstname} "></option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="discipleMaker" class="col-md-12" >Disciplemaker</label>
+                                <div class="col-md-12">
+                                    <p name="discipleMaker" id="discipleMaker" th:text="${user.discipleMakerMail}"></p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <button class="btn btn-success">Aktualisieren</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+        <th:block th:insert="util/footer.html :: footer"></th:block>
+    </div>
+</div>
+<th:block th:insert="util/import.html :: body"></th:block>
+</body>
+</html>

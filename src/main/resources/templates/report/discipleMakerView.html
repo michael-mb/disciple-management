@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="../static/plugins/images/favicon.png">
+    <title>Disciple-Online Portal</title>
+    <th:block th:insert="util/import.html :: head"></th:block>
+    <th:block th:insert="util/import.html :: login"></th:block>
+</head>
+<body>
+    <th:block th:insert="util/import.html :: loader"></th:block>
+    <div id="wrapper">
+        <th:block th:insert="util/header.html :: header"></th:block>
+        <th:block th:insert="util/navigation.html :: navigation"></th:block>
+
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Nachfolger</h4> </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title">BERICHTE </h3>
+                            <div class="comment-center" >
+                                <div class="comment-body" th:each="report : ${reports}"
+                                     th:classappend="${report.getStatus().contains(status) ? 'comment-active' : 'no-comment-active'}"
+                                     th:if="${!report.getStatus().contains(archivedByAdmin)}">
+                                    <a th:href="@{/report/edit/}+${report.id}">
+                                        <div class="user-img"> <img src="/plugins/images/users/user.png" alt="user" class="img-circle"></div>
+                                        <div class="mail-contnet">
+                                            <h5><th:block th:text="${userService.findUserByEmail(report.ownerMail).get().firstname}">Pavan</th:block>
+                                                <th:block th:text="${userService.findUserByEmail(report.ownerMail).get().lastname}">Kumar</th:block></h5>
+                                            <span class="mail-desc" th:text="${report.ownerMail}">
+                                            Phasellus ultricies.
+                                        </span>
+                                            <span class="time pull-right" th:text="${report.week}">April 14, 2016</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title">DISCIPLE</h3>
+                            <div class="message-center">
+                                <div th:each="user : ${disciples}" href="#">
+                                    <a th:href="@{/users/edit/} + ${user.id}">
+                                        <div class="user-img"> <img src="/plugins/images/users/user.png" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>
+                                        <div class="mail-contnet">
+                                            <h5><th:block th:text="${user.lastname}">Pavan</th:block> <th:block th:text="${user.firstname}">kumar</th:block>
+                                            </h5> <span class="mail-desc" th:text="${user.email}">Just see the my admin!</span>
+                                            <span class="time" th:text="${user.phone}">9:30 AM</span> </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="white-box">
+                            <h3 class="box-title">ARCHIV</h3>
+                            <div class="comment-center" style="margin-left: auto; margin-right: auto;">
+                                <a class="btn btn-primary" data-toggle="collapse"
+                                   href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">
+                                    <i class="fa fa-expand" aria-hidden="true"></i>
+                                </a>
+                                <div class="collapse" id="collapse1">
+                                    <div class="comment-body" th:each="report : ${reports}"
+                                         th:if="${report.getStatus().contains(archivedByAdmin)}">
+                                        <a th:href="@{/report/edit/}+${report.id}">
+                                            <div class="user-img"> <img src="/plugins/images/users/user.png" alt="user" class="img-circle"></div>
+                                            <div class="mail-contnet">
+                                                <h5><th:block th:text="${userService.findUserByEmail(report.ownerMail).get().firstname}">Pavan</th:block>
+                                                    <th:block th:text="${userService.findUserByEmail(report.ownerMail).get().lastname}">Kumar</th:block></h5>
+                                                <span class="mail-desc" th:text="${report.ownerMail}">
+                                                    Phasellus ultricies.
+                                                </span>
+                                                <span class="time pull-right" th:text="${report.week}">April 14, 2016</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+            <th:block th:insert="util/footer.html :: footer"></th:block>
+        </div>
+    </div>
+    <th:block th:insert="util/import.html :: body"></th:block>
+</body>
+</html>

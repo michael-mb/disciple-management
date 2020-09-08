@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
+    <title>Registrieren</title>
+    <th:block th:insert="util/import.html :: head"></th:block>
+    <th:block th:insert="util/import.html :: login"></th:block>
+</head>
+<body>
+<th:block th:insert="util/import.html :: loader"></th:block>
+    <div id="wrapper">
+        <th:block th:insert="util/header.html :: header"></th:block>
+        <th:block th:insert="util/navigation.html :: navigation"></th:block>
+
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Registrieren</h4> </div>
+                </div>
+                <!-- /.row -->
+                <!-- .row -->
+                <div class="row white-box-wrapper">
+                    <div class="col-md-8 col-xs-12 white-box-container">
+                        <div class="white-box">
+                            <form class="form-horizontal form-material" th:action="@{/register}" method="post" th:object="${userRegistrationDto}">
+                                <div class="form-group">
+                                    <label class="col-md-12">Name</label>
+                                    <div class="col-md-12">
+                                        <input type="text" name="lastName" id="lastName"
+                                               placeholder="Doe" class="form-control form-control-line" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-12">Vorname</label>
+                                    <div class="col-md-12">
+                                        <input type="text" placeholder="Johnathan"
+                                               name="firstName" id="firstName" class="form-control form-control-line" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class="col-md-12">Email</label>
+                                    <div class="col-md-12">
+                                        <input type="email" name="email"
+                                               id="email" placeholder="johnathan@admin.com" class="form-control form-control-line" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-12">Passwort</label>
+                                    <div class="col-md-12">
+                                        <input type="password" id="password"
+                                               name="password" class="form-control form-control-line" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-12">Passwort wiederholen</label>
+                                    <div class="col-md-12">
+                                        <input type="password" id="passwordAgain" name="passwordAgain"
+                                               class="form-control form-control-line" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-12">Telefonnummer</label>
+                                    <div class="col-md-12">
+                                        <input type="text" id="phone"
+                                               name="phone" placeholder="0176 445547995" class="form-control form-control-line" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="city" class="col-md-12">Stadt</label>
+                                    <div class="col-md-12">
+                                        <input type="text" id="city"
+                                               name="city" placeholder="Dresden" class="form-control form-control-line" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="city" class="col-md-12">Straße</label>
+                                    <div class="col-md-12">
+                                        <input type="text" id="street"
+                                               name="street" placeholder="Kamerunerstraße 44" class="form-control form-control-line" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="discipleMakerMail" class="col-sm-12">Disciplemaker auswählen </label>
+                                    <div class="col-sm-12">
+                                        <select  id="discipleMakerMail" name="discipleMakerMail" class="form-control form-control-line" required>
+                                            <th:block th:each="maker,iter : ${discipleMakers}">
+                                                <option th:value="${maker.email}" th:text="${iter.count} + '. '
+                                                 + ${maker.lastname} +' ' + ${maker.firstname} "></option>
+                                            </th:block>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <button class="btn btn-success" id="register-button">Registrieren</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+            <th:block th:insert="util/footer.html :: footer"></th:block>
+        </div>
+    </div>
+
+    <th:block th:insert="util/import.html :: body"></th:block>
+</body>
+</html>

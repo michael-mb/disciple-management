@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="../static/plugins/images/favicon.png">
+    <title>Disciple-Online Portal</title>
+    <th:block th:insert="util/import.html :: head"></th:block>
+    <th:block th:insert="util/import.html :: login"></th:block>
+</head>
+<body>
+<th:block th:insert="util/import.html :: loader"></th:block>
+<div id="wrapper">
+    <th:block th:insert="util/header.html :: header"></th:block>
+    <th:block th:insert="util/navigation.html :: navigation"></th:block>
+
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row bg-title">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title">Berichtübersicht</h4> </div>
+            </div>
+
+            <div class="row">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title">ALLGEMEINE BERICHTEÜBERSICHT
+                                <div  th:replace="util/import.html :: years(${year})"></div>
+                            </h3>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Woche</th>
+                                        <th>Bearbeiten</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="ticket , it : ${tickets}" th:with="index = ${it.count}" th:classappend="${ticket.getStatus().contains(statusSeen) ? 'tr-active' : 'no-tr-active'}">
+                                        <td th:text="${index}">1</td>
+                                        <td th:text="${ticket.getWeek()}"></td>
+                                        <td>
+                                            <a th:href="@{/report/edit/}+${ticket.id}" class="btn btn-info">
+                                                <i class="fa fa-edit" aria-hidden="true"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <br><br>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <a th:href="@{'/annual-report/'} + ${year}" class="btn btn-success">
+                                            Jahresabschluss für das Jahr: <span th:text="${year}"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="white-box">
+                            <h3 class="box-title">DETAILLIERTE BERICHTEÜBERSICHT</h3>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Von</th>
+                                        <th>Bis</th>
+                                        <th>Bearbeiten</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="ticket , it : ${ticketsDetail}" th:with="index = ${it.count}" th:classappend="${ticket.getStatus().contains(statusSeen) ? 'tr-active' : 'no-tr-active'}">
+                                        <td th:text="${index}">1</td>
+                                        <td th:text="${ticket.getStartDate()}"></td>
+                                        <td th:text="${ticket.getEndDate()}"></td>
+                                        <td>
+                                            <a th:href="@{/report-detail-update/edit/}+${ticket.id}" class="btn btn-info">
+                                                <i class="fa fa-edit  " aria-hidden="true"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <br><br>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <a href="/resume-report" class="btn btn-success"
+                                           onclick="if (!(confirm('Wollen Sie wirklich die Berichte zusammenfassen ?'))) return false"
+                                        >Zusammenfassen im wöchentlicher Bericht</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+        <th:block th:insert="util/footer.html :: footer"></th:block>
+    </div>
+</div>
+
+<th:block th:insert="util/import.html :: body"></th:block>
+<th:block th:insert="util/import.html :: reportYear"></th:block>
+</body>
+</html>

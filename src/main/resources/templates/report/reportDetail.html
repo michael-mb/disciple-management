@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="../static/plugins/images/favicon.png">
+    <title>Disciple-Online Portal</title>
+    <th:block th:insert="util/import.html :: head"></th:block>
+    <th:block th:insert="util/import.html :: login"></th:block>
+</head>
+<body>
+<th:block th:insert="util/import.html :: loader"></th:block>
+<div id="wrapper">
+    <th:block th:insert="util/header.html :: header"></th:block>
+    <th:block th:insert="util/navigation.html :: navigation"></th:block>
+
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row bg-title">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title">Berichtdetail</h4> </div>
+            </div>
+
+            <div class="row white-box-wrapper">
+                <div class="col-md-8 col-xs-12 white-box-container">
+                    <div class="white-box">
+                        <div class="row">
+                            <form class="form-horizontal form-material" method="post" th:action="@{/report-detail}" th:object="${reportDetailDto}">
+                                <div class="row ">
+                                    <div class="form-group col-sm-12 col-md-6">
+                                        <label class="col-md-12" for="startDate">
+                                            Anfangsdatum</label>
+                                        <div class="col-md-12 m-t-10" id="startDateWrapper">
+                                            <input class="" type="date" id="startDate" name="startDate" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-sm-12 col-md-6">
+                                        <label class="col-md-12" for="endDate">
+                                            Enddatum</label>
+                                        <div class="col-md-12 m-t-10" id="endDateWrapper">
+                                            <input class="" type="date" id="endDate" name="endDate" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-12" for="bibleChapter">Gelesene Bibelkapitel</label>
+                                    <div class="col-md-12">
+                                        <input min="0" type="number" name="bibleChapter" id="bibleChapter"
+                                               class="form-control form-control-line" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-12" for="prayerMinutes">Minuten des Gebets</label>
+                                    <div class="col-md-12">
+                                        <input min="0" type="number" name="prayerMinutes" id="prayerMinutes"
+                                               class="form-control form-control-line" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-12" for="meditationNumber">Anzahl der Meditation</label>
+                                    <div class="col-md-12">
+                                        <input min="0" type="number" name="meditationNumber" id="meditationNumber"
+                                               class="form-control form-control-line" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-12">Minuten der Meditation</label>
+                                    <div class="col-md-12">
+                                        <input min="0" type="number" name="meditationMinutes" id="meditationMinutes"
+                                               class="form-control form-control-line" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-12">Buch</label>
+                                    <div class="col-md-12">
+                                        <input type="text" name="book" id="book"
+                                               class="form-control form-control-line">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="message" class="col-md-12">Nachricht</label>
+                                    <div class="col-md-12">
+                                        <textarea rows="5" name="message" id="message" class="form-control form-control-line"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <button class="btn btn-success">ABLEGEN</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container-fluid -->
+        <th:block th:insert="util/footer.html :: footer"></th:block>
+    </div>
+</div>
+
+<th:block th:insert="util/import.html :: body"></th:block>
+</body>
+</html>

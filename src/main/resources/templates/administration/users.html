@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
+<head>
+    <meta charset="UTF-8">
+    <title>Table</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
+    <title>Disciple Online</title>
+    <th:block th:insert="util/import.html :: head"></th:block>
+    <th:block th:insert="util/import.html :: login"></th:block>
+</head>
+<body>
+<th:block th:insert="util/import.html :: loader"></th:block>
+<div id="wrapper">
+    <th:block th:insert="util/header.html :: header"></th:block>
+    <th:block th:insert="util/navigation.html :: navigation"></th:block>
+
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row bg-title">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title">Users</h4> </div>
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="white-box">
+                        <h3 class="box-title">ALL USERS </h3>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Username</th>
+                                    <th>Role</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="user , it : ${users}" th:with="index = ${it.count}">
+                                        <td th:text="${index}">1</td>
+                                        <td th:text="${user.firstname}"></td>
+                                        <td th:text="${user.lastname}">admin</td>
+                                        <td th:text="${user.email}"></td>
+                                        <td th:text="${user.authorities}"></td>
+                                        <td>
+                                            <a th:href="@{/users/edit/}+${user.id}" class="btn btn-info">
+                                                <i class="fa fa-edit " aria-hidden="true"></i>
+                                            </a>
+                                        </td>
+                                        <td th:if="${!user.hasAutorithy('DISCIPLEMAKER')}">
+                                            <a th:href="@{/users/delete/}+${user.id}"
+                                               onclick="if (!(confirm('Wollen Sie wirklich löschen ?'))) return false"
+                                               class="btn btn-danger">
+                                                <i class="fa fa-trash " aria-hidden="true"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- .row -->
+        </div>
+        <!-- /.container-fluid -->
+        <th:block th:insert="util/footer.html :: footer"></th:block>
+    </div>
+</div>
+
+<th:block th:insert="util/import.html :: body"></th:block>
+</body>
+</html>

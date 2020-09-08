@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Disciple Online</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="/plugins/images/favicon.png">
+    <title>Disciple Online</title>
+    <th:block th:insert="util/import.html :: head"></th:block>
+    <th:block th:insert="util/import.html :: login"></th:block>
+</head>
+<body>
+<th:block th:insert="util/import.html :: loader"></th:block>
+<div id="wrapper">
+    <th:block th:insert="util/header.html :: header"></th:block>
+    <th:block th:insert="util/navigation.html :: navigation"></th:block>
+
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row bg-title">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="page-title">Profile</h4> </div>
+            </div>
+            <!-- /.row -->
+            <!-- .row -->
+            <div class="row">
+                <div class="col-md-4 col-xs-12 ">
+                    <div class="white-box">
+                        <div class="white-box">
+                            <div class="user-bg"> <img width="100%" alt="user" src="/plugins/images/large/img1.jpg">
+                                <div class="overlay-box">
+                                    <div class="user-content">
+                                        <h4 class="text-white" th:text="${user.lastname} + ' ' + ${user.firstname}">User Name</h4>
+                                        <h5 class="text-white" th:text="${user.email}">info@myadmin.com</h5> </div>
+                                </div>
+                            </div>
+                            <div class="user-btm-box">
+                                <div class="col-md-4 col-sm-4 text-center">
+                                    <p class="text-purple">Disciples</p>
+                                    <h1 th:text="${disciples.size()}"> 0 </h1></div>
+                                <div class="col-md-4 col-sm-4 text-center">
+                                    <p class="text-blue">Berichte Anzahl</p>
+                                    <h1 th:text="${reports.size()}"> 0 </h1></div>
+                                <div class="col-md-4 col-sm-4 text-center">
+                                    <p class="text-danger">Klasse</p>
+                                    <h1>2</h1> </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="white-box">
+                        <h3 class="box-title">BERICHTE </h3>
+                        <div class="comment-center" style="margin-left: auto; margin-right: auto;">
+                            <a class="btn btn-primary" data-toggle="collapse"
+                               href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">
+                                <i class="fa fa-expand" aria-hidden="true"></i>
+                            </a>
+                            <div class="collapse" id="collapse1">
+                                <div class="comment-body" th:each="report : ${reports}">
+                                    <a th:href="@{/report/edit/}+${report.id}">
+                                        <div class="user-img"> <img src="/plugins/images/users/user.png" alt="user" class="img-circle"></div>
+                                        <div class="mail-contnet">
+                                            <h5>
+                                                <th:block th:text="${userService.findUserByEmail(report.ownerMail).get().firstname}">Pavan</th:block>
+                                                <th:block th:text="${userService.findUserByEmail(report.ownerMail).get().lastname}">Kumar</th:block>
+                                            </h5>
+                                            <span class="mail-desc" th:text="${report.ownerMail}">
+                                            Phasellus ultricies.
+                                        </span>
+                                            <span class="time pull-right" th:text="${report.week}">April 14, 2016</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 col-xs-12">
+                    <div class="white-box">
+                        <form class="form-horizontal form-material" method="post"
+                              th:action="@{/users/edit/}+${user.id}" th:object="${userAuthDto}">
+                            <div class="form-group">
+                                <label class="col-md-12">Name</label>
+                                <div class="col-md-12">
+                                    <input type="text" name="lastName" id="lastName"
+                                           th:value ="${user.lastname}" placeholder="Doe" class="form-control form-control-line" disabled required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-12">Vorname</label>
+                                <div class="col-md-12">
+                                    <input type="text" placeholder="Johnathan"
+                                           th:value ="${user.firstname}" name="firstName" id="firstName" class="form-control form-control-line" disabled required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="col-md-12">Email</label>
+                                <div class="col-md-12">
+                                    <input type="email" name="email"
+                                           id="email" th:value ="${user.email}" placeholder="johnathan@admin.com"
+                                           class="form-control form-control-line" disabled required>
+                                </div>
+                            </div>
+                            <div class="form-group" th:if="${!user.hasAutorithy('ADMIN')}">
+                                <label class="col-md-12">Passwort zurücksetzen</label>
+                                <div class="col-md-12">
+                                    <a th:href="@{/reset-password-admin/}+${user.id}"
+                                       onclick="if (!(confirm('Wollen Sie wirklich das Passwort zurücksetzen ?'))) return false"
+                                       class="btn btn-info">Zurüksetzen</a>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-12">Telefonnummer</label>
+                                <div class="col-md-12">
+                                    <input type="text" id="phone"
+                                           name="phone" th:value ="${user.phone}" placeholder="123 456 7890"
+                                           class="form-control form-control-line" disabled required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="city" class="col-md-12">Stadt</label>
+                                <div class="col-md-12">
+                                    <input type="text" id="city"
+                                           name="city" th:value ="${user.city}" placeholder="Dresden"
+                                           class="form-control form-control-line" disabled required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="street" class="col-md-12">Staße</label>
+                                <div class="col-md-12">
+                                    <input type="text" id="street"
+                                           name="street" th:value ="${user.street}" placeholder="Kamerunerstraße 28"
+                                           class="form-control form-control-line" disabled required>
+                                </div>
+                            </div>
+
+                            <div class="form-group" sec:authorize="hasAuthority('ADMIN')">
+                                <label for="discipleMakerMail" class="col-sm-12">Disciplemaker auswählen </label>
+                                <div class="col-sm-12">
+                                    <select  id="discipleMakerMail" name="discipleMakerMail" class="form-control form-control-line" required>
+                                        <th:block th:each="maker,iter : ${discipleMakers}">
+                                            <option th:if="${maker.email == user.discipleMakerMail}"
+                                                    th:value="${maker.email}" th:text="${iter.count} + '. '
+                                             + ${maker.lastname} +' ' + ${maker.firstname} " selected></option>
+                                            <option th:if="${maker.email != user.discipleMakerMail}" th:value="${maker.email}" th:text="${iter.count} + '. '
+                                             + ${maker.lastname} +' ' + ${maker.firstname} "></option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="discipleMaker" class="col-md-12" >Disciplemaker</label>
+                                <div class="col-md-12">
+                                    <p name="discipleMaker" id="discipleMaker" th:text="${user.discipleMakerMail}"></p>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group" sec:authorize="hasAuthority('ADMIN')">
+                                <label for="authority" class="col-sm-12">Authority auswählen </label>
+                                <div class="col-sm-12">
+                                    <select  id="authority" name="authority" class="form-control form-control-line" required>
+
+                                        <option th:if="${user.hasAutorithy('DISCIPLE') &&
+                                         !user.hasAutorithy('DISCIPLEMAKER')}" value="DISCIPLE" selected>Disciple</option>
+                                        <option th:if="${!user.hasAutorithy('DISCIPLE') &&
+                                         user.hasAutorithy('DISCIPLEMAKER')}"value="DISCIPLE">Disciple</option>
+
+                                        <option th:if="${user.hasAutorithy('DISCIPLEMAKER') &&
+                                         !user.hasAutorithy('ADMIN')}" value="DISCIPLEMAKER" selected>Disciple maker</option>
+                                        <option th:if="${!user.hasAutorithy('DISCIPLEMAKER') ||
+                                         user.hasAutorithy('ADMIN')}"value="DISCIPLEMAKER">Disciple maker</option>
+
+                                        <option th:if="${user.hasAutorithy('ADMIN')}" value="ADMIN" selected>admin</option>
+                                        <option th:if="${!user.hasAutorithy('ADMIN')}" value="ADMIN" >admin</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <button class="btn btn-success">Aktualisieren</button>
+                                </div>
+                            </div>
+
+                            <h5 style="color: red" th:text="${error}"></h5>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="white-box">
+                        <h3 class="box-title">Minuten des Gebets
+                            <th:block th:insert="util/import.html :: years(${year})"></th:block>
+                        </h3>
+                        <ul class="list-inline text-right">
+                            <li>
+                                <h5><i class="fa fa-circle m-r-5" style="color: #dadada;"></i>Minuten des Gebets</h5>
+                            </li>
+                        </ul>
+                        <div id="morris-area-chart2" style="height: 370px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="white-box">
+                        <h3 class="box-title">Gelesene Bibelkapitel
+                            <th:block th:insert="util/import.html :: years(${year})"></th:block>
+                        </h3>
+                        <ul class="list-inline text-right">
+                            <li>
+                                <h5><i class="fa fa-circle m-r-5" style="color: #dadada;"></i>Gelesene Bibelkapitel</h5>
+                            </li>
+                        </ul>
+                        <div id="morris-area-chart3" style="height: 370px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="white-box">
+                        <h3 class="box-title">Minuten der Meditation
+                            <th:block th:insert="util/import.html :: years(${year})"></th:block>
+                        </h3>
+                        <ul class="list-inline text-right">
+                            <li>
+                                <h5><i class="fa fa-circle m-r-5" style="color: #dadada;"></i>Minuten der Meditation</h5>
+                            </li>
+                        </ul>
+                        <div id="morris-area-chart4" style="height: 370px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="white-box">
+                        <h3 class="box-title">Anzahl von Meditationen
+                            <th:block th:insert="util/import.html :: years(${year})"></th:block>
+                        </h3>
+                        <ul class="list-inline text-right">
+                            <li>
+                                <h5><i class="fa fa-circle m-r-5" style="color: #dadada;"></i>Anzahl von Meditationen</h5>
+                            </li>
+                        </ul>
+                        <div id="morris-area-chart5" style="height: 370px;"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container-fluid -->
+        <th:block th:insert="util/footer.html :: footer"></th:block>
+    </div>
+</div>
+<th:block th:insert="util/import.html :: body"></th:block>
+<th:block th:insert="util/import.html :: reportYear"></th:block>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var graph = /*[[${graph}]]*/ 'default';
+    Morris.Bar(
+        JSON.parse(graph)
+    );
+
+    var bibleChapter = /*[[${bibleChapter}]]*/ 'default';
+    Morris.Bar(
+        JSON.parse(bibleChapter)
+    );
+
+    var meditationMinutes = /*[[${meditationMinutes}]]*/ 'default';
+    Morris.Bar(
+        JSON.parse(meditationMinutes)
+    );
+
+    var meditationNumber = /*[[${meditationNumber}]]*/ 'default';
+    Morris.Bar(
+        JSON.parse(meditationNumber)
+    );
+
+    /*]]>*/
+
+    $(".counter").counterUp({
+        delay: 100,
+        time: 1200
+    });
+
+</script>
+
+</body>
+</html>

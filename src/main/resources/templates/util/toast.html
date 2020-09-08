@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+</head>
+    <body>
+
+        <th:block th:fragment="toast(type,text)">
+
+            <th:block th:if="${type == 'success'}">
+                <script th:inline="javascript" type="text/javascript">
+                    /*<![CDATA[*/
+                    $(document).ready(function() {
+                        $.toast({
+                            heading: 'Disciple Online',
+                            text: /*[[${text}]]*/ 'default',
+                            position: 'top-right',
+                            icon: 'success',
+                            hideAfter: 5500,
+                            stack: 1
+                        })
+                    });
+                    /*]]>*/
+                </script>
+            </th:block>
+
+            <th:block th:if="${type == 'error'}">
+                <script th:inline="javascript" type="text/javascript">
+                    /*<![CDATA[*/
+                    $(document).ready(function() {
+                        $.toast({
+                            heading: 'Disciple Online',
+                            text: /*[[${text}]]*/ 'default',
+                            position: 'top-right',
+                            icon: 'error',
+                            hideAfter: 5500,
+                            stack: 1
+                        })
+                    });
+                    /*]]>*/
+                </script>
+            </th:block>
+
+
+            <th:block th:if="${type == 'info'}">
+                <script th:inline="javascript" type="text/javascript">
+                    /*<![CDATA[*/
+                    $(document).ready(function() {
+                        $.toast({
+                            heading: 'Disciple Online',
+                            text: /*[[${text}]]*/ 'default',
+                            position: 'top-right',
+                            icon: 'info',
+                            hideAfter: 5500,
+                            stack: 1
+                        })
+                    });
+                    /*]]>*/
+                </script>
+            </th:block>
+
+            <th:block th:if="${type == 'warning'}">
+                <script th:inline="javascript" type="text/javascript">
+                    /*<![CDATA[*/
+                    $(document).ready(function() {
+                        $.toast({
+                            heading: 'Disciple Online',
+                            text: /*[[${text}]]*/ 'default',
+                            position: 'top-right',
+                            icon: 'warning',
+                            hideAfter: 5500,
+                            stack: 1
+                        })
+                    });
+                    /*]]>*/
+                </script>
+            </th:block>
+
+        </th:block>
+    </body>
+</html>

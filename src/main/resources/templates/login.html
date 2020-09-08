@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
+    <title>Login</title>
+    <th:block th:insert="util/import.html :: head"></th:block>
+    <th:block th:insert="util/import.html :: login"></th:block>
+</head>
+<body>
+    <th:block th:insert="util/import.html :: loader"></th:block>
+    <div id="wrapper">
+        <th:block th:insert="util/header.html :: header"></th:block>
+        <th:block th:insert="util/navigation.html :: navigation"></th:block>
+
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Einloggen</h4> </div>
+                </div>
+                <!-- /.row -->
+                <!-- .row -->
+                <div class="row white-box-wrapper">
+                    <div class="col-md-8 col-xs-12 white-box-container">
+                        <div class="white-box login-form">
+                            <form class="form-horizontal form-material" th:action="@{/login}" method="post" th:object="${loginDto}">
+                                <div class="form-group">
+                                    <label for="email" class="col-md-12">Email</label>
+                                    <div class="col-md-12">
+                                        <input type="email" placeholder="johnathan@admin.com" class="form-control form-control-line" name="email" id="email"> </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-12" for="password">Passwort</label>
+                                    <div class="col-md-12">
+                                        <input type="password" id="password" name="password"
+                                               class="form-control form-control-line">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-6">
+                                        <button class="btn btn-success m-l-15" id="login-button">Einloggen</button>
+                                        <a href="/register" class="btn btn-info" id="register">Registrieren</a>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-6">
+                                        <a href="/reset-password" class="" id="request_password">Haben Sie Ihr Passwort vergessen ?</a>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+            <th:block th:insert="util/footer.html :: footer"></th:block>
+        </div>
+    </div>
+
+    <th:block th:insert="util/import.html :: body"></th:block>
+</body>
+</html>

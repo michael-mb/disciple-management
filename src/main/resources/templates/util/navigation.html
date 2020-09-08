@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<!-- NAVIGATION -->
+<nav th:fragment="navigation">
+    <!-- Left navbar-header -->
+    <div class="navbar-default sidebar" role="navigation">
+        <div class="sidebar-nav navbar-collapse slimscrollsidebar">
+            <ul class="nav" id="side-menu">
+                <li style="padding: 10px 0 0;">
+                    <a href="/" sec:authorize="isAuthenticated()" class="waves-effect"><i class="fa fa-bar-chart fa-fw" aria-hidden="true"></i>
+                        <span class="hide-menu">Dashboard</span></a>
+                </li>
+                <li style="padding: 10px 0 0;">
+                    <a href="/profile" sec:authorize="isAuthenticated()" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                        <span class="hide-menu">Profile</span></a>
+                </li>
+                <li style="padding: 10px 0 0;">
+                    <a href="/report" sec:authorize="isAuthenticated()" class="waves-effect"><i class="fa fa-bookmark fa-fw" aria-hidden="true"></i>
+                        <span class="hide-menu">Bericht Ablegen</span></a>
+                </li>
+                <li style="padding: 10px 0 0;">
+                    <a href="/report-overview" sec:authorize="isAuthenticated()" class="waves-effect"><i class="fa fa-table fa-fw" aria-hidden="true"></i>
+                        <span class="hide-menu">Berichtübersicht</span></a>
+                </li>
+                <li sec:authorize="isAnonymous()" id="login-li" style="padding: 10px 0 0;">
+                    <a href="/login" class="waves-effect"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i>
+                        <span class="hide-menu">Einloggen</span></a>
+                </li>
+                <li sec:authorize="hasAuthority('DISCIPLEMAKER')" style="padding: 10px 0 0;">
+                    <a href="/disciple-overview" class="waves-effect"><i class="fa fa-flag fa-fw" aria-hidden="true"></i>
+                        <span class="hide-menu">Nachfolger</span></a>
+                </li>
+                <li sec:authorize="hasAuthority('ADMIN')" style="padding: 10px 0 0;">
+                    <a href="/users" class="waves-effect"><i class="fa fa-users fa-fw" aria-hidden="true"></i>
+                        <span class="hide-menu">Nutzer Übersicht</span></a>
+                </li>
+                <li sec:authorize="isAuthenticated()" style="padding: 10px 0 0;">
+                    <form action="#" id ="logoutForm" th:action="@{/logout}" method="get">
+                    </form>
+                    <a href="#" class="waves-effect" id="logout" onclick="document.getElementById('logoutForm').submit()">
+                        <i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>
+                        <span class="hide-menu">Ausloggen</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

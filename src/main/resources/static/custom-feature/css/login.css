@@ -1,0 +1,68 @@
+.white-box-wrapper{
+    display: flex;
+}
+.white-box-container{
+    margin-left: auto;
+    margin-right: auto;
+}
+.comment-active{
+    background: aliceblue;
+}
+
+.tr-active{
+    background: #b5d2ef;
+}
+
+.d-none{
+    display: none !important;
+}
+
+.profile-button-wrapper{
+    display: flex;
+    margin-top: 5px;
+}
+
+.profile-button{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#page-wrapper{
+    background-repeat: no-repeat !important;
+    background-size: cover;
+}
+
+.white-box .pull-right{
+    display: block !important;
+}
+
+.pull-right{
+    display: none;
+}
+
+.login-form{
+    max-width: 530px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.chart-container {
+    position: relative;
+    margin: auto;
+    height: 400px;
+    width: auto;
+}
+
+.footer{
+    background-color: transparent !important;
+}
+
+.logo-text{
+    display: block;
+    margin-left: 13px;
+}
+
+.logo-text b{
+    display: inline-block;
+    line-height: 60px;
+}
