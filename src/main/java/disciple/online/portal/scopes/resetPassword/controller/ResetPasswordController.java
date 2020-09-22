@@ -38,11 +38,15 @@ public class ResetPasswordController {
     @PostMapping("/reset-password")
     public String handleResetPasswordPost(@ModelAttribute("login") final LoginDto loginDto,
                                           RedirectAttributes redirectAttributes){
-        resetPasswordService.resetPassword(loginDto.getEmail());
+        if(resetPasswordService.resetPassword(loginDto.getEmail())){
+            redirectAttributes.addFlashAttribute("type", "success");
+            redirectAttributes.addFlashAttribute("text", languageService.getValue("password.reset.success"));
+        }else {
+            redirectAttributes.addFlashAttribute("type", "warning");
+            redirectAttributes.addFlashAttribute("text", languageService.getValue("password.reset.error"));
+        }
 
-        redirectAttributes.addFlashAttribute("type", "success");
-        redirectAttributes.addFlashAttribute("text", languageService.getValue("password.reset.success"));
-        return "redirect:/";
+        return "redirect:/login";
     }
 
     @GetMapping("/renew-password")

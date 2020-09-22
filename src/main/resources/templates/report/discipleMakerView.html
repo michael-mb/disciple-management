@@ -1,13 +1,8 @@
 <!DOCTYPE html>
 <html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" type="image/png" sizes="16x16" href="../static/plugins/images/favicon.png">
-    <title>Disciple-Online Portal</title>
+    <title>Disciple Maker View</title>
+    <th:block th:insert="util/import.html :: meta" ></th:block>
     <th:block th:insert="util/import.html :: head"></th:block>
     <th:block th:insert="util/import.html :: login"></th:block>
 </head>
@@ -27,12 +22,33 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="white-box">
-                            <h3 class="box-title">BERICHTE </h3>
+                            <h3 class="box-title">BERICHTE (noch nicht gesehen) </h3>
+                            <div class="comment-center">
+                                <div class="comment-body" th:each="report : ${reports}"
+                                     th:classappend="${report.getStatus().contains(status) ? 'comment-active' : 'no-comment-active'}"
+                                     th:if="${!report.getStatus().contains(archivedByAdmin)} AND ${report.getStatus().contains(status)}">
+                                    <a th:href="@{/report/edit/}+${report.id}">
+                                        <div class="user-img"> <img src="/plugins/images/users/user.png" alt="user" class="img-circle"></div>
+                                        <div class="mail-contnet">
+                                            <h5><th:block th:text="${userService.findUserByEmail(report.ownerMail).get().firstname}">Pavan</th:block>
+                                                <th:block th:text="${userService.findUserByEmail(report.ownerMail).get().lastname}">Kumar</th:block></h5>
+                                            <span class="mail-desc" th:text="${report.ownerMail}">
+                                            Phasellus ultricies.
+                                        </span>
+                                            <span class="time pull-right" th:text="${report.week}">April 14, 2016</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="white-box">
+                            <h3 class="box-title">BERICHTE (schon gesehen)</h3>
                             <div class="comment-center" >
                                 <div class="comment-body" th:each="report : ${reports}"
                                      th:classappend="${report.getStatus().contains(status) ? 'comment-active' : 'no-comment-active'}"
-                                     th:if="${!report.getStatus().contains(archivedByAdmin)}">
-                                    <a th:href="@{/report/edit/}+${report.id}">
+                                     th:if="${!report.getStatus().contains(archivedByAdmin)} AND ${!report.getStatus().contains(status)}">
+                                    <a th:href="@{/report/edit/}+${report.id}" >
                                         <div class="user-img"> <img src="/plugins/images/users/user.png" alt="user" class="img-circle"></div>
                                         <div class="mail-contnet">
                                             <h5><th:block th:text="${userService.findUserByEmail(report.ownerMail).get().firstname}">Pavan</th:block>

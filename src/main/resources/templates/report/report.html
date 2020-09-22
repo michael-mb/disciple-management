@@ -1,13 +1,8 @@
 <!DOCTYPE html>
 <html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../static/plugins/images/favicon.png">
-    <title>Disciple-Online Portal</title>
+    <title>Report View</title>
+    <th:block th:insert="util/import.html :: meta" ></th:block>
     <th:block th:insert="util/import.html :: head"></th:block>
     <th:block th:insert="util/import.html :: login"></th:block>
 </head>
@@ -27,11 +22,11 @@
             <div class="row">
                 <!--col -->
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                    <a href="/report-global">
+                    <a href="/report-global" id="linkreportglobal">
                         <div class="white-box">
                             <div class="col-in row">
                                 <div class="col-md-6 col-sm-6 col-xs-6"> <i data-icon="E" class="linea-icon linea-basic"></i>
-                                    <h5 class="text-muted vb">ALLGEMEIN ABLEGEN </h5> </div>
+                                    <h5 class="text-danger vb">ALLGEMEIN ABLEGEN </h5> </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
                                     <h3 class="counter text-right m-t-15 text-danger" th:text="${reportGlobal.size()}">10</h3> </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -47,7 +42,7 @@
                 <!-- /.col -->
                 <!--col -->
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                    <a href="/report-detail">
+                    <a href="/report-detail" id="linkreportdetail">
                         <div class="white-box">
                             <div class="col-in row">
                                 <div class="col-md-6 col-sm-6 col-xs-6"> <i class="linea-icon linea-basic" data-icon="&#xe01b;"></i>

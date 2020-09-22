@@ -17,4 +17,10 @@ public interface UserRepository extends CrudRepository <User,Long> {
 
     @Query("select e from #{#entityName} as e order by e.email asc")
     List<User> findAllByOrderByEmailAsc();
+
+    List<User> findUsersByLastnameContaining(final String search);
+
+    List<User> findUsersByFirstnameContaining(final String search);
+
+    List<User> findUsersByEmailContaining(final String search);
 }

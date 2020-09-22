@@ -1,7 +1,13 @@
 package disciple.online.portal.Pages;
 
+import disciple.online.portal.Pages.reportpages.DiscipleOverviewPage;
+import disciple.online.portal.Pages.reportpages.ReportGlobalPage;
 import disciple.online.portal.Pages.standartpages.LoginPage;
+import disciple.online.portal.Pages.standartpages.MainPage;
+import disciple.online.portal.Pages.standartpages.ProfilePage;
+import disciple.online.portal.statics.Url;
 import io.qameta.allure.Step;
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,13 +21,25 @@ public abstract class Header extends PageObject {
     @FindBy(id = "login-li")
     private WebElement linkLogin;
 
-    /*
-     * Just displayed, when not logged in
-     */
-
-
+    /* Just displayed, when not logged in */
     @FindBy(id = "logout")
     private WebElement linkLogout;
+
+    @FindBy(id = "linkprofile")
+    private WebElement linkProfilePage;
+
+    @FindBy (id = "linkreport")
+    private WebElement linkReportPage;
+
+    @FindBy (id = "linkreportoverview")
+    private WebElement linkReportOverviewPage;
+
+    @FindBy (id = "linkdiscipleoverview")
+    private WebElement linkDiscipleOverviewPage;
+
+    @FindBy (id = "users")
+    private WebElement linkUsersPage;
+
 
     public Header(WebDriver driver) {
         super(driver);
@@ -75,4 +93,31 @@ public abstract class Header extends PageObject {
     public WebElement getLinkLogout() {
         return linkLogout;
     }
+
+
+    @Step("Go to Main Page")
+    public MainPage goToMainPage(){
+        driver.get(Url.getCurrentHost());
+        return new MainPage(driver);
+    }
+
+    @Step("Go to Profile Page")
+    public ProfilePage goToProfilePage(){
+        clickElement(linkProfilePage);
+        return new ProfilePage(driver);
+    }
+
+    @Step("Go to Report Global Page")
+    public ReportGlobalPage goToReportGlobal(){
+        clickElement(linkReportPage);
+        clickElement(driver.findElement(By.id("linkreportglobal")));
+        return new ReportGlobalPage(driver);
+    }
+
+    @Step("Go to Disciple Overview Page")
+    public DiscipleOverviewPage goToDiscipleOverview(){
+        clickElement(linkDiscipleOverviewPage);
+        return new DiscipleOverviewPage(driver);
+    }
+
 }

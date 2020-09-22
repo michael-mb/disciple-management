@@ -1,13 +1,8 @@
 <!DOCTYPE html>
 <html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" type="image/png" sizes="16x16" href="../static/plugins/images/favicon.png">
-    <title>Disciple-Online Portal</title>
+    <title>Report Annual</title>
+    <th:block th:insert="util/import.html :: meta" ></th:block>
     <th:block th:insert="util/import.html :: head"></th:block>
     <th:block th:insert="util/import.html :: login"></th:block>
 </head>
@@ -54,9 +49,7 @@
                                     <tr>
                                         <th class="border-0 text-uppercase  font-weight-bold">Wochen Nr:</th>
                                         <th class="border-0 text-uppercase  font-weight-bold">Bibel Kapitel:</th>
-                                        <th class="border-0 text-uppercase  font-weight-bold">Minuten des Gebets:</th>
-                                        <th class="border-0 text-uppercase  font-weight-bold">Anzahl der Meditation:</th>
-                                        <th class="border-0 text-uppercase  font-weight-bold">Minuten der Meditation:</th>
+                                        <th class="border-0 text-uppercase  font-weight-bold">Minuten beim Bibellesen:</th>
                                         <th class="border-0 text-uppercase  font-weight-bold">Bücher:</th>
                                     </tr>
                                     </thead>
@@ -64,9 +57,7 @@
                                     <tr th:each="ticket: ${tickets}" >
                                         <td th:text="${ticket.week}"></td>
                                         <td th:text="${ticket.bibleChapter}"></td>
-                                        <td th:text="${ticket.prayerMinutes}"></td>
-                                        <td th:text="${ticket.meditationNumber}"></td>
-                                        <td th:text="${ticket.meditationMinutes}"></td>
+                                        <td th:text="${ticket.bibleChapterMinutes}"></td>
                                         <td th:text="${ticket.book}"></td>
                                     </tr>
                                     </tbody>
@@ -77,22 +68,97 @@
                         <div class="d-flex bg-dark p-4">
                             <div class="py-3 px-5">
                                 <div class="mb-2">Total gelesene Bible Kapitel:</div>
-                                <div class="h2 font-weight-light" th:text="${chapters}">$234,234</div>
+                                <div class="h2 font-weight-light" th:text="${chapters}"></div>
+                            </div>
+                            <div class="py-3 px-5">
+                                <div class="mb-2">Total Stunden beim Bibellesen:</div>
+                                <div class="h2 font-weight-light" th:text="${bibleReadingHours}"></div>
+                            </div>
+                        </div>
+
+                        <div class="row p-5">
+                            <br><br>
+                            <div class="col-md-12">
+                            <br>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th class="border-0 text-uppercase  font-weight-bold">Wochen Nr:</th>
+                                        <th class="border-0 text-uppercase  font-weight-bold">Gebet Minuten Allein:</th>
+                                        <th class="border-0 text-uppercase  font-weight-bold">Gebet Minuten in Gruppen:</th>
+                                        <th class="border-0 text-uppercase  font-weight-bold">Anzahl der Meditation:</th>
+                                        <th class="border-0 text-uppercase  font-weight-bold">Minuten der Meditation:</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="ticket: ${tickets}" >
+                                        <td th:text="${ticket.week}"></td>
+                                        <td th:text="${ticket.prayerMinutesAlone}"></td>
+                                        <td th:text="${ticket.prayerMinutesTogether}"></td>
+                                        <td th:text="${ticket.meditationNumber}"></td>
+                                        <td th:text="${ticket.meditationMinutes}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="d-flex bg-dark p-4">
+                            <div class="py-3 px-5">
+                                <div class="mb-2">Total Gebet Stunden allein:</div>
+                                <div class="h2 font-weight-light" th:text="${totalPrayerAlone}"></div>
+                            </div>
+                            <div class="py-3 px-5">
+                                <div class="mb-2">Total Gebet Stunden in Gruppen:</div>
+                                <div class="h2 font-weight-light" th:text="${totalPrayerTogether}"></div>
+                            </div>
+                            <div class="py-3 px-5">
+                                <div class="mb-2">Total Meditation Anzahl:</div>
+                                <div class="h2 font-weight-light" th:text="${meditationNumber}"></div>
+                            </div>
+                            <div class="py-3 px-5">
+                                <div class="mb-2">Total Meditation Stunden:</div>
+                                <div class="h2 font-weight-light" th:text="${meditationTime}"></div>
+                            </div>
+                        </div>
+                        <div class="row p-5">
+                            <br><br>
+                            <div class="col-md-12">
+                                <br>
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th class="border-0 text-uppercase  font-weight-bold">Wochen Nr:</th>
+                                            <th class="border-0 text-uppercase  font-weight-bold">Minuten in der Evangelisierung:</th>
+                                            <th class="border-0 text-uppercase  font-weight-bold">Evangelisierte Menschen:</th>
+                                            <th class="border-0 text-uppercase  font-weight-bold">Fasten (Tagen):</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="ticket: ${tickets}" >
+                                            <td th:text="${ticket.week}"></td>
+                                            <td th:text="${ticket.evangelizationMinutes}"></td>
+                                            <td th:text="${ticket.evangelizedPeople}"></td>
+                                            <td th:text="${ticket.fast}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                        </div>
+
+                        <div class="d-flex bg-dark p-4">
+                            <div class="py-3 px-5">
+                                <div class="mb-2">Total Stunden in der Evangelisierung:</div>
+                                <div class="h2 font-weight-light" th:text="${evangelizationHours}"></div>
                             </div>
 
                             <div class="py-3 px-5">
-                                <div class="mb-2">Total Gebetsstunden:</div>
-                                <div class="h2 font-weight-light" th:text="${prayerTime}"></div>
+                                <div class="mb-2">Total Evangelisierte Menschen:</div>
+                                <div class="h2 font-weight-light" th:text="${evangelizedPeople}"></div>
                             </div>
 
                             <div class="py-3 px-5">
-                                <div class="mb-2">Total Anzahl der Meditation: </div>
-                                <div class="h2 font-weight-light" th:text="${meditationNumber}">$32,432</div>
-                            </div>
-
-                            <div class="py-3 px-5">
-                                <div class="mb-2">Total  Meditationstunden: </div>
-                                <div class="h2 font-weight-light" th:text="${meditationTime}">$32,432</div>
+                                <div class="mb-2">Total Fasten Tagen </div>
+                                <div class="h2 font-weight-light" th:text="${fastDays}"></div>
                             </div>
 
                             <div class="py-3 px-5 print-view">

@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<th:block th:fragment="graph">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="white-box">
+                <h3 class="box-title">GEBET
+                    <th:block th:insert="util/import.html :: years(${year})"></th:block>
+                </h3>
+                <ul class="list-inline text-right">
+                    <li>
+                        <h5><i class="fa fa-circle m-r-5" style="color: #F44336;"></i>Gebet alleine</h5>
+                    </li>
+                    <li>
+                        <h5><i class="fa fa-circle m-r-5" style="color: #26e7a6;"></i>Gebet in Gruppe</h5>
+                    </li>
+                </ul>
+                <div id="prayer" style="height: 400px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="white-box">
+                <h3 class="box-title">MEDITATION
+                    <th:block th:insert="util/import.html :: years(${year})"></th:block>
+                </h3>
+                <ul class="list-inline text-right">
+                    <li>
+                        <h5><i class="fa fa-circle m-r-5" style="color: #964ce7;"></i>Meditation Anzahl (pro Woche)</h5>
+                    </li>
+                    <li>
+                        <h5><i class="fa fa-circle m-r-5" style="color: #d4e726;"></i>Meditation Minuten (pro Woche)</h5>
+                    </li>
+                </ul>
+                <div id="meditation" style="height: 300px;"></div>
+                <div id="meditation2" style="height: 300px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="white-box">
+                <h3 class="box-title">BIBLE
+                    <th:block th:insert="util/import.html :: years(${year})"></th:block>
+                </h3>
+                <ul class="list-inline text-right">
+                    <li>
+                        <h5><i class="fa fa-circle m-r-5" style="color: #d66d29;"></i>Gelesene Biblekapitel (pro Woche)</h5>
+                    </li>
+                    <li>
+                        <h5><i class="fa fa-circle m-r-5" style="color: #e72626;"></i>Minuten beim Bibellesen (pro Woche)</h5>
+                    </li>
+                </ul>
+                <div id="bible" style="height: 300px;"></div>
+                <div id="bible2" style="height: 300px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="white-box">
+                <h3 class="box-title">EVANGELISIERUNG
+                    <th:block th:insert="util/import.html :: years(${year})"></th:block>
+                </h3>
+                <ul class="list-inline text-right">
+                    <li>
+                        <h5><i class="fa fa-circle m-r-5" style="color: #b9ff10;"></i>Evangelisierte Menschen (pro Woche)</h5>
+                    </li>
+                    <li>
+                        <h5><i class="fa fa-circle m-r-5" style="color: #8364b8;"></i>Minuten in der Evangelisierung (pro Woche)</h5>
+                    </li>
+                </ul>
+                <div id="evangelization" style="height: 300px;"></div>
+                <div id="evangelization2" style="height: 300px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="white-box">
+                <h3 class="box-title">Fasten (Tagen)
+                    <th:block th:insert="util/import.html :: years(${year})"></th:block>
+                </h3>
+                <ul class="list-inline text-right">
+                    <li>
+                        <h5><i class="fa fa-circle m-r-5" style="color: #3ba8fb;"></i>Fasten (Tagen)</h5>
+                    </li>
+                </ul>
+                <div id="fast" style="height: 400px;"></div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block th:fragment="graphscript">
+    <script th:inline="javascript" id="fastscript" >
+        /*<![CDATA[*/
+        var fastData = /*[[${fastData}]]*/ 'default';
+        var categories = /*[[${categories}]]*/ 'default';
+
+        var options = {
+            series: [{
+                name: "Fastentage",
+                data:  JSON.parse(fastData) // fournir
+            }],
+            chart: {
+                height: 370,
+                type: 'line',
+                zoom: {
+                    enabled: false
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: 'straight'
+            },
+            grid: {
+                row: {
+                    colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                    opacity: 0.5
+                },
+            },
+            xaxis: {
+                categories: JSON.parse(categories),  // fournir
+            }
+        };
+        var chart = new ApexCharts(document.querySelector("#fast"), options);
+        chart.render();
+        /*]]>*/
+    </script>
+    <script th:inline="javascript" id="prayerscript">
+
+        var categories = /*[[${categories}]]*/ 'default';
+        var prayerAloneData = /*[[${prayerAloneData}]]*/ 'default';
+        var prayerTogetherData = /*[[${prayerTogetherData}]]*/ 'default';
+
+        var options = {
+            series: [
+                {
+                    name: "Gebet alleine",
+                    data: JSON.parse(prayerAloneData)
+                },
+                {
+                    name: 'Gebet in Gruppe',
+                    data: JSON.parse(prayerTogetherData)
+                }
+            ],
+
+            colors:['#F44336', '#26e7a6'],
+
+            chart: {
+                height: 370,
+                type: 'line',
+                zoom: {
+                    enabled: false
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                width: [7, 5],
+                curve: 'straight',
+                dashArray: [8, 5]
+            },
+            legend: {
+                tooltipHoverFormatter: function(val, opts) {
+                    return val + ' : ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + ' min'
+                }
+            },
+            markers: {
+                size: 0,
+                hover: {
+                    sizeOffset: 6
+                }
+            },
+            xaxis: {
+                categories: JSON.parse(categories),
+            },
+            tooltip: {
+                y: [
+                    {
+                        title: {
+                            formatter: function (val) {
+                                return val + ' in minuten:';
+                            }
+                        }
+                    },
+                    {
+                        title: {
+                            formatter: function (val) {
+                                return val + ' in minuten:';
+                            }
+                        }
+                    }
+                ]
+            },
+            grid: {
+                borderColor: '#f1f1f1',
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#prayer"), options);
+        chart.render();
+    </script>
+    <script th:inline="javascript" id="meditationscript">
+        var categories = /*[[${categories}]]*/ 'default';
+        var meditationNumber = /*[[${meditationNumber}]]*/ 'default';
+        var meditationMinutes = /*[[${meditationMinutes}]]*/ 'default';
+
+        var options = {
+            series: [
+                {
+                    name: "Meditation Anzahl",
+                    data: JSON.parse(meditationNumber)
+                }
+            ],
+
+            chart: {
+                id: 'fb',
+                group: 'social',
+                type: 'area',
+                height: 280
+            },
+            colors: ['#964ce7'],
+            yaxis: {
+                labels: {
+                    minWidth: 40
+                }
+            },
+            legend: {
+                tooltipHoverFormatter: function(val, opts) {
+                    return val + ' : ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex]
+                }
+            },
+            markers: {
+                size: 0,
+                hover: {
+                    sizeOffset: 6
+                }
+            },
+            xaxis: {
+                categories: JSON.parse(categories),
+            },
+            tooltip: {
+                y: [
+                    {
+                        title: {
+                            formatter: function (val) {
+                                return val;
+                            }
+                        }
+                    }
+                ]
+            },
+            grid: {
+                borderColor: '#f1f1f1',
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#meditation"), options);
+        chart.render();
+
+        var optionsArea = {
+
+            series: [
+                {
+                    name: "Meditation Minuten",
+                    data: JSON.parse(meditationMinutes)
+                }
+            ],
+
+            chart: {
+                id: 'yt',
+                group: 'social',
+                type: 'area',
+                height: 280
+            },
+            colors: ['#d4e726'],
+            yaxis: {
+                labels: {
+                    minWidth: 40
+                }
+            },
+            legend: {
+                tooltipHoverFormatter: function(val, opts) {
+                    return val + ' : ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + ' min'
+                }
+            },
+            markers: {
+                size: 0,
+                hover: {
+                    sizeOffset: 6
+                }
+            },
+            xaxis: {
+                categories: JSON.parse(categories),
+            },
+            tooltip: {
+                y: [
+                    {
+                        title: {
+                            formatter: function (val) {
+                                return val;
+                            }
+                        }
+                    },
+                ]
+            },
+            grid: {
+                borderColor: '#f1f1f1',
+            }
+        };
+
+        var chartArea = new ApexCharts(document.querySelector("#meditation2"), optionsArea);
+        chartArea.render();
+
+    </script>
+    <script th:inline="javascript" id="biblescript">
+        var categories = /*[[${categories}]]*/ 'default';
+        var bibleChapter = /*[[${bibleChapter}]]*/ 'default';
+        var bibleChapterMinutes = /*[[${bibleChapterMinutes}]]*/ 'default';
+
+        var options = {
+            series: [
+                {
+                    name: "Gelesene Bibelkapitel",
+                    data: JSON.parse(bibleChapter)
+                }
+            ],
+
+            chart: {
+                id: 'fb',
+                group: 'social',
+                type: 'line',
+                height: 280
+            },
+            colors: ['#d66d29'],
+            yaxis: {
+                labels: {
+                    minWidth: 40
+                }
+            },
+            legend: {
+                tooltipHoverFormatter: function(val, opts) {
+                    return val + ' : ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex]
+                }
+            },
+            markers: {
+                size: 0,
+                hover: {
+                    sizeOffset: 6
+                }
+            },
+            xaxis: {
+                categories: JSON.parse(categories),
+            },
+            tooltip: {
+                y: [
+                    {
+                        title: {
+                            formatter: function (val) {
+                                return val;
+                            }
+                        }
+                    }
+                ]
+            },
+            grid: {
+                borderColor: '#f1f1f1',
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#bible"), options);
+        chart.render();
+
+        var optionsArea = {
+
+            series: [
+                {
+                    name: "Minuten beim Bibellesen",
+                    data: JSON.parse(bibleChapterMinutes)
+                }
+            ],
+
+            chart: {
+                id: 'yt',
+                group: 'social',
+                type: 'line',
+                height: 280
+            },
+            colors: ['#e72626'],
+            yaxis: {
+                labels: {
+                    minWidth: 40
+                }
+            },
+            legend: {
+                tooltipHoverFormatter: function(val, opts) {
+                    return val + ' : ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + ' min'
+                }
+            },
+            markers: {
+                size: 0,
+                hover: {
+                    sizeOffset: 6
+                }
+            },
+            xaxis: {
+                categories: JSON.parse(categories),
+            },
+            tooltip: {
+                y: [
+                    {
+                        title: {
+                            formatter: function (val) {
+                                return val;
+                            }
+                        }
+                    },
+                ]
+            },
+            grid: {
+                borderColor: '#f1f1f1',
+            }
+        };
+
+        var chartArea = new ApexCharts(document.querySelector("#bible2"), optionsArea);
+        chartArea.render();
+
+    </script>
+    <script th:inline="javascript" id="evangelisationscript">
+        var categories = /*[[${categories}]]*/ 'default';
+        var evangelizedPeople = /*[[${evangelizedPeople}]]*/ 'default';
+        var evangelizationMinutes = /*[[${evangelizationMinutes}]]*/ 'default';
+
+        var options = {
+            series: [
+                {
+                    name: "Evangelisierte Menschen",
+                    data: JSON.parse(evangelizedPeople)
+                }
+            ],
+
+            chart: {
+                id: 'fb',
+                group: 'social',
+                type: 'area',
+                height: 280
+            },
+            colors: [' #b9ff10'],
+            yaxis: {
+                labels: {
+                    minWidth: 40
+                }
+            },
+            legend: {
+                tooltipHoverFormatter: function(val, opts) {
+                    return val + ' : ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex]
+                }
+            },
+            markers: {
+                size: 0,
+                hover: {
+                    sizeOffset: 6
+                }
+            },
+            xaxis: {
+                categories: JSON.parse(categories),
+            },
+            tooltip: {
+                y: [
+                    {
+                        title: {
+                            formatter: function (val) {
+                                return val;
+                            }
+                        }
+                    }
+                ]
+            },
+            grid: {
+                borderColor: '#f1f1f1',
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#evangelization"), options);
+        chart.render();
+
+        var optionsArea = {
+
+            series: [
+                {
+                    name: "Minuten in der Evangelisierung",
+                    data: JSON.parse(evangelizationMinutes)
+                }
+            ],
+
+            chart: {
+                id: 'yt',
+                group: 'social',
+                type: 'area',
+                height: 280
+            },
+            colors: ['#8364b8'],
+            yaxis: {
+                labels: {
+                    minWidth: 40
+                }
+            },
+            legend: {
+                tooltipHoverFormatter: function(val, opts) {
+                    return val + ' : ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + ' min'
+                }
+            },
+            markers: {
+                size: 0,
+                hover: {
+                    sizeOffset: 6
+                }
+            },
+            xaxis: {
+                categories: JSON.parse(categories),
+            },
+            tooltip: {
+                y: [
+                    {
+                        title: {
+                            formatter: function (val) {
+                                return val;
+                            }
+                        }
+                    },
+                ]
+            },
+            grid: {
+                borderColor: '#f1f1f1',
+            }
+        };
+
+        var chartArea = new ApexCharts(document.querySelector("#evangelization2"), optionsArea);
+        chartArea.render();
+    </script>
+</th:block>
+</body>
+</html>

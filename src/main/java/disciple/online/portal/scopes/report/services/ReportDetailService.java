@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.temporal.WeekFields;
 import java.util.*;
 
 @Service
@@ -26,8 +28,10 @@ public class ReportDetailService {
 
         DetailTicket detailTicket = new DetailTicket(new HashSet<ReportStatus>(Arrays.asList(ReportStatus.NOTSEEN)),
                 reportDetailDto.startDate , reportDetailDto.endDate ,reportDetailDto.bibleChapter,
-                reportDetailDto.meditationNumber , reportDetailDto.getMeditationMinutes() , reportDetailDto.getPrayerMinutes() , reportDetailDto.book ,
-                reportDetailDto.message , user.getEmail() , user.getDiscipleMakerMail());
+                reportDetailDto.bibleChapterMinutes, reportDetailDto.book, reportDetailDto.prayerMinutesAlone,
+                reportDetailDto.prayerMinutesTogether, reportDetailDto.meditationNumber, reportDetailDto.meditationMinutes,
+                reportDetailDto.evangelizationMinutes, reportDetailDto.evangelizedPeople, reportDetailDto.message, reportDetailDto.fast,
+                user.getEmail() , user.getDiscipleMakerMail());
 
         reportDetailRepository.save(detailTicket);
     }
@@ -36,14 +40,19 @@ public class ReportDetailService {
         if(reportDetailDto == null) throw new NullPointerException("reportDetailDto should not be null");
 
 
-        ticket.setMeditationMinutes(reportDetailDto.getMeditationMinutes());
-        ticket.setPrayerMinutes(reportDetailDto.getPrayerMinutes());
-        ticket.setBook(reportDetailDto.book);
-        ticket.setBibleChapter(reportDetailDto.bibleChapter);
-        ticket.setMeditationNumber(reportDetailDto.meditationNumber);
-        ticket.setMessage(reportDetailDto.message);
         ticket.setStartDate(reportDetailDto.startDate);
         ticket.setEndDate(reportDetailDto.endDate);
+        ticket.setBibleChapter(reportDetailDto.bibleChapter);
+        ticket.setBibleChapterMinutes(reportDetailDto.bibleChapterMinutes);
+        ticket.setBook(reportDetailDto.book);
+        ticket.setPrayerMinutesAlone(reportDetailDto.getPrayerMinutesAlone());
+        ticket.setPrayerMinutesTogether(reportDetailDto.getPrayerMinutesTogether());
+        ticket.setMeditationNumber(reportDetailDto.meditationNumber);
+        ticket.setMeditationMinutes(reportDetailDto.getMeditationMinutes());
+        ticket.setEvangelizationMinutes(reportDetailDto.evangelizationMinutes);
+        ticket.setEvangelizedPeople(reportDetailDto.evangelizedPeople);
+        ticket.setMessage(reportDetailDto.message);
+        ticket.setFast(reportDetailDto.fast);
 
         reportDetailRepository.save(ticket);
     }
@@ -88,15 +97,21 @@ public class ReportDetailService {
             return;
         }
 
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance(Locale.GERMAN);
         String endDate;
         long week = 0;
         long bibleChapter = 0;
+        long bibleChapterMinutes = 0;
+        String book = "";
+        long prayerMinutesAlone = 0;
+        long prayerMinutesTogether = 0;
         long meditationNumber = 0;
         long meditationMinutes = 0;
-        long prayerMinutes = 0;
-        String book = "";
+        long evangelizationMinutes = 0;
+        long evangelizedPeople = 0;
         String message = "";
+        long fast = 0;
+
         String ownerMail = user.getEmail();
         String discipleMakerMail = user.getDiscipleMakerMail();
 
@@ -104,23 +119,34 @@ public class ReportDetailService {
 
         for(DetailTicket detailTicket : tickets){
             endDate = detailTicket.getEndDate();
+
             calendar.set(Integer.parseInt(endDate.substring(0,4)) ,
                 Integer.parseInt(endDate.substring(5,7)) , Integer.parseInt(endDate.substring(8,10)));
 
-            if(week < calendar.get(Calendar.WEEK_OF_YEAR)){
-                week = calendar.get(Calendar.WEEK_OF_YEAR);
+            LocalDate date = LocalDate.of(Integer.parseInt(endDate.substring(0,4)) ,
+                    Integer.parseInt(endDate.substring(5,7)) , Integer.parseInt(endDate.substring(8,10)));
+
+            if(week < date.get(WeekFields.of(Locale.GERMANY).weekOfYear())){
+                week = date.get(WeekFields.of(Locale.GERMANY).weekOfYear());
             }
 
             bibleChapter += detailTicket.getBibleChapter();
+            bibleChapterMinutes += detailTicket.getBibleChapterMinutes();
+            prayerMinutesAlone += detailTicket.getPrayerMinutesAlone();
+            prayerMinutesTogether += detailTicket.getPrayerMinutesTogether();
             meditationNumber += detailTicket.getMeditationNumber();
             meditationMinutes += detailTicket.getMeditationMinutes();
-            prayerMinutes += detailTicket.getPrayerMinutes();
+            evangelizationMinutes += detailTicket.getEvangelizationMinutes();
+            evangelizedPeople += detailTicket.getEvangelizedPeople();
+
             book = book + " ; " + detailTicket.getBook() + " ; ";
             message = message + newLine + detailTicket.getMessage() + newLine;
+            fast += detailTicket.getFast();
         }
 
         GlobalTicket globalTicket = new GlobalTicket(new HashSet<ReportStatus>(Arrays.asList(ReportStatus.NOTSEEN)) ,
-                "" , bibleChapter , meditationNumber , meditationMinutes , prayerMinutes , book , message , ownerMail ,
+                "" , bibleChapter , bibleChapterMinutes , book , prayerMinutesAlone , prayerMinutesTogether ,
+                meditationNumber , meditationMinutes , evangelizationMinutes , evangelizedPeople , message , fast , ownerMail ,
                 discipleMakerMail);
 
         globalTicket.setWeek((calendar.getTime().getYear() + 1900) + "-W" + week);

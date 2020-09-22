@@ -4,9 +4,7 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 </head>
     <body>
-
         <th:block th:fragment="toast(type,text)">
-
             <th:block th:if="${type == 'success'}">
                 <script th:inline="javascript" type="text/javascript">
                     /*<![CDATA[*/
@@ -23,7 +21,6 @@
                     /*]]>*/
                 </script>
             </th:block>
-
             <th:block th:if="${type == 'error'}">
                 <script th:inline="javascript" type="text/javascript">
                     /*<![CDATA[*/
@@ -40,8 +37,6 @@
                     /*]]>*/
                 </script>
             </th:block>
-
-
             <th:block th:if="${type == 'info'}">
                 <script th:inline="javascript" type="text/javascript">
                     /*<![CDATA[*/
@@ -58,7 +53,6 @@
                     /*]]>*/
                 </script>
             </th:block>
-
             <th:block th:if="${type == 'warning'}">
                 <script th:inline="javascript" type="text/javascript">
                     /*<![CDATA[*/
@@ -75,7 +69,6 @@
                     /*]]>*/
                 </script>
             </th:block>
-
         </th:block>
     </body>
 </html>

@@ -2,14 +2,8 @@
 <html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <title>Disciple Online</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
-    <title>Disciple Online</title>
+    <title>Profile</title>
+    <th:block th:insert="util/import.html :: meta" ></th:block>
     <th:block th:insert="util/import.html :: head"></th:block>
     <th:block th:insert="util/import.html :: login"></th:block>
 </head>
@@ -131,7 +125,9 @@
                             <div class="form-group">
                                 <label for="discipleMaker" class="col-md-12" >Disciplemaker</label>
                                 <div class="col-md-12">
-                                    <p name="discipleMaker" id="discipleMaker" th:text="${user.discipleMakerMail}"></p>
+                                    <a th:href="@{/users/edit/}+${discipleMaker.id}">
+                                        <p name="discipleMaker" id="discipleMaker" th:text="${user.discipleMakerMail}"></p>
+                                    </a>
                                 </div>
                             </div>
 

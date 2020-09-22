@@ -1,67 +1,107 @@
 package disciple.online.portal.scopes.report.forms;
 
+import disciple.online.portal.scopes.report.entities.ReportStatus;
 import disciple.online.portal.util.validation.Regexes;
 import disciple.online.portal.util.validation.ValidEmail;
 import org.springframework.beans.factory.annotation.Value;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 public class ReportGlobalDto {
+    
+    
     @NotBlank
     @Size(max = 200, message = "{error.invalid.length}")
     @Pattern(regexp = Regexes.TEXT, message = "{error.invalid.field.text}")
     public String week;
 
-    public long bibleChapter;
+    public Long bibleChapter;
 
-    public long meditationNumber;
-
-    public long meditationMinutes;
-
-    public long prayerMinutes;
+    public Long bibleChapterMinutes;
 
     @Size(max = 200, message = "{error.invalid.length}")
     @Pattern(regexp = Regexes.TEXT, message = "{error.invalid.field.text}")
     @Value("")
     public String book;
 
+    public Long prayerMinutesAlone;
+
+    public Long prayerMinutesTogether;
+
+    public Long meditationNumber;
+    
+    public Long meditationMinutes;
+
+    public Long evangelizationMinutes;
+
+    public Long evangelizedPeople;
+
+
     @Size(max = 200, message = "{error.invalid.length}")
     @Pattern(regexp = Regexes.TEXT, message = "{error.invalid.field.text}")
     @Value("")
     public String message;
 
-    public String getWeek() {
-        return week;
+    public Long fast;
+
+    public String getMessage() {
+        return message;
     }
 
-    public void setWeek(String week) {
-        this.week = week;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public long getBibleChapter() {
-        return bibleChapter;
+    public Long getEvangelizedPeople() {
+        return evangelizedPeople;
     }
 
-    public void setBibleChapter(long bibleChapter) {
-        this.bibleChapter = bibleChapter;
+    public void setEvangelizedPeople(Long evangelizedPeople) {
+        this.evangelizedPeople = evangelizedPeople;
     }
 
-    public long getMeditationNumber() {
-        return meditationNumber;
+    public Long getEvangelizationMinutes() {
+        return evangelizationMinutes;
     }
 
-    public void setMeditationNumber(long meditationNumber) {
-        this.meditationNumber = meditationNumber;
+    public void setEvangelizationMinutes(Long evangelizationMinutes) {
+        this.evangelizationMinutes = evangelizationMinutes;
     }
 
-    public long getMeditationMinutes() {
+    public Long getMeditationMinutes() {
         return meditationMinutes;
     }
 
-    public void setMeditationMinutes(long meditationMinutes) {
+    public void setMeditationMinutes(Long meditationMinutes) {
         this.meditationMinutes = meditationMinutes;
+    }
+
+    public Long getMeditationNumber() {
+        return meditationNumber;
+    }
+
+    public void setMeditationNumber(Long meditationNumber) {
+        this.meditationNumber = meditationNumber;
+    }
+
+    public Long getPrayerMinutesTogether() {
+        return prayerMinutesTogether;
+    }
+
+    public void setPrayerMinutesTogether(Long prayerMinutesTogether) {
+        this.prayerMinutesTogether = prayerMinutesTogether;
+    }
+
+    public Long getPrayerMinutesAlone() {
+        return prayerMinutesAlone;
+    }
+
+    public void setPrayerMinutesAlone(Long prayerMinutesAlone) {
+        this.prayerMinutesAlone = prayerMinutesAlone;
     }
 
     public String getBook() {
@@ -72,34 +112,54 @@ public class ReportGlobalDto {
         this.book = book;
     }
 
-    public String getMessage() {
-        return message;
+    public Long getBibleChapterMinutes() {
+        return bibleChapterMinutes;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setBibleChapterMinutes(Long bibleChapterMinutes) {
+        this.bibleChapterMinutes = bibleChapterMinutes;
     }
 
-    public long getPrayerMinutes() {
-        return prayerMinutes;
+
+    public Long getBibleChapter() {
+        return bibleChapter;
     }
 
-    public void setPrayerMinutes(long prayerMinutes) {
-        this.prayerMinutes = prayerMinutes;
+    public void setBibleChapter(Long bibleChapter) {
+        this.bibleChapter = bibleChapter;
+    }
+
+    public String getWeek() {
+        return week;
+    }
+
+    public void setWeek(String week) {
+        this.week = week;
+    }
+
+    public long getFast() {
+        return fast;
+    }
+
+    public void setFast(long fast) {
+        this.fast = fast;
     }
 
     @Override
     public String toString(){
-        return "ReportGlobalDto{"+
-                "week='" + week + '\'' +
+        return "ReportGlobalDto{" +
+                " week='" + week + '\'' +
                 ", bibleChapter='" + bibleChapter + '\'' +
+                ", bibleChapterMinutes='" + bibleChapterMinutes + '\'' +
+                ", book='" + book + '\'' +
+                ", prayerMinutesAlone='" + prayerMinutesAlone + '\'' +
+                ", prayerMinutesTogether='" + prayerMinutesTogether + '\'' +
                 ", meditationNumber='" + meditationNumber + '\'' +
                 ", meditationMinutes='" + meditationMinutes + '\'' +
-                ", prayerMinutes='" + prayerMinutes + '\'' +
-                ", book='" + book + '\'' +
-                ", message='" + message +
-                '}' ;
+                ", evangelizationMinutes='" + evangelizationMinutes + '\'' +
+                ", evangelizedPeople='" + evangelizedPeople + '\'' +
+                ", message='" + message + '\'' +
+                '}';
     }
-
 
 }

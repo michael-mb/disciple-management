@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Impressum</title>
+    <th:block th:insert="util/import.html :: meta" ></th:block>
+    <th:block th:insert="util/import.html :: head"></th:block>
+    <th:block th:insert="util/import.html :: login"></th:block>
+</head>
+<body>
+    <th:block th:insert="util/import.html :: loader"></th:block>
+    <div id="wrapper">
+        <th:block th:insert="util/header.html :: header"></th:block>
+        <th:block th:insert="util/navigation.html :: navigation"></th:block>
+
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Impressum</h4>
+                    </div>
+                </div>
+                <!-- /.row -->
+                <!-- .row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="white-box">
+                            <h3 class="box-title big">IMPRESSUM - CONTACT</h3>
+
+                            <h4>CMGI-D e.V</h4>
+                            <p>
+                                Christliche Missionarische Gemeinschaft International – Deutschland e.V.
+                                <br>Berner Strasse 107
+                                <br>60437 Frankfurt
+                                <br>Telefon: +49-1622346204
+                                <br>E-Mail: <a href="mailto:info@cmgi-online.de">info@cmgi-online.de</a>
+                            </p>
+                            <br>
+
+                            <h4>Bankverbindung</h4>
+                            <p>
+                                Frankfurter Sparkasse<br>
+                                Konto: 200479849<br>
+                                BLZ: 500 502 01<br>
+                                IBAN: DE91500502010200479849<br>
+                                BIC: HELADEF1822
+                            </p>
+                            <br>
+
+                            <h4>Grafische Gestaltung und technische Realisierung</h4>
+                            <p>
+                                CMGI DEVELOPPERS<br>
+                                Email: <a href="mailto:mbonimichael@yahoo.fr">mbonimichael@yahoo.fr</a><br>
+                                Internet: <a href="https://michael-mb.github.io/Michael-CV/" target="_blank">Michael Mboni</a><br>
+                                Wenn sie fragen haben, schreiben Sie bitte direkt eine email an diese Adresse
+                                (<a href="mailto:mbonimichael@yahoo.fr">mbonimichael@yahoo.fr</a>), und wir
+                                melden uns so schnell wie möglich zurück.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+            <th:block th:insert="util/footer.html :: footer"></th:block>
+        </div>
+    </div>
+
+    <th:block th:insert="util/import.html :: body"></th:block>
+</body>
+</html>

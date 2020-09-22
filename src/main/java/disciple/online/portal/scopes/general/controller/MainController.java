@@ -4,6 +4,7 @@ import disciple.online.portal.scopes.general.services.GraphService;
 import disciple.online.portal.scopes.report.services.ReportGlobalService;
 import disciple.online.portal.scopes.user.entities.User;
 import disciple.online.portal.scopes.user.services.UserService;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,18 +35,35 @@ public class MainController {
         }
         Optional<User> user = userService.findUserByEmail(((User)authentication.getPrincipal()).getEmail());
 
-        JSONObject graph = new JSONObject();
-        JSONObject bibleChapter = new JSONObject();
-        JSONObject meditationMinutes = new JSONObject();
-        JSONObject meditationNumber = new JSONObject();
+        JSONArray categories = new JSONArray();
+        JSONArray fastData = new JSONArray();
+        JSONArray prayerAloneData = new JSONArray();
+        JSONArray prayerTogetherData = new JSONArray();
+        JSONArray meditationMinutesData = new JSONArray();
+        JSONArray meditationNumber = new JSONArray();
+        JSONArray bibleChapter = new JSONArray();
+        JSONArray bibleChapterMinutes = new JSONArray();
+        JSONArray evangelizedPeople = new JSONArray();
+        JSONArray evangelizationMinutes = new JSONArray();
 
         if(!year.isPresent()){
             model.addAttribute("year",2020);
             try {
-                graph = graphService.buildJSonDataForPrayer(user.get());
-                bibleChapter = graphService.buildJSonDataForBibleReading(user.get());
-                meditationMinutes = graphService.buildJSonDataForMeditationMinutes(user.get());
-                meditationNumber = graphService.buildJSonDataForMeditationNumber(user.get());
+                fastData = graphService.buildJSonDataForFast(user.get());
+                categories = graphService.buildJSonCategories(user.get());
+
+                prayerAloneData = graphService.buildJSonDataForPrayerAlone(user.get());
+                prayerTogetherData = graphService.buildJSonDataForPrayerTogether(user.get());
+
+                meditationMinutesData = graphService.buildJsonDataForMeditationMinutes(user.get());
+                meditationNumber = graphService.buildJsonDataForMeditationNumber(user.get());
+
+                bibleChapter = graphService.buildJsonDataForBibleChapter(user.get());
+                bibleChapterMinutes = graphService.buildJsonDataForBibleChapterMinutes(user.get());
+
+                evangelizedPeople = graphService.buildJsonDataForEvangelizedPeople(user.get());
+                evangelizationMinutes = graphService.buildJsonDataForEvangelizationMinutes(user.get());
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -53,20 +71,43 @@ public class MainController {
          else{
              model.addAttribute("year",year.get());
             try {
-                graph = graphService.buildJSonDataForPrayer(user.get(),year.get());
-                bibleChapter = graphService.buildJSonDataForBibleReading(user.get(),year.get());
-                meditationMinutes = graphService.buildJSonDataForMeditationMinutes(user.get(),year.get());
-                meditationNumber = graphService.buildJSonDataForMeditationNumber(user.get() , year.get());
+                fastData = graphService.buildJSonDataForFast(user.get() , year.get());
+                categories = graphService.buildJSonCategories(user.get() , year.get());
+
+                prayerAloneData = graphService.buildJSonDataForPrayerAlone(user.get() , year.get());
+                prayerTogetherData = graphService.buildJSonDataForPrayerTogether(user.get() , year.get());
+
+                meditationMinutesData = graphService.buildJsonDataForMeditationMinutes(user.get(), year.get());
+                meditationNumber = graphService.buildJsonDataForMeditationNumber(user.get(), year.get());
+
+                bibleChapter = graphService.buildJsonDataForBibleChapter(user.get(), year.get());
+                bibleChapterMinutes = graphService.buildJsonDataForBibleChapterMinutes(user.get() , year.get());
+
+                evangelizedPeople = graphService.buildJsonDataForEvangelizedPeople(user.get(), year.get());
+                evangelizationMinutes = graphService.buildJsonDataForEvangelizationMinutes(user.get(), year.get());
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }
+         }
 
-        model.addAttribute("graph",graph.toString());
-        model.addAttribute("bibleChapter",bibleChapter.toString());
-        model.addAttribute("meditationMinutes",meditationMinutes.toString());
-        model.addAttribute("meditationNumber",meditationNumber.toString());
-        model.addAttribute("reports", reportGlobalService.getGlobalTicketOwnerByMail(user.get().getEmail()));
-        return "index";
+         model.addAttribute("reports", reportGlobalService.getGlobalTicketOwnerByMail(user.get().getEmail()));
+         model.addAttribute("fastData" , fastData.toString());
+         model.addAttribute("prayerAloneData", prayerAloneData.toString());
+         model.addAttribute("prayerTogetherData",prayerTogetherData.toString());
+         model.addAttribute("meditationMinutes",meditationMinutesData.toString());
+         model.addAttribute("meditationNumber",meditationNumber.toString());
+         model.addAttribute("categories",categories.toString());
+         model.addAttribute("bibleChapter",bibleChapter.toString());
+         model.addAttribute("bibleChapterMinutes",bibleChapterMinutes.toString());
+         model.addAttribute("evangelizedPeople",evangelizedPeople.toString());
+         model.addAttribute("evangelizationMinutes",evangelizationMinutes.toString());
+
+         return "index";
+    }
+
+    @GetMapping("/impressum")
+    public String handleImpressum(){
+        return "impressum";
     }
 }

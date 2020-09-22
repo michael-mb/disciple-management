@@ -4,6 +4,8 @@ import disciple.online.portal.Pages.Header;
 import org.openqa.selenium.WebDriver;
 
 public class MainPage extends Header {
+
+
     public MainPage(WebDriver driver) {
         super(driver);
     }

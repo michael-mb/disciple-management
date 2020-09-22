@@ -16,10 +16,10 @@ public class Initializer {
     public UserService userService;
     @Autowired
     public Initializer(UserService userService,
-                       final @Value("${test.setup.demo.users}") boolean setupDemoUsers){
+                       final @Value("${spring.jpa.hibernate.ddl-auto}") String database){
         this.userService = userService;
 
-        if(setupDemoUsers){
+        if(setupDemoUsers(database)){
             this.setupTestUsers();
         }
     }
@@ -34,6 +34,10 @@ public class Initializer {
             userService.generateAndSaveNewValidationTokenForUser(user);
             userService.rehashPassword(testUser.password , user);
         }
+    }
+
+    private boolean setupDemoUsers(String database){
+        return "create".equals(database);
     }
 
 }

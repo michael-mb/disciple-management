@@ -21,14 +21,16 @@ public class ResetPasswordService {
     @Autowired
     private TokenServiceImpl tokenService;
 
-    public void resetPassword(String email){
+    public boolean resetPassword(String email){
         Optional<User> user = userService.findUserByEmail(email);
         if(!user.isPresent())
-            return;
+            return false;
         try {
             mailService.sendResetPasswordMail(user.get());
+            return true;
         } catch (MessagingException e) {
             e.printStackTrace();
+            return false;
         }
     }
 

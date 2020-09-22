@@ -18,347 +18,221 @@ public class GraphService {
     @Autowired
     private ReportGlobalService reportGlobalService;
 
-    public JSONObject buildJSonDataForPrayer(User user) throws JSONException {
-        JSONObject jsonObject = new JSONObject();
-
-        jsonObject.put("element","morris-area-chart2");
-        jsonObject.put("xkey", "period");
-        jsonObject.put("pointSize", 0);
-        jsonObject.put("fillOpacity", 0.7);
-        jsonObject.put("behaveLikeLine", true);
-        jsonObject.put("gridLineColor", "#e0e0e0");
-        jsonObject.put("lineWidth", 0);
-        jsonObject.put("smooth", false);
-        jsonObject.put("hideHover", "auto");
-        jsonObject.put("resize",true);
-
-        JSONArray pointStrokeColors = new JSONArray();
-        pointStrokeColors.put("#ccc");
-        jsonObject.put("pointStrokeColors", pointStrokeColors);
-        jsonObject.put("lineColors", pointStrokeColors);
-
-        JSONArray ykeys = new JSONArray();
-        ykeys.put("prayer");
-        jsonObject.put("ykeys", ykeys);
-        jsonObject.put("labels", ykeys);
-
-        JSONArray barColors = new JSONArray();
-        barColors.put("#f4f4f4");
-        jsonObject.put("barColors",barColors);
-
+    public JSONArray buildJSonDataForFast(User user) throws JSONException{
         JSONArray data = new JSONArray();
         List<GlobalTicket> tickets = reportGlobalService.getGlobalTicketOwnerByMail(user.getEmail());
 
         for(GlobalTicket ticket : tickets){
-            JSONObject dataElem = new JSONObject();
-            dataElem.put("period" , "W-" +ticket.getWeek().substring(6,8));
-            dataElem.put("prayer", ticket.getPrayerMinutes());
-            data.put(dataElem);
+            data.put(ticket.getFast());
         }
-
-        jsonObject.put("data",data);
-
-        return jsonObject;
+        return data;
     }
 
-    public JSONObject buildJSonDataForPrayer(User user , Long year) throws JSONException {
-        JSONObject jsonObject = new JSONObject();
-
-        jsonObject.put("element","morris-area-chart2");
-        jsonObject.put("xkey", "period");
-        jsonObject.put("pointSize", 0);
-        jsonObject.put("fillOpacity", 0.7);
-        jsonObject.put("behaveLikeLine", true);
-        jsonObject.put("gridLineColor", "#e0e0e0");
-        jsonObject.put("lineWidth", 0);
-        jsonObject.put("smooth", false);
-        jsonObject.put("hideHover", "auto");
-        jsonObject.put("resize",true);
-
-        JSONArray pointStrokeColors = new JSONArray();
-        pointStrokeColors.put("#ccc");
-        jsonObject.put("pointStrokeColors", pointStrokeColors);
-        jsonObject.put("lineColors", pointStrokeColors);
-
-        JSONArray ykeys = new JSONArray();
-        ykeys.put("prayer");
-        jsonObject.put("ykeys", ykeys);
-        jsonObject.put("labels", ykeys);
-
-        JSONArray barColors = new JSONArray();
-        barColors.put("#f4f4f4");
-        jsonObject.put("barColors",barColors);
-
+    public JSONArray buildJSonDataForFast(User user , Long year) throws JSONException{
         JSONArray data = new JSONArray();
-        List<GlobalTicket> tickets = reportGlobalService.getGlobalTicketOwnerByMail(user.getEmail(),year);
+        List<GlobalTicket> tickets = reportGlobalService.getGlobalTicketOwnerByMail(user.getEmail() ,year);
 
         for(GlobalTicket ticket : tickets){
-            JSONObject dataElem = new JSONObject();
-            dataElem.put("period" , "W-" +ticket.getWeek().substring(6,8));
-            dataElem.put("prayer", ticket.getPrayerMinutes());
-            data.put(dataElem);
+            data.put(ticket.getFast());
         }
-
-        jsonObject.put("data",data);
-
-        return jsonObject;
+        return data;
     }
 
-    public JSONObject buildJSonDataForBibleReading(User user) throws JSONException {
-        JSONObject jsonObject = new JSONObject();
+    public JSONArray buildJSonCategories(User user) throws JSONException{
+        JSONArray categories = new JSONArray();
 
-        jsonObject.put("element","morris-area-chart3");
-        jsonObject.put("xkey", "period");
-        jsonObject.put("pointSize", 0);
-        jsonObject.put("fillOpacity", 0.7);
-        jsonObject.put("behaveLikeLine", true);
-        jsonObject.put("gridLineColor", "#e0e0e0");
-        jsonObject.put("lineWidth", 0);
-        jsonObject.put("smooth", false);
-        jsonObject.put("hideHover", "auto");
-        jsonObject.put("resize",true);
-
-        JSONArray pointStrokeColors = new JSONArray();
-        pointStrokeColors.put("#ccc");
-        jsonObject.put("pointStrokeColors", pointStrokeColors);
-        jsonObject.put("lineColors", pointStrokeColors);
-
-        JSONArray ykeys = new JSONArray();
-        ykeys.put("chapters");
-        jsonObject.put("ykeys", ykeys);
-        jsonObject.put("labels", ykeys);
-
-        JSONArray barColors = new JSONArray();
-        barColors.put("#f4f4f4");
-        jsonObject.put("barColors",barColors);
-
-        JSONArray data = new JSONArray();
         List<GlobalTicket> tickets = reportGlobalService.getGlobalTicketOwnerByMail(user.getEmail());
 
         for(GlobalTicket ticket : tickets){
-            JSONObject dataElem = new JSONObject();
-            dataElem.put("period" , "W-" +ticket.getWeek().substring(6,8));
-            dataElem.put("chapters", ticket.getBibleChapter());
-            data.put(dataElem);
+            categories.put("W-" +ticket.getWeek().substring(6,8));
         }
-
-        jsonObject.put("data",data);
-
-        return jsonObject;
+        return categories;
     }
 
-    public JSONObject buildJSonDataForBibleReading(User user , Long year) throws JSONException {
-        JSONObject jsonObject = new JSONObject();
+    public JSONArray buildJSonCategories(User user , Long year) throws JSONException{
+        JSONArray categories = new JSONArray();
 
-        jsonObject.put("element","morris-area-chart3");
-        jsonObject.put("xkey", "period");
-        jsonObject.put("pointSize", 0);
-        jsonObject.put("fillOpacity", 0.7);
-        jsonObject.put("behaveLikeLine", true);
-        jsonObject.put("gridLineColor", "#e0e0e0");
-        jsonObject.put("lineWidth", 0);
-        jsonObject.put("smooth", false);
-        jsonObject.put("hideHover", "auto");
-        jsonObject.put("resize",true);
-
-        JSONArray pointStrokeColors = new JSONArray();
-        pointStrokeColors.put("#ccc");
-        jsonObject.put("pointStrokeColors", pointStrokeColors);
-        jsonObject.put("lineColors", pointStrokeColors);
-
-        JSONArray ykeys = new JSONArray();
-        ykeys.put("chapters");
-        jsonObject.put("ykeys", ykeys);
-        jsonObject.put("labels", ykeys);
-
-        JSONArray barColors = new JSONArray();
-        barColors.put("#f4f4f4");
-        jsonObject.put("barColors",barColors);
-
-        JSONArray data = new JSONArray();
         List<GlobalTicket> tickets = reportGlobalService.getGlobalTicketOwnerByMail(user.getEmail() , year);
 
         for(GlobalTicket ticket : tickets){
-            JSONObject dataElem = new JSONObject();
-            dataElem.put("period" , "W-" +ticket.getWeek().substring(6,8));
-            dataElem.put("chapters", ticket.getBibleChapter());
-            data.put(dataElem);
+            categories.put("W-" +ticket.getWeek().substring(6,8));
         }
-
-        jsonObject.put("data",data);
-
-        return jsonObject;
+        return categories;
     }
 
-    public JSONObject buildJSonDataForMeditationMinutes(User user) throws JSONException {
-        JSONObject jsonObject = new JSONObject();
-
-        jsonObject.put("element","morris-area-chart4");
-        jsonObject.put("xkey", "period");
-        jsonObject.put("pointSize", 0);
-        jsonObject.put("fillOpacity", 0.7);
-        jsonObject.put("behaveLikeLine", true);
-        jsonObject.put("gridLineColor", "#e0e0e0");
-        jsonObject.put("lineWidth", 0);
-        jsonObject.put("smooth", false);
-        jsonObject.put("hideHover", "auto");
-        jsonObject.put("resize",true);
-
-        JSONArray pointStrokeColors = new JSONArray();
-        pointStrokeColors.put("#ccc");
-        jsonObject.put("pointStrokeColors", pointStrokeColors);
-        jsonObject.put("lineColors", pointStrokeColors);
-
-        JSONArray ykeys = new JSONArray();
-        ykeys.put("minuten");
-        jsonObject.put("ykeys", ykeys);
-        jsonObject.put("labels", ykeys);
-
-        JSONArray barColors = new JSONArray();
-        barColors.put("#f4f4f4");
-        jsonObject.put("barColors",barColors);
-
+    public JSONArray buildJSonDataForPrayerAlone(User user) throws JSONException{
         JSONArray data = new JSONArray();
+
         List<GlobalTicket> tickets = reportGlobalService.getGlobalTicketOwnerByMail(user.getEmail());
 
         for(GlobalTicket ticket : tickets){
-            JSONObject dataElem = new JSONObject();
-            dataElem.put("period" , "W-" +ticket.getWeek().substring(6,8));
-            dataElem.put("minuten", ticket.getMeditationMinutes());
-            data.put(dataElem);
+            data.put(ticket.getPrayerMinutesAlone());
         }
-
-        jsonObject.put("data",data);
-
-        return jsonObject;
+        return data;
     }
 
-    public JSONObject buildJSonDataForMeditationMinutes(User user , Long year) throws JSONException {
-        JSONObject jsonObject = new JSONObject();
-
-        jsonObject.put("element","morris-area-chart4");
-        jsonObject.put("xkey", "period");
-        jsonObject.put("pointSize", 0);
-        jsonObject.put("fillOpacity", 0.7);
-        jsonObject.put("behaveLikeLine", true);
-        jsonObject.put("gridLineColor", "#e0e0e0");
-        jsonObject.put("lineWidth", 0);
-        jsonObject.put("smooth", false);
-        jsonObject.put("hideHover", "auto");
-        jsonObject.put("resize",true);
-
-        JSONArray pointStrokeColors = new JSONArray();
-        pointStrokeColors.put("#ccc");
-        jsonObject.put("pointStrokeColors", pointStrokeColors);
-        jsonObject.put("lineColors", pointStrokeColors);
-
-        JSONArray ykeys = new JSONArray();
-        ykeys.put("minuten");
-        jsonObject.put("ykeys", ykeys);
-        jsonObject.put("labels", ykeys);
-
-        JSONArray barColors = new JSONArray();
-        barColors.put("#f4f4f4");
-        jsonObject.put("barColors",barColors);
-
+    public JSONArray buildJSonDataForPrayerAlone(User user , Long year) throws JSONException{
         JSONArray data = new JSONArray();
+
         List<GlobalTicket> tickets = reportGlobalService.getGlobalTicketOwnerByMail(user.getEmail() , year);
 
         for(GlobalTicket ticket : tickets){
-            JSONObject dataElem = new JSONObject();
-            dataElem.put("period" , "W-" +ticket.getWeek().substring(6,8));
-            dataElem.put("minuten", ticket.getMeditationMinutes());
-            data.put(dataElem);
+            data.put(ticket.getPrayerMinutesAlone());
         }
-
-        jsonObject.put("data",data);
-
-        return jsonObject;
+        return data;
     }
 
-    public JSONObject buildJSonDataForMeditationNumber(User user) throws JSONException {
-        JSONObject jsonObject = new JSONObject();
-
-        jsonObject.put("element","morris-area-chart5");
-        jsonObject.put("xkey", "period");
-        jsonObject.put("pointSize", 0);
-        jsonObject.put("fillOpacity", 0.7);
-        jsonObject.put("behaveLikeLine", true);
-        jsonObject.put("gridLineColor", "#e0e0e0");
-        jsonObject.put("lineWidth", 0);
-        jsonObject.put("smooth", false);
-        jsonObject.put("hideHover", "auto");
-        jsonObject.put("resize",true);
-
-        JSONArray pointStrokeColors = new JSONArray();
-        pointStrokeColors.put("#ccc");
-        jsonObject.put("pointStrokeColors", pointStrokeColors);
-        jsonObject.put("lineColors", pointStrokeColors);
-
-        JSONArray ykeys = new JSONArray();
-        ykeys.put("Anzahl");
-        jsonObject.put("ykeys", ykeys);
-        jsonObject.put("labels", ykeys);
-
-        JSONArray barColors = new JSONArray();
-        barColors.put("#f4f4f4");
-        jsonObject.put("barColors",barColors);
-
+    public JSONArray buildJSonDataForPrayerTogether(User user) throws JSONException{
         JSONArray data = new JSONArray();
+
         List<GlobalTicket> tickets = reportGlobalService.getGlobalTicketOwnerByMail(user.getEmail());
 
         for(GlobalTicket ticket : tickets){
-            JSONObject dataElem = new JSONObject();
-            dataElem.put("period" , "W-" +ticket.getWeek().substring(6,8));
-            dataElem.put("Anzahl", ticket.getMeditationNumber());
-            data.put(dataElem);
+            data.put(ticket.getPrayerMinutesTogether());
         }
-
-        jsonObject.put("data",data);
-
-        return jsonObject;
+        return data;
     }
 
-    public JSONObject buildJSonDataForMeditationNumber(User user , Long year) throws JSONException {
-        JSONObject jsonObject = new JSONObject();
-
-        jsonObject.put("element","morris-area-chart5");
-        jsonObject.put("xkey", "period");
-        jsonObject.put("pointSize", 0);
-        jsonObject.put("fillOpacity", 0.7);
-        jsonObject.put("behaveLikeLine", true);
-        jsonObject.put("gridLineColor", "#e0e0e0");
-        jsonObject.put("lineWidth", 0);
-        jsonObject.put("smooth", false);
-        jsonObject.put("hideHover", "auto");
-        jsonObject.put("resize",true);
-
-        JSONArray pointStrokeColors = new JSONArray();
-        pointStrokeColors.put("#ccc");
-        jsonObject.put("pointStrokeColors", pointStrokeColors);
-        jsonObject.put("lineColors", pointStrokeColors);
-
-        JSONArray ykeys = new JSONArray();
-        ykeys.put("Anzahl");
-        jsonObject.put("ykeys", ykeys);
-        jsonObject.put("labels", ykeys);
-
-        JSONArray barColors = new JSONArray();
-        barColors.put("#f4f4f4");
-        jsonObject.put("barColors",barColors);
-
+    public JSONArray buildJSonDataForPrayerTogether(User user , Long year) throws JSONException{
         JSONArray data = new JSONArray();
+
+        List<GlobalTicket> tickets = reportGlobalService.getGlobalTicketOwnerByMail(user.getEmail(), year);
+
+        for(GlobalTicket ticket : tickets){
+            data.put(ticket.getPrayerMinutesTogether());
+        }
+        return data;
+    }
+
+    public JSONArray buildJsonDataForMeditationNumber(User user){
+        JSONArray data = new JSONArray();
+
+        List<GlobalTicket> tickets = reportGlobalService.getGlobalTicketOwnerByMail(user.getEmail());
+
+        for(GlobalTicket ticket : tickets){
+            data.put(ticket.getMeditationNumber());
+        }
+        return data;
+    }
+
+    public JSONArray buildJsonDataForMeditationNumber(User user , Long year){
+        JSONArray data = new JSONArray();
+
+        List<GlobalTicket> tickets = reportGlobalService.getGlobalTicketOwnerByMail(user.getEmail(), year);
+
+        for(GlobalTicket ticket : tickets){
+            data.put(ticket.getMeditationNumber());
+        }
+        return data;
+    }
+
+    public JSONArray buildJsonDataForMeditationMinutes(User user){
+        JSONArray data = new JSONArray();
+
+        List<GlobalTicket> tickets = reportGlobalService.getGlobalTicketOwnerByMail(user.getEmail());
+
+        for(GlobalTicket ticket : tickets){
+            data.put(ticket.getMeditationMinutes());
+        }
+        return data;
+    }
+
+    public JSONArray buildJsonDataForMeditationMinutes(User user , Long year){
+        JSONArray data = new JSONArray();
+
         List<GlobalTicket> tickets = reportGlobalService.getGlobalTicketOwnerByMail(user.getEmail() , year);
 
         for(GlobalTicket ticket : tickets){
-            JSONObject dataElem = new JSONObject();
-            dataElem.put("period" , "W-" +ticket.getWeek().substring(6,8));
-            dataElem.put("Anzahl", ticket.getMeditationNumber());
-            data.put(dataElem);
+            data.put(ticket.getMeditationMinutes());
         }
+        return data;
+    }
 
-        jsonObject.put("data",data);
+    public JSONArray buildJsonDataForBibleChapter(User user) {
+        JSONArray data = new JSONArray();
 
-        return jsonObject;
+        List<GlobalTicket> tickets = reportGlobalService.getGlobalTicketOwnerByMail(user.getEmail());
+
+        for(GlobalTicket ticket : tickets){
+            data.put(ticket.getBibleChapter());
+        }
+        return data;
+    }
+
+    public JSONArray buildJsonDataForBibleChapter(User user , Long year) {
+        JSONArray data = new JSONArray();
+
+        List<GlobalTicket> tickets = reportGlobalService.getGlobalTicketOwnerByMail(user.getEmail(), year);
+
+        for(GlobalTicket ticket : tickets){
+            data.put(ticket.getBibleChapter());
+        }
+        return data;
+    }
+
+    public JSONArray buildJsonDataForBibleChapterMinutes(User user) {
+        JSONArray data = new JSONArray();
+
+        List<GlobalTicket> tickets = reportGlobalService.getGlobalTicketOwnerByMail(user.getEmail());
+
+        for(GlobalTicket ticket : tickets){
+            data.put(ticket.getBibleChapterMinutes());
+        }
+        return data;
+    }
+
+    public JSONArray buildJsonDataForBibleChapterMinutes(User user , Long year) {
+        JSONArray data = new JSONArray();
+
+        List<GlobalTicket> tickets = reportGlobalService.getGlobalTicketOwnerByMail(user.getEmail() , year);
+
+        for(GlobalTicket ticket : tickets){
+            data.put(ticket.getBibleChapterMinutes());
+        }
+        return data;
+    }
+
+    public JSONArray buildJsonDataForEvangelizationMinutes(User user) {
+        JSONArray data = new JSONArray();
+
+        List<GlobalTicket> tickets = reportGlobalService.getGlobalTicketOwnerByMail(user.getEmail());
+
+        for(GlobalTicket ticket : tickets){
+            data.put(ticket.getEvangelizationMinutes());
+        }
+        return data;
+    }
+
+    public JSONArray buildJsonDataForEvangelizationMinutes(User user , Long year) {
+        JSONArray data = new JSONArray();
+
+        List<GlobalTicket> tickets = reportGlobalService.getGlobalTicketOwnerByMail(user.getEmail() , year);
+
+        for(GlobalTicket ticket : tickets){
+            data.put(ticket.getEvangelizationMinutes());
+        }
+        return data;
+    }
+
+    public JSONArray buildJsonDataForEvangelizedPeople(User user) {
+        JSONArray data = new JSONArray();
+
+        List<GlobalTicket> tickets = reportGlobalService.getGlobalTicketOwnerByMail(user.getEmail());
+
+        for(GlobalTicket ticket : tickets){
+            data.put(ticket.getEvangelizedPeople());
+        }
+        return data;
+    }
+
+    public JSONArray buildJsonDataForEvangelizedPeople(User user , Long year) {
+        JSONArray data = new JSONArray();
+
+        List<GlobalTicket> tickets = reportGlobalService.getGlobalTicketOwnerByMail(user.getEmail() , year);
+
+        for(GlobalTicket ticket : tickets){
+            data.put(ticket.getEvangelizedPeople());
+        }
+        return data;
     }
 }

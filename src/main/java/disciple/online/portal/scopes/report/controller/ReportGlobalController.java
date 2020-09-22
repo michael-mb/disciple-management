@@ -72,7 +72,6 @@ public class ReportGlobalController {
         }
 
         model.addAttribute("reportGlobalDto",new ReportGlobalDto());
-
         return "report/reportGlobal";
     }
 
@@ -99,7 +98,8 @@ public class ReportGlobalController {
     public String handleReportGlobalPost(Authentication authentication ,
                                          @PathVariable long id,
                                          Model model,
-                                         @ModelAttribute("reportGlobalDto") @Valid final ReportGlobalDto reportGlobalDto){
+                                         @ModelAttribute("reportGlobalDto") @Valid final ReportGlobalDto reportGlobalDto,
+                                         RedirectAttributes redirectAttributes){
         if(authentication == null || !authentication.isAuthenticated())
             return "redirect:/";
 
@@ -127,7 +127,9 @@ public class ReportGlobalController {
                 e.printStackTrace();
             }
             reportGlobalService.updateGlobalTicketMessage(reportGlobalDto , ticket.get());
-            return "redirect:/report-overview";
+            redirectAttributes.addFlashAttribute("type", "success");
+            redirectAttributes.addFlashAttribute("text", languageService.getValue("report.update.success"));
+            return "redirect:/report/edit/"+id;
         }
 
         reportGlobalDto.setMessage(
@@ -136,7 +138,10 @@ public class ReportGlobalController {
         );
 
         reportGlobalService.updateGlobalTicket(reportGlobalDto , ticket.get());
-        return "redirect:/report-overview";
+
+        redirectAttributes.addFlashAttribute("type", "success");
+        redirectAttributes.addFlashAttribute("text", languageService.getValue("report.update.success"));
+        return "redirect:/report/edit/"+id;
     }
 
     @PostMapping("/report-global")

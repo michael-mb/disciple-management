@@ -41,9 +41,21 @@ public class ReportAnnualController {
         model.addAttribute("year" , year.get());
 
         model.addAttribute("chapters",reportGlobalService.getTotalBibleChapter(user.get(),year.get()));
-        model.addAttribute("prayerTime",convertMinutesInHours(reportGlobalService.getTotalPrayerMinutes(user.get(),year.get())));
+        model.addAttribute("bibleReadingHours",
+                convertMinutesInHours(reportGlobalService.getTotalBibleReadingMinutes(user.get(), year.get())));
+        model.addAttribute("totalPrayerAlone",
+                convertMinutesInHours(reportGlobalService.getTotalPrayerMinutesAlone(user.get(), year.get())));
+        model.addAttribute("totalPrayerTogether",
+                convertMinutesInHours(reportGlobalService.getTotalPrayerMinutesTogether(user.get(), year.get())));
+        model.addAttribute("prayerTime",
+                convertMinutesInHours(reportGlobalService.getTotalPrayerMinutesAlone(user.get(),year.get())));
         model.addAttribute("meditationNumber",reportGlobalService.getTotalMeditationNumber(user.get(),year.get()));
-        model.addAttribute("meditationTime",convertMinutesInHours(reportGlobalService.getTotalMeditationMinutes(user.get(),year.get())));
+        model.addAttribute("meditationTime",
+                convertMinutesInHours(reportGlobalService.getTotalMeditationMinutes(user.get(),year.get())));
+        model.addAttribute("evangelizationHours",
+                convertMinutesInHours(reportGlobalService.getTotalEvangelizationMinutes(user.get(), year.get())));
+        model.addAttribute("evangelizedPeople", reportGlobalService.getTotalEvangelizedPeople(user.get(), year.get()));
+        model.addAttribute("fastDays", reportGlobalService.getTotalFastDays(user.get(), year.get()));
 
         return "report/reportAnnual";
     }

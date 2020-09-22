@@ -10,6 +10,7 @@ import disciple.online.portal.scopes.user.entities.UserRole;
 import disciple.online.portal.scopes.user.forms.UserAuthDto;
 import disciple.online.portal.scopes.user.forms.UserRegistrationDto;
 import disciple.online.portal.scopes.user.services.UserService;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
-import java.util.Optional;
+import java.util.*;
 
 
 @Controller
@@ -70,32 +71,57 @@ public class AdministrationControlller {
             return "redirect:/";
         }
 
-        for (Object auth : authentication.getAuthorities()){
-            if(auth.toString().equals(UserRole.ADMIN.toString()) || auth.toString().equals(UserRole.DISCIPLEMAKER.toString())){
+        Optional<User> user = userService.findUserById(id);
+        Optional<User> authUser = userService.findUserByEmail(((User)authentication.getPrincipal()).getEmail());
 
-                User user = userService.findUserById(id).get();
-                model.addAttribute("user" , user);
+        if(user.isEmpty())
+            return "redirect:/";
+
+        if(authUser.isEmpty())
+            return "redirect:/";
+
+        for (Object auth : authentication.getAuthorities()){
+            if(auth.toString().equals(UserRole.ADMIN.toString()) || authUser.get().getDiscipleMakerMail().equals(user.get().getEmail())
+            || user.get().getDiscipleMakerMail().equals(authUser.get().getEmail())) {
+
+                model.addAttribute("user" , user.get());
                 model.addAttribute("discipleMakers" , userService.getAllDiscipleMaker());
                 model.addAttribute("userAuthDto",new UserAuthDto());
-                model.addAttribute("reports", reportGlobalService.getGlobalTicketOwnerByMail(user.getEmail()));
+                model.addAttribute("reports", reportGlobalService.getGlobalTicketOwnerByMail(user.get().getEmail()));
                 model.addAttribute("userService",userService);
-                model.addAttribute("disciples",userService.getAllDiscipleFromDiscipleMaker(user.getEmail()));
+                model.addAttribute("disciples",userService.getAllDiscipleFromDiscipleMaker(user.get().getEmail()));
                 if(error.isPresent())
                     model.addAttribute("error" , languageService.getValue("error.checkdata"));
 
-
-                JSONObject graph = new JSONObject();
-                JSONObject bibleChapter = new JSONObject();
-                JSONObject meditationMinutes = new JSONObject();
-                JSONObject meditationNumber = new JSONObject();
+                JSONArray categories = new JSONArray();
+                JSONArray fastData = new JSONArray();
+                JSONArray prayerAloneData = new JSONArray();
+                JSONArray prayerTogetherData = new JSONArray();
+                JSONArray meditationMinutesData = new JSONArray();
+                JSONArray meditationNumber = new JSONArray();
+                JSONArray bibleChapter = new JSONArray();
+                JSONArray bibleChapterMinutes = new JSONArray();
+                JSONArray evangelizedPeople = new JSONArray();
+                JSONArray evangelizationMinutes = new JSONArray();
 
                 if(!year.isPresent()){
                     model.addAttribute("year",2020);
                     try {
-                        graph = graphService.buildJSonDataForPrayer(user);
-                        bibleChapter = graphService.buildJSonDataForBibleReading(user);
-                        meditationMinutes = graphService.buildJSonDataForMeditationMinutes(user);
-                        meditationNumber = graphService.buildJSonDataForMeditationNumber(user);
+                        fastData = graphService.buildJSonDataForFast(user.get());
+                        categories = graphService.buildJSonCategories(user.get());
+
+                        prayerAloneData = graphService.buildJSonDataForPrayerAlone(user.get());
+                        prayerTogetherData = graphService.buildJSonDataForPrayerTogether(user.get());
+
+                        meditationMinutesData = graphService.buildJsonDataForMeditationMinutes(user.get());
+                        meditationNumber = graphService.buildJsonDataForMeditationNumber(user.get());
+
+                        bibleChapter = graphService.buildJsonDataForBibleChapter(user.get());
+                        bibleChapterMinutes = graphService.buildJsonDataForBibleChapterMinutes(user.get());
+
+                        evangelizedPeople = graphService.buildJsonDataForEvangelizedPeople(user.get());
+                        evangelizationMinutes = graphService.buildJsonDataForEvangelizationMinutes(user.get());
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -103,19 +129,37 @@ public class AdministrationControlller {
                 else{
                     model.addAttribute("year",year.get());
                     try {
-                        graph = graphService.buildJSonDataForPrayer(user , year.get());
-                        bibleChapter = graphService.buildJSonDataForBibleReading(user ,year.get());
-                        meditationMinutes = graphService.buildJSonDataForMeditationMinutes(user, year.get());
-                        meditationNumber = graphService.buildJSonDataForMeditationNumber(user, year.get());
+                        fastData = graphService.buildJSonDataForFast(user.get() , year.get());
+                        categories = graphService.buildJSonCategories(user.get() , year.get());
+
+                        prayerAloneData = graphService.buildJSonDataForPrayerAlone(user.get() , year.get());
+                        prayerTogetherData = graphService.buildJSonDataForPrayerTogether(user.get() , year.get());
+
+                        meditationMinutesData = graphService.buildJsonDataForMeditationMinutes(user.get(), year.get());
+                        meditationNumber = graphService.buildJsonDataForMeditationNumber(user.get(), year.get());
+
+                        bibleChapter = graphService.buildJsonDataForBibleChapter(user.get(), year.get());
+                        bibleChapterMinutes = graphService.buildJsonDataForBibleChapterMinutes(user.get() , year.get());
+
+                        evangelizedPeople = graphService.buildJsonDataForEvangelizedPeople(user.get(), year.get());
+                        evangelizationMinutes = graphService.buildJsonDataForEvangelizationMinutes(user.get(), year.get());
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
 
-                model.addAttribute("graph",graph.toString());
-                model.addAttribute("bibleChapter",bibleChapter.toString());
-                model.addAttribute("meditationMinutes",meditationMinutes.toString());
+                model.addAttribute("fastData" , fastData.toString());
+                model.addAttribute("prayerAloneData", prayerAloneData.toString());
+                model.addAttribute("prayerTogetherData",prayerTogetherData.toString());
+                model.addAttribute("meditationMinutes",meditationMinutesData.toString());
                 model.addAttribute("meditationNumber",meditationNumber.toString());
+                model.addAttribute("categories",categories.toString());
+                model.addAttribute("bibleChapter",bibleChapter.toString());
+                model.addAttribute("bibleChapterMinutes",bibleChapterMinutes.toString());
+                model.addAttribute("evangelizedPeople",evangelizedPeople.toString());
+                model.addAttribute("evangelizationMinutes",evangelizationMinutes.toString());
+
                 return "administration/profile";
             }
         }
@@ -168,4 +212,15 @@ public class AdministrationControlller {
 
         return "redirect:/users/edit/"+id;
     }
+
+    @GetMapping("/users/search/{text}")
+    public String handleSearchUser(@PathVariable String text , Model model){
+        Set<User> users = new HashSet<>();;
+
+        if(!"empty".equals(text))
+            users = userService.searchAllUsersWith(text);
+        
+        model.addAttribute("users",users);
+        return "administration/users";
+    };
 }

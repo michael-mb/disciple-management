@@ -103,7 +103,8 @@ public class ReportDetailController {
     public String handleReportDetailEditPost(Authentication authentication ,
                                              Model model,
                                              @PathVariable long id,
-                                             @ModelAttribute("reportDetailDto") @Valid final ReportDetailDto reportDetailDto){
+                                             @ModelAttribute("reportDetailDto") @Valid final ReportDetailDto reportDetailDto,
+                                             RedirectAttributes redirectAttributes){
 
         if(authentication == null || !authentication.isAuthenticated())
             return "redirect:/";
@@ -129,6 +130,7 @@ public class ReportDetailController {
             return "redirect:/report-overview";
         }
 
+        if(!reportDetailDto.getMessage().isEmpty())
         reportDetailDto.setMessage(
                 ticket.get().getMessage() + newLine +
                         user.get().getFirstname() + " " + user.get().getLastname() + ": " + reportDetailDto.getMessage()
@@ -136,7 +138,11 @@ public class ReportDetailController {
 
         reportDetailService.updateDetailTicket(reportDetailDto , ticket.get());
 
-        return "report/detailTicketDetail";
+
+        redirectAttributes.addFlashAttribute("type", "success");
+        redirectAttributes.addFlashAttribute("text", languageService.getValue("report.update.success"));
+
+        return "redirect:/report-detail-update/edit/"+id;
     }
 
     @GetMapping("/resume-report")

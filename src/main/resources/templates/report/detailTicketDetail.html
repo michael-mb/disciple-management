@@ -1,13 +1,8 @@
 <!DOCTYPE html>
 <html lang="de" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" type="image/png" sizes="16x16" href="../static/plugins/images/favicon.png">
-    <title>Disciple-Online Portal</title>
+    <title>Ticket Detail</title>
+    <th:block th:insert="util/import.html :: meta" ></th:block>
     <th:block th:insert="util/import.html :: head"></th:block>
     <th:block th:insert="util/import.html :: login"></th:block>
 </head>
@@ -28,16 +23,19 @@
                 <div class="col-md-8 col-xs-12 white-box-container">
                     <div class="white-box">
                         <div class="row">
-                            <form class="form-horizontal form-material" th:action="@{/rpeort-detail-update/edit/}+${ticket.id}" th:object="${reportDetailDto}" method="post">
+                            <h3 class="box-title big">IM DETAIL ABLEGEN</h3><br>
+                            <h4>1 - DATUM</h4>
+                            <br>
+                            <form class="form-horizontal form-material" th:action="@{/report-detail-update/edit/}+${ticket.id}" th:object="${reportDetailDto}" method="post">
                                 <div class="row ">
                                     <div class="form-group col-sm-12 col-md-6">
                                         <label class="col-md-12" for="startDate">
                                             Anfangsdatum</label>
                                         <div class="col-md-12 m-t-10" id="startDateWrapper">
-                                            <input class="" th:if="${!disable}" type="date" id="startDate" name="startDate" required>
+                                            <input class="" th:if="${!disable}" type="date" id="startDate" th:value="${ticket.startDate}"name="startDate" required>
                                         </div>
                                         <div class="col-md-12 m-t-10" id="startDateWrapper">
-                                            <input class="" th:if="${disable}" type="date" id="startDate" name="startDate" required>
+                                            <input class="" th:if="${disable}" type="date" id="startDate" th:value="${ticket.startDate}" name="startDate" required>
                                         </div>
                                     </div>
 
@@ -45,15 +43,16 @@
                                         <label class="col-md-12" for="endDate">
                                             Enddatum</label>
                                         <div class="col-md-12 m-t-10" id="endDateWrapper">
-                                            <input class="" th:if="${!disable}" type="date" id="endDate" name="endDate" required>
+                                            <input class="" th:if="${!disable}" th:value="${ticket.endDate}" type="date" id="endDate" name="endDate" required>
                                         </div>
                                         <div class="col-md-12 m-t-10" id="endDateWrapper">
-                                            <input class="" th:if="${disable}" type="date" id="endDate" name="endDate" required>
+                                            <input class="" th:if="${disable}" th:value="${ticket.endDate}" type="date" id="endDate" name="endDate" required>
                                         </div>
                                     </div>
                                 </div>
+                                <br>
 
-
+                                <h4>2 - LESUNG</h4><br>
                                 <div class="form-group">
                                     <label class="col-md-12" for="bibleChapter">Gelesene Bibelkapitel</label>
                                     <div class="col-md-12">
@@ -63,17 +62,53 @@
                                                class="form-control form-control-line" th:value="${ticket.bibleChapter}" disabled required>
                                     </div>
                                 </div>
-
                                 <div class="form-group">
-                                    <label class="col-md-12" for="prayerMinutes">Minuten des Gebets</label>
+                                    <label class="col-md-12" for="bibleChapterMinutes">Minuten beim Bibellesen</label>
                                     <div class="col-md-12">
-                                        <input th:if="${!disable}" min="0" type="number" name="prayerMinutes" id="prayerMinutes"
-                                               class="form-control form-control-line" th:value="${ticket.prayerMinutes}" required>
-                                        <input th:if="${disable}" min="0" type="number" name="prayerMinutes" id="prayerMinutes"
-                                               class="form-control form-control-line" th:value="${ticket.prayerMinutes}" disabled required>
+                                        <input th:if="${!disable}" min="0" type="number" name="bibleChapterMinutes" id="bibleChapterMinutes"
+                                               class="form-control form-control-line" th:value="${ticket.bibleChapterMinutes}" required>
+                                        <input th:if="${disable}" min="0" type="number" name="bibleChapterMinutes" id="bibleChapterMinutes"
+                                               class="form-control form-control-line" th:value="${ticket.bibleChapterMinutes}" disabled required>
                                     </div>
                                 </div>
 
+                                <div class="form-group">
+                                    <label class="col-md-12">Buch</label>
+                                    <div class="col-md-12">
+                                        <input th:if="${!disable}" type="text" name="book" id="book"
+                                               class="form-control form-control-line" th:value="${ticket.book}">
+                                        <input th:if="${disable}" type="text" name="book" id="book"
+                                               class="form-control form-control-line" th:value="${ticket.book}" disabled>
+                                    </div>
+                                </div>
+                                <br>
+
+                                <h4>3 - GEBET</h4>
+                                <br>
+                                <div class="form-group">
+                                    <label class="col-md-12" for="prayerMinutesAlone">Gebet Minuten Allein</label>
+                                    <div class="col-md-12">
+                                        <input th:if="${!disable}"  th:value="${ticket.prayerMinutesAlone}" min="0" type="number" name="prayerMinutesAlone" id="prayerMinutesAlone"
+                                               class="form-control form-control-line" required>
+                                        <input th:if="${disable}"  th:value="${ticket.prayerMinutesAlone}"min="0" type="number" name="prayerMinutesAlone" id="prayerMinutesAlone"
+                                               class="form-control form-control-line" disabled required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-12" for="prayerMinutesTogether">Gebet Minuten in Gruppen</label>
+                                    <div class="col-md-12">
+                                        <input th:if="${!disable}"  th:value="${ticket.prayerMinutesTogether}" min="0"
+                                               type="number" name="prayerMinutesTogether" id="prayerMinutesTogether"
+                                               class="form-control form-control-line" required>
+                                        <input th:if="${disable}" th:value="${ticket.prayerMinutesTogether}" min="0"
+                                               type="number" name="prayerMinutesTogether" id="prayerMinutesTogether"
+                                               class="form-control form-control-line" disabled required>
+                                    </div>
+                                </div>
+                                <br>
+
+                                <h4>4 - MEDITATION</h4>
+                                <br>
                                 <div class="form-group">
                                     <label class="col-md-12" for="meditationNumber">Anzahl der Meditation</label>
                                     <div class="col-md-12">
@@ -93,20 +128,63 @@
                                                class="form-control form-control-line" th:value="${ticket.meditationMinutes}" required disabled>
                                     </div>
                                 </div>
+                                <br>
 
+                                <h4>5 - EVANGELISIERUNG</h4>
+                                <br>
                                 <div class="form-group">
-                                    <label class="col-md-12">Buch</label>
+                                    <label class="col-md-12" for="evangelizationMinutes">Minuten in der Evangelisierung</label>
                                     <div class="col-md-12">
-                                        <input th:if="${!disable}" type="text" name="book" id="book"
-                                               class="form-control form-control-line" th:value="${ticket.book}">
-                                        <input th:if="${disable}" type="text" name="book" id="book"
-                                               class="form-control form-control-line" th:value="${ticket.book}" disabled>
+                                        <input min="0" type="number" th:value="${ticket.evangelizationMinutes}" name="evangelizationMinutes" id="evangelizationMinutes"
+                                               th:if="${!disable}" class="form-control form-control-line" required>
+                                        <input min="0" type="number" name="evangelizationMinutes" th:value="${ticket.evangelizationMinutes}" id="evangelizationMinutes"
+                                               th:if="${disable}" class="form-control form-control-line" disabled required>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="message" class="col-md-12">Nachrichten senden</label>
+                                    <label class="col-md-12" for="evangelizedPeople">Evangelisierte Menschen</label>
                                     <div class="col-md-12">
+                                        <input min="0" type="number" th:value="${ticket.evangelizedPeople}" name="evangelizedPeople" id="evangelizedPeople"
+                                               th:if="${!disable}" class="form-control form-control-line" required>
+                                        <input min="0" type="number" th:value="${ticket.evangelizedPeople}" name="evangelizedPeople" id="evangelizedPeople"
+                                               th:if="${disable}" class="form-control form-control-line" disabled required>
+
+                                    </div>
+                                </div>
+                                <br>
+
+                                <h4>6 - FASTEN</h4>
+                                <br>
+                                <div class="form-group">
+                                    <label class="col-md-12" for="fast">Fasten (Tagen)</label>
+                                    <div class="col-md-12">
+                                        <input min="0" th:value="${ticket.fast}" type="number" name="fast" id="fast"
+                                               th:if="${!disable}" class="form-control form-control-line" required>
+                                        <input min="0" th:value="${ticket.fast}" type="number" name="fast" id="fast"
+                                               th:if="${disable}" class="form-control form-control-line" disabled required>
+                                    </div>
+                                </div>
+
+                                <h4>! - AM WICHTIGSTEN</h4>
+                                <div class="form-group">
+                                    <label for="message" class="col-md-12" style="position: absolute;">Nachricht
+                                        <div class="tooltip">
+                                            <picture>
+                                                <source type="image/webp" srcset="/plugins/images/info.webp">
+                                                <source type="image/png" srcset="/plugins/images/info.png">
+                                                <img alt="" height="20" src="/plugins/images/info.png" width="20">
+                                            </picture>
+                                            <span class="tooltiptext"> Ich erwarte, dass du in diesem Feld die Folgenden Punkten bearbeitest:
+                                                <br> » Frage 1: Wie geht es dir körperlich ?
+                                                <br> » Frage 2: Kommmst du zurecht mit der Schule/Uni ?
+                                                <br> » Frage 3: Wie ist deine Moral?
+                                                <br> » Frage 4: Wie sind deine Gefühle und deine Belastungen?
+                                                <br> » Frage 5: Wie fühlst du deine Gemeinschaft mit Gott? Hast du Blockaden?
+                                                <br> BONUS: Eine Nachricht für dein DiscipleMaker ?</span>
+                                        </div>
+                                    </label>
+                                    <div class="col-md-12" style="margin-top: 31px;">
                                         <textarea rows="5" name="message" id="message" class="form-control form-control-line"></textarea>
                                     </div>
                                 </div>

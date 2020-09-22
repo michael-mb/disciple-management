@@ -82,6 +82,7 @@ public class RegisterController {
 
         try {
             mailService.notifyUserRegistration(userRegistrationDto.email);
+            mailService.notifyDiscipleMakerOnNewDisciple(userRegistrationDto.email,userRegistrationDto.discipleMakerMail);
         } catch (MessagingException e) {
             e.printStackTrace();
         }

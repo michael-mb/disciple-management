@@ -32,7 +32,7 @@ Some tests have been implemented with JUNIT and the Selenium Framework. Perform 
 . Run the Tests in the Java Test folder
 
 === SMTP
-+ Don't forget to configure SMTP in application.properties file for the Email notificaion System
+> Don't forget to configure SMTP in application.properties file for the Email notificaion System
 
 === LEARN MORE
 

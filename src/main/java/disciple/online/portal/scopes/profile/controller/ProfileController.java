@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.swing.text.html.Option;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -39,14 +40,21 @@ public class ProfileController {
         }
 
         Optional<User> user = userService.findUserByEmail(((User)authentication.getPrincipal()).getEmail());
-        if(!user.isPresent())
+
+        if(user.isEmpty())
             return "redirect:/";
 
         if(!((User)authentication.getPrincipal()).getEmail().equals(user.get().getEmail())) {
             return "redirect:/";
         }
 
+        Optional<User> discipleMaker = userService.findUserByEmail(user.get().getDiscipleMakerMail());
+
+        if(discipleMaker.isEmpty())
+            return "redirect:/";
+
         model.addAttribute("user",user.get());
+        model.addAttribute("discipleMaker", discipleMaker.get());
         model.addAttribute("userRegistrationDto" , new UserRegistrationDto());
         model.addAttribute("discipleMakers", userService.getAllDiscipleMaker());
         model.addAttribute("disciples",userService.getAllDiscipleFromDiscipleMaker(user.get().getEmail()));

@@ -22,9 +22,11 @@ public class ReportGlobalService {
         if(user == null) throw new NullPointerException("user should not be null");
 
         GlobalTicket globalTicket = new GlobalTicket(new HashSet<ReportStatus>(Arrays.asList(ReportStatus.NOTSEEN)),
-                reportGlobalDto.week ,reportGlobalDto.bibleChapter,
-                reportGlobalDto.meditationNumber , reportGlobalDto.meditationMinutes , reportGlobalDto.prayerMinutes , reportGlobalDto.book ,
-                reportGlobalDto.message , user.getEmail() , user.getDiscipleMakerMail());
+                reportGlobalDto.week ,reportGlobalDto.bibleChapter, reportGlobalDto.bibleChapterMinutes,
+                reportGlobalDto.book, reportGlobalDto.prayerMinutesAlone, reportGlobalDto.prayerMinutesTogether,
+                reportGlobalDto.meditationNumber, reportGlobalDto.meditationMinutes, reportGlobalDto.evangelizationMinutes,
+                reportGlobalDto.evangelizedPeople , reportGlobalDto.message,reportGlobalDto.fast,
+                user.getEmail() , user.getDiscipleMakerMail());
 
         reportGlobalRepository.save(globalTicket);
     }
@@ -32,13 +34,17 @@ public class ReportGlobalService {
     public void updateGlobalTicket(ReportGlobalDto reportGlobalDto , GlobalTicket ticket){
         if(reportGlobalDto == null) throw new NullPointerException("reportGlobalDto should not be null");
 
-        ticket.setMeditationMinutes(reportGlobalDto.getMeditationMinutes());
-        ticket.setPrayerMinutes(reportGlobalDto.getPrayerMinutes());
-        ticket.setBook(reportGlobalDto.book);
-        ticket.setBibleChapter(reportGlobalDto.bibleChapter);
-        ticket.setMeditationNumber(reportGlobalDto.meditationNumber);
-        ticket.setMessage(reportGlobalDto.message);
         ticket.setWeek(reportGlobalDto.week);
+        ticket.setBibleChapter(reportGlobalDto.bibleChapter);
+        ticket.setBibleChapterMinutes(reportGlobalDto.bibleChapterMinutes);
+        ticket.setBook(reportGlobalDto.book);
+        ticket.setPrayerMinutesAlone(reportGlobalDto.getPrayerMinutesAlone());
+        ticket.setPrayerMinutesTogether(reportGlobalDto.getPrayerMinutesTogether());
+        ticket.setMeditationNumber(reportGlobalDto.meditationNumber);
+        ticket.setMeditationMinutes(reportGlobalDto.getMeditationMinutes());
+        ticket.setEvangelizationMinutes(reportGlobalDto.evangelizationMinutes);
+        ticket.setEvangelizedPeople(reportGlobalDto.evangelizedPeople);
+        ticket.setMessage(reportGlobalDto.message);
 
         reportGlobalRepository.save(ticket);
     }
@@ -89,15 +95,25 @@ public class ReportGlobalService {
     }
 
 
-    public int getTotalPrayerMinutes(User user , Long year){
+    public int getTotalPrayerMinutesAlone(User user , Long year){
         List<GlobalTicket> tickets = getGlobalTicketOwnerByMail(user.getEmail(),year);
-        int prayerMinutes = 0;
+        int prayerMinutesAlone = 0;
 
         for(GlobalTicket ticket : tickets){
-            prayerMinutes += ticket.getPrayerMinutes();
+            prayerMinutesAlone += ticket.getPrayerMinutesAlone();
         }
-        return prayerMinutes;
-    };
+        return prayerMinutesAlone;
+    }
+
+    public int getTotalPrayerMinutesTogether(User user , Long year){
+        List<GlobalTicket> tickets = getGlobalTicketOwnerByMail(user.getEmail(),year);
+        int prayerMinutesTogether = 0;
+
+        for(GlobalTicket ticket : tickets){
+            prayerMinutesTogether += ticket.getPrayerMinutesTogether();
+        }
+        return prayerMinutesTogether;
+    }
 
     public int getTotalMeditationMinutes(User user , Long year){
         List<GlobalTicket> tickets = getGlobalTicketOwnerByMail(user.getEmail(),year);
@@ -107,7 +123,7 @@ public class ReportGlobalService {
             meditationMinutes += ticket.getMeditationMinutes();
         }
         return meditationMinutes;
-    };
+    }
 
     public int getTotalMeditationNumber(User user , Long year){
         List<GlobalTicket> tickets = getGlobalTicketOwnerByMail(user.getEmail(),year);
@@ -117,7 +133,7 @@ public class ReportGlobalService {
             meditation += ticket.getMeditationNumber();
         }
         return meditation;
-    };
+    }
 
     public int getTotalBibleChapter(User user , Long year){
         List<GlobalTicket> tickets = getGlobalTicketOwnerByMail(user.getEmail(),year);
@@ -127,9 +143,47 @@ public class ReportGlobalService {
             chapters += ticket.getBibleChapter();
         }
         return chapters;
-    };
+    }
 
+    public int getTotalBibleReadingMinutes(User user , Long year){
+        List<GlobalTicket> tickets = getGlobalTicketOwnerByMail(user.getEmail(),year);
+        int minutes = 0;
 
+        for(GlobalTicket ticket : tickets){
+            minutes += ticket.getBibleChapterMinutes();
+        }
+        return minutes;
+    }
+
+    public int getTotalEvangelizationMinutes(User user , Long year){
+        List<GlobalTicket> tickets = getGlobalTicketOwnerByMail(user.getEmail(),year);
+        int minutes = 0;
+
+        for(GlobalTicket ticket : tickets){
+            minutes += ticket.getEvangelizationMinutes();
+        }
+        return minutes;
+    }
+
+    public int getTotalEvangelizedPeople(User user , Long year){
+        List<GlobalTicket> tickets = getGlobalTicketOwnerByMail(user.getEmail(),year);
+        int minutes = 0;
+
+        for(GlobalTicket ticket : tickets){
+            minutes += ticket.getEvangelizedPeople();
+        }
+        return minutes;
+    }
+
+    public int getTotalFastDays(User user , Long year){
+        List<GlobalTicket> tickets = getGlobalTicketOwnerByMail(user.getEmail(),year);
+        int days = 0;
+
+        for(GlobalTicket ticket : tickets){
+            days += ticket.getFast();
+        }
+        return days;
+    }
 
     public Optional<GlobalTicket> getGlobalTicketById(long id){
         return reportGlobalRepository.findById(id);

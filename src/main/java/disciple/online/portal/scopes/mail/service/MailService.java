@@ -11,10 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.mail.*;
 import javax.mail.internet.*;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Properties;
 
@@ -102,6 +104,56 @@ public class MailService {
             String msg  = "<p>Sehr geehrte(r) "+discipleMaker.get().getFirstname() + " " + discipleMaker.get().getLastname() + ",<br>"
                     + "Sie haben ein Bericht von <span style='font-weight: bold'>" +disciple.get().getFirstname()+" "
                     +disciple.get().getLastname()+"</span> bekommen<br>"
+                    + "klicken Sie hier um diese zu sehen: <a href='http://"+ url +"'>Disciple Online Portal</a><br>"
+                    + "Mit freundlichen Grüßen.<br>"
+                    + "Disciple Online</p>"
+                    + "<br><br>"
+                    + "sie erreichen uns unter: <a href='http://"+ url +"'>Disciple Online Portal</a>";
+
+            MimeBodyPart mbp = new MimeBodyPart();
+            mbp.setText(msg,"UTF-8", "html");
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(mbp);
+            message.setContent(multipart);
+
+        } catch (AddressException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (MessagingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        setTimeout(() -> {
+            try {
+                Transport.send(message);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+        }, 200);
+
+        LOG.info("Message sent succesfully");
+    }
+
+    public void notifyDiscipleMakerOnNewDisciple(String discipleMail , String discipleMakerMail) throws MessagingException {
+        Optional<User> disciple = userService.findUserByEmail(discipleMail);
+        Optional<User> discipleMaker = userService.findUserByEmail(discipleMakerMail);
+        if (!disciple.isPresent() || !discipleMaker.isPresent())
+            return;
+
+        LOG.info("Preparing to send Mail");
+        createSession();
+
+        Message message = new MimeMessage(session);
+        try {
+            message.setFrom(new InternetAddress((from)));
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(discipleMakerMail));
+            message.setSubject("Sie haben einen neuen Nachfolger "+disciple.get().getFirstname()+" "
+                    +disciple.get().getLastname()+" bekommen");
+
+            String msg  = "<p>Sehr geehrte(r) "+discipleMaker.get().getFirstname() + " " + discipleMaker.get().getLastname() + ",<br>"
+                    + "Sie haben einen neuen Nachfolger <span style='font-weight: bold'>" +disciple.get().getFirstname()+" "
+                    +disciple.get().getLastname()+"</span> bekommen. Diese Person hat Sie als Disciplemaker ausgewählt.<br>"
                     + "klicken Sie hier um diese zu sehen: <a href='http://"+ url +"'>Disciple Online Portal</a><br>"
                     + "Mit freundlichen Grüßen.<br>"
                     + "Disciple Online</p>"
@@ -272,6 +324,48 @@ public class MailService {
         }, 200);
 
         LOG.info("Message sent succesfully");
+    }
+
+    @Scheduled(cron = "0 0 22 * * 7")
+    public void weeklyReportNotification(){
+        for(User user : userService.getAllDisciple()){
+            LOG.info("Preparing to send Mail");
+            createSession();
+            Message message = new MimeMessage(session);
+            try {
+                message.setFrom(new InternetAddress((from)));
+                message.setRecipient(Message.RecipientType.TO, new InternetAddress(user.getEmail()));
+                message.setSubject("Haben Sie diese Woche schon Ihre Bericht abgelegt ?");
+                String msg  = "<p>Sehr geehrte(r) "+user.getFirstname() + " " + user.getLastname() + ",<br>"
+                        + "Haben Sie schon Ihre Bericht von dieser Woche abgelegt ?<br>"
+                        + "Wenn nicht , einfach hier klicken und weitermachen : <a href='http://"+ url +"'>Disciple Online Portal</a><br>"
+                        + "Mit freundlichen Grüßen.<br>"
+                        + "Disciple Online</p>"
+                        + "<br><br>"
+                        + "sie erreichen uns unter: <a href='http://"+ url +"'>Disciple Online Portal</a>";
+
+                MimeBodyPart mbp = new MimeBodyPart();
+                mbp.setText(msg,"UTF-8", "html");
+                Multipart multipart = new MimeMultipart();
+                multipart.addBodyPart(mbp);
+                message.setContent(multipart);
+
+                } catch (AddressException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (MessagingException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                setTimeout(() -> {
+                    try {
+                        Transport.send(message);
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
+                    }
+                }, 200);
+            LOG.info("Message sent succesfully");
+        };
     }
 
     private void createSession() {

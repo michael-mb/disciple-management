@@ -19,29 +19,71 @@ public class ReportDetailDto {
 
     public long bibleChapter;
 
-    public long meditationNumber;
-
-    private long meditationMinutes;
-
-    private long prayerMinutes;
+    public long bibleChapterMinutes;
 
     @Size(max = 200, message = "{error.invalid.length}")
     @Pattern(regexp = Regexes.TEXT, message = "{error.invalid.field.text}")
     @Value("")
     public String book;
 
+    public long prayerMinutesAlone;
+
+    public long prayerMinutesTogether;
+
+    public long meditationNumber;
+
+    public long meditationMinutes;
+
+    public long evangelizationMinutes;
+
+    public long evangelizedPeople;
+
+
     @Size(max = 200, message = "{error.invalid.length}")
     @Pattern(regexp = Regexes.TEXT, message = "{error.invalid.field.text}")
     @Value("")
     public String message;
 
+    public long fast;
 
-    public long getBibleChapter() {
-        return bibleChapter;
+    public String getMessage() {
+        return message;
     }
 
-    public void setBibleChapter(long bibleChapter) {
-        this.bibleChapter = bibleChapter;
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public long getFast() {
+        return fast;
+    }
+
+    public void setFast(long fast) {
+        this.fast = fast;
+    }
+
+    public long getEvangelizedPeople() {
+        return evangelizedPeople;
+    }
+
+    public void setEvangelizedPeople(long evangelizedPeople) {
+        this.evangelizedPeople = evangelizedPeople;
+    }
+
+    public long getEvangelizationMinutes() {
+        return evangelizationMinutes;
+    }
+
+    public void setEvangelizationMinutes(long evangelizationMinutes) {
+        this.evangelizationMinutes = evangelizationMinutes;
+    }
+
+    public long getMeditationMinutes() {
+        return meditationMinutes;
+    }
+
+    public void setMeditationMinutes(long meditationMinutes) {
+        this.meditationMinutes = meditationMinutes;
     }
 
     public long getMeditationNumber() {
@@ -52,6 +94,22 @@ public class ReportDetailDto {
         this.meditationNumber = meditationNumber;
     }
 
+    public long getPrayerMinutesTogether() {
+        return prayerMinutesTogether;
+    }
+
+    public void setPrayerMinutesTogether(long prayerMinutesTogether) {
+        this.prayerMinutesTogether = prayerMinutesTogether;
+    }
+
+    public long getPrayerMinutesAlone() {
+        return prayerMinutesAlone;
+    }
+
+    public void setPrayerMinutesAlone(long prayerMinutesAlone) {
+        this.prayerMinutesAlone = prayerMinutesAlone;
+    }
+
     public String getBook() {
         return book;
     }
@@ -60,12 +118,21 @@ public class ReportDetailDto {
         this.book = book;
     }
 
-    public String getMessage() {
-        return message;
+    public long getBibleChapterMinutes() {
+        return bibleChapterMinutes;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setBibleChapterMinutes(long bibleChapterMinutes) {
+        this.bibleChapterMinutes = bibleChapterMinutes;
+    }
+
+
+    public long getBibleChapter() {
+        return bibleChapter;
+    }
+
+    public void setBibleChapter(long bibleChapter) {
+        this.bibleChapter = bibleChapter;
     }
 
     public String getStartDate() {
@@ -84,33 +151,22 @@ public class ReportDetailDto {
         this.endDate = endDate;
     }
 
-    public long getMeditationMinutes() {
-        return this.meditationMinutes;
-    }
-
-    public long getPrayerMinutes() {
-        return this.prayerMinutes;
-    }
-
-    public void setMeditationMinutes(long meditationMinutes) {
-        this.meditationMinutes = meditationMinutes;
-    }
-
-    public void setPrayerMinutes(long prayerMinutes) {
-        this.prayerMinutes = prayerMinutes;
-    }
-
     @Override
     public String toString(){
-        return "ReportDetailDto{"+
-                "startDate='" + startDate + '\'' +
-                ", endDate='" + endDate + '\'' +
+        return "ReportDetailDto{" +
+                ", startDate='" + startDate+ '\'' +
+                ", endDate='" + endDate+ '\'' +
                 ", bibleChapter='" + bibleChapter + '\'' +
+                ", bibleChapterMinutes='" + bibleChapterMinutes + '\'' +
+                ", book='" + book + '\'' +
+                ", prayerMinutesAlone='" + prayerMinutesAlone + '\'' +
+                ", prayerMinutesAlone='" + prayerMinutesTogether + '\'' +
                 ", meditationNumber='" + meditationNumber + '\'' +
                 ", meditationMinutes='" + meditationMinutes + '\'' +
-                ", prayerMinutes='" + prayerMinutes + '\'' +
-                ", book='" + book + '\'' +
-                ", message='" + message +
-                '}' ;
+                ", evangelizationMinutes='" + evangelizationMinutes + '\'' +
+                ", evangelizedPeople='" + evangelizedPeople + '\'' +
+                ", message'" + message + '\'' +
+                '}';
     }
+
 }

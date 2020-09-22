@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -106,9 +104,33 @@ public class UserService {
         return findUserByEmail(email).isPresent();
     }
 
+    public Set<User> searchAllUsersWith(String search){
+        Set<User> users = new HashSet<>();
+
+        for(String str : search.trim().split(" ") ) {
+            if(!str.isEmpty()){
+                users.addAll(userRepository.findUsersByEmailContaining(str.toLowerCase()));
+                users.addAll(userRepository.findUsersByFirstnameContaining(str.toLowerCase()));
+                users.addAll(userRepository.findUsersByLastnameContaining(str.toLowerCase()));
+
+                users.addAll(userRepository.findUsersByEmailContaining(str.toUpperCase()));
+                users.addAll(userRepository.findUsersByFirstnameContaining(str.toUpperCase()));
+                users.addAll(userRepository.findUsersByLastnameContaining(str.toUpperCase()));
+
+                users.addAll(userRepository.findUsersByEmailContaining(capitalize(str)));
+                users.addAll(userRepository.findUsersByFirstnameContaining(capitalize(str)));
+                users.addAll(userRepository.findUsersByLastnameContaining(capitalize(str)));
+            }
+        }
+
+        return users;
+    }
     public void deleteUser(User user){
         if (user == null) throw new NullPointerException("User must not be null.");
         userRepository.deleteById(user.getId());
     }
 
+    private String capitalize(String str){
+        return str.substring(0, 1).toUpperCase() + str.substring(1);
+    }
 }

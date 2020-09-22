@@ -44,7 +44,6 @@ public class LoginController {
     @PostMapping("/login")
     public String handleLoginPost(@ModelAttribute("loginDto") @Valid final LoginDto loginDto,
                                   HttpServletRequest httpServletRequest,
-                                  Model model,
                                   RedirectAttributes redirectAttributes){
         try {
             httpServletRequest.login(loginDto.email.toLowerCase().trim(), loginDto.password);
@@ -74,11 +73,7 @@ public class LoginController {
     }
 
     @GetMapping("/logout")
-    public String handleLogout(@ModelAttribute("login") final LoginDto loginDto,
-                               Model model,
-                               HttpServletRequest httpServletRequest,
-                               Authentication authentication) {
-
+    public String handleLogout(Authentication authentication) {
         if (authentication != null && authentication.isAuthenticated()) {
             try {
                 StaticUtils.logoutAndInvalidateSession();
@@ -86,7 +81,6 @@ public class LoginController {
                 logger.error("Error at log out of '" + authentication.getName() + "'.", e);
             }
         }
-
         return "redirect:/";
     }
 }
