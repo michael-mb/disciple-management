@@ -16,7 +16,7 @@
         <div class="container-fluid">
             <div class="row bg-title">
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">Disciple-Online Portal</h4> </div>
+                    <h4 class="page-title" th:text="#{report}">Disciple-Online Portal</h4> </div>
             </div>
 
             <div class="row">
@@ -26,7 +26,7 @@
                         <div class="white-box">
                             <div class="col-in row">
                                 <div class="col-md-6 col-sm-6 col-xs-6"> <i data-icon="E" class="linea-icon linea-basic"></i>
-                                    <h5 class="text-danger vb">ALLGEMEIN ABLEGEN </h5> </div>
+                                    <h5 class="text-danger vb" th:text="#{report.reportGlobal}"></h5> </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
                                     <h3 class="counter text-right m-t-15 text-danger" th:text="${reportGlobal.size()}">10</h3> </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -46,7 +46,7 @@
                         <div class="white-box">
                             <div class="col-in row">
                                 <div class="col-md-6 col-sm-6 col-xs-6"> <i class="linea-icon linea-basic" data-icon="&#xe01b;"></i>
-                                    <h5 class="text-muted vb">IM DETAIL ABLEGEN</h5> </div>
+                                    <h5 class="text-muted vb" th:text="#{report.reportDetail}"></h5> </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
                                     <h3 class="counter text-right m-t-15 text-megna"th:text="${reportDetail.size()}">169</h3> </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">

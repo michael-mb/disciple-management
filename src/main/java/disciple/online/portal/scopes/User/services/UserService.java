@@ -1,5 +1,7 @@
 package disciple.online.portal.scopes.user.services;
 
+import disciple.online.portal.scopes.report.services.ReportDetailService;
+import disciple.online.portal.scopes.report.services.ReportGlobalService;
 import disciple.online.portal.scopes.token.TokenServiceImpl;
 import disciple.online.portal.scopes.user.entities.User;
 import disciple.online.portal.scopes.user.entities.UserRole;
@@ -23,6 +25,13 @@ public class UserService {
 
     @Autowired
     public  PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public ReportGlobalService reportGlobalService;
+
+    @Autowired
+    public ReportDetailService reportDetailService;
+
 
     public void saveUser(final User user){
         if(user == null) throw new NullPointerException("User must not be null");
@@ -122,11 +131,13 @@ public class UserService {
                 users.addAll(userRepository.findUsersByLastnameContaining(capitalize(str)));
             }
         }
-
         return users;
     }
+
     public void deleteUser(User user){
         if (user == null) throw new NullPointerException("User must not be null.");
+        reportGlobalService.deleteAllTicketFromUser(user);
+        reportDetailService.deleteAllTicketFromUser(user);
         userRepository.deleteById(user.getId());
     }
 

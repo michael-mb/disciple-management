@@ -295,7 +295,7 @@ public class MailService {
             message.setSubject("Ihr Konto wurde gelösht");
 
             String msg  = "<p>Sehr geehrte(r) "+disciple.getFirstname() + " " + disciple.getLastname() + ",<br>"
-                    + "Wir haben Ihr Konto erfolgreicht gelöscht. Vielen Dank, dass Sie uns Einmal vertrauen haben<br>"
+                    + "Wir haben Ihr Konto gelöscht. Vielen Dank, dass Sie uns Einmal vertraut haben<br>"
                     + "Mit freundlichen Grüßen.<br>"
                     + "Disciple Online</p>"
                     + "<br><br>"

@@ -1,5 +1,6 @@
 package disciple.online.portal.scopes.general;
 
+import disciple.online.portal.scopes.user.entities.ProdUser;
 import disciple.online.portal.scopes.user.entities.TestUser;
 import disciple.online.portal.scopes.user.entities.User;
 import disciple.online.portal.scopes.user.services.UserService;
@@ -14,18 +15,24 @@ public class Initializer {
     private static final Logger LOG = LoggerFactory.getLogger(Initializer.class);
 
     public UserService userService;
+
     @Autowired
     public Initializer(UserService userService,
-                       final @Value("${spring.jpa.hibernate.ddl-auto}") String database){
+                       final @Value("${spring.jpa.hibernate.ddl-auto}") String database ,
+                       final @Value("${spring.profiles.active}") String profile){
+
         this.userService = userService;
 
         if(setupDemoUsers(database)){
-            this.setupTestUsers();
+            if(isProdProfile(profile))
+                setupProdUsers();
+            else
+                setupTestUsers();
         }
     }
 
     private void setupTestUsers() {
-        LOG.info("Creating default Users.");
+        LOG.info("Creating default Test Users.");
         User user ;
         for (TestUser testUser : TestUser.values()) {
             user = new User(testUser.firstName , testUser.lastName , testUser.mailAddress ,
@@ -36,6 +43,22 @@ public class Initializer {
         }
     }
 
+    private void setupProdUsers() {
+        LOG.info("Creating default Prod Users.");
+        User user ;
+        for (ProdUser prodUser : ProdUser.values()) {
+            user = new User(prodUser.firstName , prodUser.lastName , prodUser.mailAddress ,
+                    prodUser.password , prodUser.grantedAuthorities , prodUser.city , prodUser.street ,
+                    prodUser.phone , prodUser.discipleMakerMail);
+
+            userService.generateAndSaveNewValidationTokenForUser(user);
+            userService.rehashPassword(prodUser.password , user);
+        }
+    }
+
+    private boolean isProdProfile(String profile){
+        return "prod".equals(profile);
+    }
     private boolean setupDemoUsers(String database){
         return "create".equals(database);
     }

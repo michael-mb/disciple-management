@@ -17,26 +17,26 @@ public class ReportDetailDto {
     @NotNull
     public String endDate;
 
-    public long bibleChapter;
+    public Long bibleChapter;
 
-    public long bibleChapterMinutes;
+    public Long bibleChapterMinutes;
 
     @Size(max = 200, message = "{error.invalid.length}")
     @Pattern(regexp = Regexes.TEXT, message = "{error.invalid.field.text}")
     @Value("")
     public String book;
 
-    public long prayerMinutesAlone;
+    public Long prayerMinutesAlone;
 
-    public long prayerMinutesTogether;
+    public Long prayerMinutesTogether;
 
-    public long meditationNumber;
+    public Long meditationNumber;
 
-    public long meditationMinutes;
+    public Long meditationMinutes;
 
-    public long evangelizationMinutes;
+    public Long evangelizationMinutes;
 
-    public long evangelizedPeople;
+    public Long evangelizedPeople;
 
 
     @Size(max = 200, message = "{error.invalid.length}")
@@ -44,7 +44,7 @@ public class ReportDetailDto {
     @Value("")
     public String message;
 
-    public long fast;
+    public Long fast;
 
     public String getMessage() {
         return message;
@@ -54,59 +54,59 @@ public class ReportDetailDto {
         this.message = message;
     }
 
-    public long getFast() {
+    public Long getFast() {
         return fast;
     }
 
-    public void setFast(long fast) {
+    public void setFast(Long fast) {
         this.fast = fast;
     }
 
-    public long getEvangelizedPeople() {
+    public Long getEvangelizedPeople() {
         return evangelizedPeople;
     }
 
-    public void setEvangelizedPeople(long evangelizedPeople) {
+    public void setEvangelizedPeople(Long evangelizedPeople) {
         this.evangelizedPeople = evangelizedPeople;
     }
 
-    public long getEvangelizationMinutes() {
+    public Long getEvangelizationMinutes() {
         return evangelizationMinutes;
     }
 
-    public void setEvangelizationMinutes(long evangelizationMinutes) {
+    public void setEvangelizationMinutes(Long evangelizationMinutes) {
         this.evangelizationMinutes = evangelizationMinutes;
     }
 
-    public long getMeditationMinutes() {
+    public Long getMeditationMinutes() {
         return meditationMinutes;
     }
 
-    public void setMeditationMinutes(long meditationMinutes) {
+    public void setMeditationMinutes(Long meditationMinutes) {
         this.meditationMinutes = meditationMinutes;
     }
 
-    public long getMeditationNumber() {
+    public Long getMeditationNumber() {
         return meditationNumber;
     }
 
-    public void setMeditationNumber(long meditationNumber) {
+    public void setMeditationNumber(Long meditationNumber) {
         this.meditationNumber = meditationNumber;
     }
 
-    public long getPrayerMinutesTogether() {
+    public Long getPrayerMinutesTogether() {
         return prayerMinutesTogether;
     }
 
-    public void setPrayerMinutesTogether(long prayerMinutesTogether) {
+    public void setPrayerMinutesTogether(Long prayerMinutesTogether) {
         this.prayerMinutesTogether = prayerMinutesTogether;
     }
 
-    public long getPrayerMinutesAlone() {
+    public Long getPrayerMinutesAlone() {
         return prayerMinutesAlone;
     }
 
-    public void setPrayerMinutesAlone(long prayerMinutesAlone) {
+    public void setPrayerMinutesAlone(Long prayerMinutesAlone) {
         this.prayerMinutesAlone = prayerMinutesAlone;
     }
 
@@ -118,20 +118,20 @@ public class ReportDetailDto {
         this.book = book;
     }
 
-    public long getBibleChapterMinutes() {
+    public Long getBibleChapterMinutes() {
         return bibleChapterMinutes;
     }
 
-    public void setBibleChapterMinutes(long bibleChapterMinutes) {
+    public void setBibleChapterMinutes(Long bibleChapterMinutes) {
         this.bibleChapterMinutes = bibleChapterMinutes;
     }
 
 
-    public long getBibleChapter() {
+    public Long getBibleChapter() {
         return bibleChapter;
     }
 
-    public void setBibleChapter(long bibleChapter) {
+    public void setBibleChapter(Long bibleChapter) {
         this.bibleChapter = bibleChapter;
     }
 

@@ -11,8 +11,21 @@ public class ReportOverviewPage extends Header {
     }
 
     public boolean isReportGlobalVisible(String reportWeek){
-
         WebElement element = driver.findElement(By.xpath("(//TD[text()='"+ reportWeek + "'])[1]"));
         return element.isDisplayed();
-    };
+    }
+    public boolean isReportDetailVisible(String startDate , String endDate){
+        WebElement startElement;
+        WebElement endElement;
+        
+        if(startDate.equals(endDate)){
+            startElement = driver.findElement(By.xpath("(//TD[text()='"+ startDate + "'])[1]"));
+            endElement = driver.findElement(By.xpath("(//TD[text()='"+ endDate + "'])[2]"));
+        }else {
+            startElement = driver.findElement(By.xpath("(//TD[text()='"+ startDate + "'])[1]"));
+            endElement = driver.findElement(By.xpath("(//TD[text()='"+ endDate + "'])[1]"));
+        }
+        
+        return startElement.isDisplayed() || endElement.isDisplayed();
+    }
 }

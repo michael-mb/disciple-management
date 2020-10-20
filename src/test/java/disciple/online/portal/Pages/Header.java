@@ -1,10 +1,12 @@
 package disciple.online.portal.Pages;
 
 import disciple.online.portal.Pages.reportpages.DiscipleOverviewPage;
+import disciple.online.portal.Pages.reportpages.ReportDetailPage;
 import disciple.online.portal.Pages.reportpages.ReportGlobalPage;
 import disciple.online.portal.Pages.standartpages.LoginPage;
 import disciple.online.portal.Pages.standartpages.MainPage;
 import disciple.online.portal.Pages.standartpages.ProfilePage;
+import disciple.online.portal.Pages.standartpages.UsersPage;
 import disciple.online.portal.statics.Url;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
@@ -37,7 +39,7 @@ public abstract class Header extends PageObject {
     @FindBy (id = "linkdiscipleoverview")
     private WebElement linkDiscipleOverviewPage;
 
-    @FindBy (id = "users")
+    @FindBy (id = "linkusers")
     private WebElement linkUsersPage;
 
 
@@ -114,10 +116,23 @@ public abstract class Header extends PageObject {
         return new ReportGlobalPage(driver);
     }
 
+    @Step("Go to Report Detail Page")
+    public ReportDetailPage goToReportDetail(){
+        clickElement(linkReportPage);
+        clickElement(driver.findElement(By.id("linkreportdetail")));
+        return new ReportDetailPage(driver);
+    }
+
     @Step("Go to Disciple Overview Page")
     public DiscipleOverviewPage goToDiscipleOverview(){
         clickElement(linkDiscipleOverviewPage);
         return new DiscipleOverviewPage(driver);
+    }
+
+    @Step("Go to Users Page")
+    public UsersPage goToUsersPage(){
+        clickElement(linkUsersPage);
+        return new UsersPage(driver);
     }
 
 }

@@ -65,7 +65,7 @@ public class ReportGlobalService {
     public List<GlobalTicket> getGlobalTicketOwnerByMail(String email){
         List<GlobalTicket> tickets = new ArrayList<>();
 
-        for(GlobalTicket ticket : reportGlobalRepository.findAllByOrderByWeekDesc()){
+        for(GlobalTicket ticket : reportGlobalRepository.findAllByOrderByWeekAsc()){
             if(ticket.getOwnerMail().equals(email))
                 tickets.add(ticket);
         }
@@ -75,7 +75,7 @@ public class ReportGlobalService {
 
     public List<GlobalTicket> getGlobalTicketOwnerByMail(String email , Long year){
         List<GlobalTicket> tickets = new ArrayList<>();
-        for(GlobalTicket ticket : reportGlobalRepository.findAllByOrderByWeekDesc()){
+        for(GlobalTicket ticket : reportGlobalRepository.findAllByOrderByWeekAsc()){
             if(ticket.getOwnerMail().equals(email)){
                 if(ticket.getWeek().contains(year.toString()))
                     tickets.add(ticket);
@@ -87,7 +87,7 @@ public class ReportGlobalService {
     public List<GlobalTicket> getGlobalTicketForDiscipleMaker(String email){
         List<GlobalTicket> tickets = new ArrayList<>();
 
-        for(GlobalTicket ticket : reportGlobalRepository.findAllByOrderByWeekDesc()){
+        for(GlobalTicket ticket : reportGlobalRepository.findAllByOrderByWeekAsc()){
             if(ticket.getDiscipleMakerMail().equals(email))
                 tickets.add(ticket);
         }
@@ -183,6 +183,13 @@ public class ReportGlobalService {
             days += ticket.getFast();
         }
         return days;
+    }
+
+    public void deleteAllTicketFromUser(User user){
+        if (user == null) throw new NullPointerException("User must not be null.");
+        for (GlobalTicket ticket : getGlobalTicketOwnerByMail(user.getEmail())){
+            reportGlobalRepository.delete(ticket);
+        }
     }
 
     public Optional<GlobalTicket> getGlobalTicketById(long id){

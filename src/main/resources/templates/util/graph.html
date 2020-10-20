@@ -8,15 +8,19 @@
     <div class="row">
         <div class="col-md-12">
             <div class="white-box">
-                <h3 class="box-title">GEBET
+                <h3 class="box-title"><th:block th:text="#{graph.prayer}">GEBET</th:block>
                     <th:block th:insert="util/import.html :: years(${year})"></th:block>
                 </h3>
                 <ul class="list-inline text-right">
                     <li>
-                        <h5><i class="fa fa-circle m-r-5" style="color: #F44336;"></i>Gebet alleine</h5>
+                        <h5><i class="fa fa-circle m-r-5" style="color: #F44336;"></i>
+                            <th:block th:text="#{graph.prayerAlone}"></th:block>
+                        </h5>
                     </li>
                     <li>
-                        <h5><i class="fa fa-circle m-r-5" style="color: #26e7a6;"></i>Gebet in Gruppe</h5>
+                        <h5><i class="fa fa-circle m-r-5" style="color: #26e7a6;"></i>
+                            <th:block th:text="#{graph.prayerTogether}"></th:block>
+                        </h5>
                     </li>
                 </ul>
                 <div id="prayer" style="height: 400px;"></div>
@@ -27,15 +31,19 @@
     <div class="row">
         <div class="col-md-12">
             <div class="white-box">
-                <h3 class="box-title">MEDITATION
+                <h3 class="box-title"><th:block th:text="#{graph.meditation}" ></th:block>
                     <th:block th:insert="util/import.html :: years(${year})"></th:block>
                 </h3>
                 <ul class="list-inline text-right">
                     <li>
-                        <h5><i class="fa fa-circle m-r-5" style="color: #964ce7;"></i>Meditation Anzahl (pro Woche)</h5>
+                        <h5><i class="fa fa-circle m-r-5" style="color: #964ce7;"></i>
+                            <th:block th:text="#{graph.meditationNumber}" ></th:block>
+                        </h5>
                     </li>
                     <li>
-                        <h5><i class="fa fa-circle m-r-5" style="color: #d4e726;"></i>Meditation Minuten (pro Woche)</h5>
+                        <h5><i class="fa fa-circle m-r-5" style="color: #d4e726;"></i>
+                            <th:block th:text="#{graph.meditationMinutes}"></th:block>
+                        </h5>
                     </li>
                 </ul>
                 <div id="meditation" style="height: 300px;"></div>
@@ -47,15 +55,19 @@
     <div class="row">
         <div class="col-md-12">
             <div class="white-box">
-                <h3 class="box-title">BIBLE
+                <h3 class="box-title"><th:block th:text="#{graph.bible}"></th:block>
                     <th:block th:insert="util/import.html :: years(${year})"></th:block>
                 </h3>
                 <ul class="list-inline text-right">
                     <li>
-                        <h5><i class="fa fa-circle m-r-5" style="color: #d66d29;"></i>Gelesene Biblekapitel (pro Woche)</h5>
+                        <h5><i class="fa fa-circle m-r-5" style="color: #d66d29;"></i>
+                            <th:block th:text="#{graph.bibleChapter}"></th:block>
+                        </h5>
                     </li>
                     <li>
-                        <h5><i class="fa fa-circle m-r-5" style="color: #e72626;"></i>Minuten beim Bibellesen (pro Woche)</h5>
+                        <h5><i class="fa fa-circle m-r-5" style="color: #e72626;"></i>
+                            <th:block th:text="#{graph.bibleMinutes}"></th:block>
+                        </h5>
                     </li>
                 </ul>
                 <div id="bible" style="height: 300px;"></div>
@@ -67,15 +79,20 @@
     <div class="row">
         <div class="col-md-12">
             <div class="white-box">
-                <h3 class="box-title">EVANGELISIERUNG
+                <h3 class="box-title">
+                    <th:block th:text="#{graph.evangelization}"></th:block>
                     <th:block th:insert="util/import.html :: years(${year})"></th:block>
                 </h3>
                 <ul class="list-inline text-right">
                     <li>
-                        <h5><i class="fa fa-circle m-r-5" style="color: #b9ff10;"></i>Evangelisierte Menschen (pro Woche)</h5>
+                        <h5><i class="fa fa-circle m-r-5" style="color: #b9ff10;"></i>
+                            <th:block th:text="#{graph.evangelizedPeople}"></th:block>
+                        </h5>
                     </li>
                     <li>
-                        <h5><i class="fa fa-circle m-r-5" style="color: #8364b8;"></i>Minuten in der Evangelisierung (pro Woche)</h5>
+                        <h5><i class="fa fa-circle m-r-5" style="color: #8364b8;"></i>
+                            <th:block th:text="#{graph.evangelizationMinutes}"></th:block>
+                        </h5>
                     </li>
                 </ul>
                 <div id="evangelization" style="height: 300px;"></div>
@@ -87,12 +104,15 @@
     <div class="row">
         <div class="col-md-12">
             <div class="white-box">
-                <h3 class="box-title">Fasten (Tagen)
+                <h3 class="box-title">
+                    <th:block th:text="#{graph.fast}"></th:block>
                     <th:block th:insert="util/import.html :: years(${year})"></th:block>
                 </h3>
                 <ul class="list-inline text-right">
                     <li>
-                        <h5><i class="fa fa-circle m-r-5" style="color: #3ba8fb;"></i>Fasten (Tagen)</h5>
+                        <h5><i class="fa fa-circle m-r-5" style="color: #3ba8fb;"></i>
+                            <th:block th:text="#{graph.fast}"></th:block>
+                        </h5>
                     </li>
                 </ul>
                 <div id="fast" style="height: 400px;"></div>

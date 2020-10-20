@@ -3,6 +3,7 @@ package disciple.online.portal;
 import disciple.online.portal.Pages.Header;
 import disciple.online.portal.Pages.standartpages.LoginPage;
 import disciple.online.portal.Pages.standartpages.MainPage;
+import disciple.online.portal.scopes.user.entities.TestUser;
 import disciple.online.portal.scopes.user.entities.User;
 import disciple.online.portal.statics.Url;
 import disciple.online.portal.util.PropertiesHandler;
@@ -47,8 +48,8 @@ public class SystemTest {
         SpringApplication.exit(context);
     }
 
-    public MainPage regularLogin(User user) {
-        return regularLogin(user.getEmail(), user.getPassword());
+    public MainPage regularLogin(TestUser user) {
+        return regularLogin(user.mailAddress, user.password);
     }
 
     protected MainPage regularLogin(String email, String password) {

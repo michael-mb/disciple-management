@@ -13,36 +13,36 @@
             <ul class="nav" id="side-menu">
                 <li style="padding: 10px 0 0;">
                     <a href="/" sec:authorize="isAuthenticated()" class="waves-effect"><i class="fa fa-bar-chart fa-fw" aria-hidden="true"></i>
-                        <span class="hide-menu">Dashboard</span></a>
+                        <span class="hide-menu" th:text="#{navigation.dashboard}">Dashboard</span></a>
                 </li>
                 <li style="padding: 10px 0 0;">
                     <a href="/profile" id="linkprofile" sec:authorize="isAuthenticated()" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i>
-                        <span class="hide-menu">Profile</span></a>
+                        <span class="hide-menu" th:text="#{navigation.profile}">Profile</span></a>
                 </li>
                 <li style="padding: 10px 0 0;">
                     <a href="/report" id="linkreport" sec:authorize="isAuthenticated()" class="waves-effect"><i class="fa fa-bookmark fa-fw" aria-hidden="true"></i>
-                        <span class="hide-menu">Bericht Ablegen</span></a>
+                        <span class="hide-menu" th:text="#{navigation.report}">Bericht Ablegen</span></a>
                 </li>
                 <li style="padding: 10px 0 0;">
                     <a href="/report-overview" id="linkreportoverview" sec:authorize="isAuthenticated()" class="waves-effect"><i class="fa fa-table fa-fw" aria-hidden="true"></i>
-                        <span class="hide-menu">Berichtübersicht</span></a>
+                        <span class="hide-menu" th:text="#{navigation.reportOverview}" >Berichtübersicht</span></a>
                 </li>
                 <li sec:authorize="isAnonymous()" id="login-li" style="padding: 10px 0 0;">
                     <a href="/login" class="waves-effect"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i>
-                        <span class="hide-menu">Einloggen</span></a>
+                        <span class="hide-menu" th:text="#{navigation.login}">Einloggen</span></a>
                 </li>
                 <li sec:authorize="hasAuthority('DISCIPLEMAKER')" style="padding: 10px 0 0;">
                     <a href="/disciple-overview" id="linkdiscipleoverview" class="waves-effect"><i class="fa fa-flag fa-fw" aria-hidden="true"></i>
-                        <span class="hide-menu">Nachfolger</span></a>
+                        <span class="hide-menu" th:text="#{navigation.discipleOverview}">Nachfolger</span></a>
                 </li>
                 <li sec:authorize="hasAuthority('ADMIN')" style="padding: 10px 0 0;">
                     <a href="/users" class="waves-effect" id="linkusers"><i class="fa fa-users fa-fw" aria-hidden="true"></i>
-                        <span class="hide-menu">Nutzer Übersicht</span></a>
+                        <span class="hide-menu" th:text="#{navigation.users}">Nutzer Übersicht</span></a>
                 </li>
                 <li style="padding: 10px 0 0;">
                     <a href="/impressum" class="waves-effect" id="impressum">
                         <i class="fa fa-paragraph fa-fw" aria-hidden="true"></i>
-                        <span class="hide-menu">Impressum</span>
+                        <span class="hide-menu" th:text="#{navigation.impressum}">Impressum</span>
                     </a>
                 </li>
                 <li sec:authorize="isAuthenticated()" style="padding: 10px 0 0;">
@@ -50,7 +50,7 @@
                     </form>
                     <a href="#" class="waves-effect" id="logout" onclick="document.getElementById('logoutForm').submit()">
                         <i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>
-                        <span class="hide-menu">Ausloggen</span>
+                        <span class="hide-menu" th:text="#{navigation.logout}">Ausloggen</span>
                     </a>
                 </li>
 

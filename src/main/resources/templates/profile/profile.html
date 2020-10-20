@@ -17,7 +17,7 @@
         <div class="container-fluid">
             <div class="row bg-title">
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">Profile</h4> </div>
+                    <h4 class="page-title" th:text="#{profile.title}"></h4> </div>
             </div>
             <!-- /.row -->
             <!-- .row -->
@@ -34,13 +34,13 @@
                             </div>
                             <div class="user-btm-box">
                                 <div class="col-md-4 col-sm-4 text-center">
-                                    <p class="text-purple">Disciples</p>
+                                    <p class="text-purple" th:text="#{profile.disciple}"></p>
                                     <h1 th:text="${disciples.size()}"> 0 </h1> </div>
                                 <div class="col-md-4 col-sm-4 text-center">
-                                    <p class="text-blue">Berichte Anzahl</p>
+                                    <p class="text-blue" th:text="#{profile.reportNumber}"></p>
                                     <h1 th:text="${reports.size()}">0</h1> </div>
                                 <div class="col-md-4 col-sm-4 text-center">
-                                    <p class="text-danger">Klasse</p>
+                                    <p class="text-danger" th:text="#{profile.class}">Klasse</p>
                                     <h1>2</h1> </div>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                         <form class="form-horizontal form-material" method="post"
                               th:action="@{/profile/}+${user.id}" th:object="${userRegistrationDto}">
                             <div class="form-group">
-                                <label class="col-md-12">Name</label>
+                                <label class="col-md-12" th:text="#{profile.name}"></label>
                                 <div class="col-md-12">
                                     <input type="text" name="lastName" id="lastName"
                                            th:value ="${user.lastname}" placeholder="Doe" class="form-control form-control-line" required>
@@ -59,43 +59,74 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-12">Vorname</label>
+                                <label class="col-md-12" th:text="#{profile.surname}"></label>
                                 <div class="col-md-12">
                                     <input type="text" placeholder="Johnathan"
                                            th:value ="${user.firstname}" name="firstName" id="firstName" class="form-control form-control-line" required>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="email" class="col-md-12">Email</label>
+                                <label for="email" class="col-md-12" th:text="#{profile.email}"></label>
                                 <div class="col-md-12">
                                     <input type="email" name="email"
                                            id="email" th:value ="${user.email}" placeholder="johnathan@admin.com"
                                            class="form-control form-control-line" disabled required>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-md-12">Passwort</label>
+                            <div class="form-group not-hidden">
+                                <label for="password" class="col-md-12"><th:block th:text="#{profile.password}"></th:block>
+                                    <div class="tooltip">
+                                        <picture>
+                                            <source type="image/webp" srcset="/plugins/images/info.webp">
+                                            <source type="image/png" srcset="/plugins/images/info.png">
+                                            <img alt="" height="20" src="/plugins/images/info.png" width="20">
+                                        </picture>
+                                        <span class="tooltiptext">
+                                            <th:block th:text="#{profile.tooltipInfo}"></th:block>
+                                                <br><th:block th:text="#{profile.tooltipInfo1}"></th:block>
+                                                <br><th:block th:text="#{profile.tooltipInfo2}"></th:block>
+                                                <br><th:block th:text="#{profile.tooltipInfo3}"></th:block>
+                                                <br><th:block th:text="#{profile.tooltipInfo4}"></th:block>
+                                        </span>
+                                    </div>
+                                </label>
+
                                 <div class="col-md-12">
-                                    <input type="password" id="password"
+                                    <input type="password" id="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@\[-`{-~]).{6,64}$"
                                            name="password" class="form-control form-control-line" required>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-md-12">Passwort wiederholen</label>
+                            <div class="form-group not-hidden">
+                                <label for="passwordAgain" class="col-md-12"><th:block th:text="#{profile.passwordAgain}"></th:block>
+                                    <div class="tooltip">
+                                        <picture>
+                                            <source type="image/webp" srcset="/plugins/images/info.webp">
+                                            <source type="image/png" srcset="/plugins/images/info.png">
+                                            <img alt="" height="20" src="/plugins/images/info.png" width="20">
+                                        </picture>
+                                        <span class="tooltiptext">
+                                            <th:block th:text="#{profile.tooltipInfo}"></th:block>
+                                                <br><th:block th:text="#{profile.tooltipInfo1}"></th:block>
+                                                <br><th:block th:text="#{profile.tooltipInfo2}"></th:block>
+                                                <br><th:block th:text="#{profile.tooltipInfo3}"></th:block>
+                                                <br><th:block th:text="#{profile.tooltipInfo4}"></th:block>
+                                        </span>
+                                    </div>
+                                </label>
                                 <div class="col-md-12">
-                                    <input type="password" id="passwordAgain" name="passwordAgain"
+                                    <input type="password" id="passwordAgain" name="passwordAgain" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@\[-`{-~]).{6,64}$"
                                            class="form-control form-control-line" required>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-12">Telefonnummer</label>
+                                <label class="col-md-12" th:text="#{profile.phoneNumber}"></label>
                                 <div class="col-md-12">
                                     <input type="text" id="phone"
                                            name="phone" th:value ="${user.phone}" placeholder="123 456 7890" class="form-control form-control-line" required>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="city" class="col-md-12">Stadt</label>
+                                <label for="city" class="col-md-12" th:text="#{profile.city}"></label>
                                 <div class="col-md-12">
                                     <input type="text" id="city"
                                            name="city" th:value ="${user.city}" placeholder="Dresden" class="form-control form-control-line" required>
@@ -103,7 +134,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="street" class="col-md-12">Straße</label>
+                                <label for="street" class="col-md-12" th:text="#{profile.street}"></label>
                                 <div class="col-md-12">
                                     <input type="text" id="street"
                                            name="street" th:value ="${user.street}" placeholder="Dresden" class="form-control form-control-line" required>
@@ -111,7 +142,7 @@
                             </div>
 
                             <div class="form-group" sec:authorize="hasAuthority('ADMIN')">
-                                <label for="discipleMakerMail" class="col-sm-12">Disciplemaker auswählen </label>
+                                <label for="discipleMakerMail" class="col-sm-12" th:text="#{profile.discipleChoise}"></label>
                                 <div class="col-sm-12">
                                     <select  id="discipleMakerMail" name="discipleMakerMail" class="form-control form-control-line" required>
                                         <th:block th:each="maker,iter : ${discipleMakers}">
@@ -123,17 +154,17 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="discipleMaker" class="col-md-12" >Disciplemaker</label>
+                                <label for="discipleMaker" class="col-md-12" th:text="#{profile.discipleMaker}"></label>
                                 <div class="col-md-12">
                                     <a th:href="@{/users/edit/}+${discipleMaker.id}">
-                                        <p name="discipleMaker" id="discipleMaker" th:text="${user.discipleMakerMail}"></p>
+                                        <p name="discipleMakerMail" id="discipleMaker" th:text="${user.discipleMakerMail}"></p>
                                     </a>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <div class="col-sm-12">
-                                    <button class="btn btn-success">Aktualisieren</button>
+                                    <button class="btn btn-success" id="updateBtn" th:text="#{profile.updateBtn}"></button>
                                 </div>
                             </div>
                         </form>

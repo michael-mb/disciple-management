@@ -14,6 +14,7 @@ public interface ReportGlobalRepository extends CrudRepository<GlobalTicket,Long
     @Override
     Streamable<GlobalTicket> findAll();
 
-    @Query("select e from #{#entityName} as e order by e.week desc ")
-    List<GlobalTicket> findAllByOrderByWeekDesc();
+    @Query("select e from #{#entityName} as e order by e.week asc ")
+    List<GlobalTicket> findAllByOrderByWeekAsc();
+
 }

@@ -36,7 +36,7 @@
                             </p>
                             <br>
 
-                            <h4>Bankverbindung</h4>
+                            <h4 th:text="#{impressum.bankdetails}"></h4>
                             <p>
                                 Frankfurter Sparkasse<br>
                                 Konto: 200479849<br>
@@ -46,14 +46,15 @@
                             </p>
                             <br>
 
-                            <h4>Grafische Gestaltung und technische Realisierung</h4>
+                            <h4 th:text="#{impressum.devContact}"></h4>
                             <p>
                                 CMGI DEVELOPPERS<br>
                                 Email: <a href="mailto:mbonimichael@yahoo.fr">mbonimichael@yahoo.fr</a><br>
                                 Internet: <a href="https://michael-mb.github.io/Michael-CV/" target="_blank">Michael Mboni</a><br>
-                                Wenn sie fragen haben, schreiben Sie bitte direkt eine email an diese Adresse
-                                (<a href="mailto:mbonimichael@yahoo.fr">mbonimichael@yahoo.fr</a>), und wir
-                                melden uns so schnell wie möglich zurück.
+                                <th:block th:text="#{impressum.description1}"></th:block>
+                                (<a href="mailto:mbonimichael@yahoo.fr"> mbonimichael@yahoo.fr </a>)
+                                <th:block th:text="#{impressum.description2}"></th:block>
+
                             </p>
                         </div>
                     </div>

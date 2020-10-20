@@ -17,4 +17,10 @@ public class DiscipleOverviewPage extends Header {
         WebElement reportWeek = driver.findElement(By.xpath("//SPAN[@class='time pull-right'][text()='"+reportTitle+"']"));
         return reportMail.isDisplayed() && reportWeek.isDisplayed();
     }
+
+    public boolean assertReport(String mail , String reportTitle){
+        WebElement reportMail = driver.findElement(By.xpath("(//SPAN[@class='mail-desc'][text()='"+mail+"'])[1]"));
+        WebElement reportWeek = driver.findElement(By.xpath("//SPAN[@class='time pull-right'][text()='"+reportTitle+"']"));
+        return reportMail.isDisplayed() && reportWeek.isDisplayed();
+    }
 }

@@ -76,10 +76,15 @@ public class ResetPasswordController {
             return "redirect:/renew-password";
         }
 
-        resetPasswordService.changePassword(resetDto.email,token.get(), resetDto.password);
-        redirectAttributes.addFlashAttribute("type", "success");
-        redirectAttributes.addFlashAttribute("text", languageService.getValue("password.update.success"));
-        return "redirect:/";
+        if(resetPasswordService.changePassword(resetDto.email,token.get(), resetDto.password)){
+            redirectAttributes.addFlashAttribute("type", "success");
+            redirectAttributes.addFlashAttribute("text", languageService.getValue("password.update.success"));
+        }
+        else{
+            redirectAttributes.addFlashAttribute("type", "warning");
+            redirectAttributes.addFlashAttribute("text", languageService.getValue("password.reset.error"));
+        }
+        return "redirect:/login";
     }
 
     @GetMapping("/reset-password-admin/{id}")

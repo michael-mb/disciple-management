@@ -18,6 +18,5 @@ public class Regexes {
             // small letters
             // big letters
             // special characters except ^<>{}";/\´`~^°§()|
-
     private Regexes(){}
 }

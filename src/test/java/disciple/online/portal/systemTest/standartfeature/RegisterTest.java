@@ -30,7 +30,7 @@ public class RegisterTest extends SystemTest {
     @Description("Test successful registration")
     void doSuccessfulRegistration() {
         RegisterUser registerUser = new RegisterUser("saha" , "simo" , "sahasimo@yahoo.fr",
-                "nathan007x" , "nathan007x" , "dresden" , "kamerunerstraße 42", "445223",
+                "nathan007X+" , "nathan007X+" , "dresden" , "kamerunerstraße 42", "445223",
                 "gooddisciplemaker@test.com");
 
         //doing the actual registration
@@ -45,7 +45,7 @@ public class RegisterTest extends SystemTest {
     @Description("Test registration with invalid mail address")
     void doRegistrationWithWrongMailAddress() {
         RegisterUser registerUser = new RegisterUser("saha" , "simo" , "sahasimo",
-                "nathan007x" , "nathan007x" , "dresden" , "kamerunerstraße 42", "445223",
+                "nathan007X+" , "nathan007X+" , "dresden" , "kamerunerstraße 42", "445223",
                 "gooddisciplemaker@test.com");
 
         navigateToRegisterPage();
@@ -57,7 +57,7 @@ public class RegisterTest extends SystemTest {
     @Description("Test registration with two different passwords")
     void doRegistrationWithTwoDifferentPasswords() {
         RegisterUser registerUser = new RegisterUser("saha" , "simo" , "sahasimo@yahoo.fr",
-                "nathan007x" , "nathan007y" , "dresden" , "kamerunerstraße 42", "445223",
+                "nathan007X+" , "nathan007y" , "dresden" , "kamerunerstraße 42", "445223",
                 "gooddisciplemaker@test.com");
 
         navigateToRegisterPage();
@@ -69,7 +69,7 @@ public class RegisterTest extends SystemTest {
     @Description("Test registration without mail address")
     void doRegistrationWithoutMailAddress() {
         RegisterUser registerUser = new RegisterUser("saha" , "simo" , "",
-                "nathan007x" , "nathan007x" , "dresden" , "kamerunerstraße 42", "445223",
+                "nathan007X+" , "nathan007X+" , "dresden" , "kamerunerstraße 42", "445223",
                 "gooddisciplemaker@test.com");
         navigateToRegisterPage();
         registerPage.register(registerUser);
@@ -80,7 +80,7 @@ public class RegisterTest extends SystemTest {
     @Description("Test registration without first name")
     void doRegistrationWithoutFirstName() {
         RegisterUser registerUser = new RegisterUser("" , "simo" , "sahasimo@yahoo.fr",
-                "nathan007x" , "nathan007x" , "dresden" , "kamerunerstraße 42", "445223",
+                "nathan007X+" , "nathan007X+" , "dresden" , "kamerunerstraße 42", "445223",
                 "gooddisciplemaker@test.com");
         navigateToRegisterPage();
         registerPage.register(registerUser);
@@ -91,7 +91,7 @@ public class RegisterTest extends SystemTest {
     @Description("Test registration without last name")
     void doRegistrationWithoutLastName() {
         RegisterUser registerUser = new RegisterUser("saha" , "" , "sahasimo@yahoo.fr",
-                "nathan007x" , "nathan007x" , "dresden" , "kamerunerstraße 42", "445223",
+                "nathan007X+" , "nathan007X+" , "dresden" , "kamerunerstraße 42", "445223",
                 "gooddisciplemaker@test.com");
         navigateToRegisterPage();
         registerPage.register(registerUser);
@@ -102,7 +102,7 @@ public class RegisterTest extends SystemTest {
     @Description("Test registration without street")
     void doRegistrationWithoutStreet() {
         RegisterUser registerUser = new RegisterUser("saha" , "simo" , "sahasimo@yahoo.fr",
-                "nathan007x" , "nathan007x" , "dresden" , "", "445223",
+                "nathan007X+" , "nathan007X+" , "dresden" , "", "445223",
                 "gooddisciplemaker@test.com");
         navigateToRegisterPage();
         registerPage.register(registerUser);
@@ -112,7 +112,7 @@ public class RegisterTest extends SystemTest {
     @Description("Test registration without town")
     void doRegistrationWithoutTown() {
         RegisterUser registerUser = new RegisterUser("saha" , "simo" , "sahasimo@yahoo.fr",
-                "nathan007x" , "nathan007x" , "" , "kamerunerstraße 42", "445223",
+                "nathan007X+" , "nathan007X+" , "" , "kamerunerstraße 42", "445223",
                 "gooddisciplemaker@test.com");
         navigateToRegisterPage();
         registerPage.register(registerUser);
@@ -123,7 +123,18 @@ public class RegisterTest extends SystemTest {
     @Description("Test registration without password")
     void doRegistrationWithoutPassword() {
         RegisterUser registerUser = new RegisterUser("saha" , "simo" , "sahasimo@yahoo.fr",
-                "" , "nathan007x" , "dresden" , "kamerunerstraße 42", "445223",
+                "" , "nathan007X+" , "dresden" , "kamerunerstraße 42", "445223",
+                "gooddisciplemaker@test.com");
+        navigateToRegisterPage();
+        registerPage.register(registerUser);
+        assertFalse(isLoggedIn(registerPage) , "The user must not be logged in");
+    }
+
+    @Test
+    @Description("Test registration without password")
+    void doRegistrationFalsePasswordPattern() {
+        RegisterUser registerUser = new RegisterUser("saha" , "simo" , "sahasimo@yahoo.fr",
+                "nathan" , "nathan" , "dresden" , "kamerunerstraße 42", "445223",
                 "gooddisciplemaker@test.com");
         navigateToRegisterPage();
         registerPage.register(registerUser);
@@ -134,7 +145,7 @@ public class RegisterTest extends SystemTest {
     @Description("Test registration without discipleMaker mail")
     void doRegistrationWithoutDiscipleMakerMail() {
         RegisterUser registerUser = new RegisterUser("saha" , "simo" , "sahasimo@yahoo.fr",
-                "nathan007x" , "nathan007x" , "dresden" , "kamerunerstraße 42", "445223",
+                "nathan007X+" , "nathan007X+" , "dresden" , "kamerunerstraße 42", "445223",
                 "");
         navigateToRegisterPage();
         assertThrows(NoSuchElementException.class, () -> registerPage.register(registerUser));
@@ -145,7 +156,7 @@ public class RegisterTest extends SystemTest {
     @Description("Test registration with wrong disciple maker mail")
     void doRegistrationWithWrongDiscipleMakerMail() {
         RegisterUser registerUser = new RegisterUser("saha" , "simo" , "sahasimo@yahoo.fr",
-                "" , "nathan007x" , "dresden" , "kamerunerstraße 42", "445223",
+                "" , "nathan007X+" , "dresden" , "kamerunerstraße 42", "445223",
                 "sahasimo@yahoo.fr");
         navigateToRegisterPage();
         assertThrows(NoSuchElementException.class, () -> registerPage.register(registerUser));
@@ -156,7 +167,7 @@ public class RegisterTest extends SystemTest {
     @Description("Test registration with an Mail Address that is already registered")
     void doRegistrationWithAlreadyTakenMailAddress() {
         RegisterUser registerUser = new RegisterUser("saha" , "simo" , "sahasimo@yahoo.fr",
-                "nathan007x" , "nathan007x" , "dresden" , "kamerunerstraße 42", "445223",
+                "nathan007X+" , "nathan007X+" , "dresden" , "kamerunerstraße 42", "445223",
                 "gooddisciplemaker@test.com");
         navigateToRegisterPage();
         registerPage.register(registerUser);

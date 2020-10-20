@@ -36,7 +36,6 @@ public class RegisterService {
         user.setLastname(userRegistrationDto.lastName);
         user.setCity(userRegistrationDto.city);
         user.setStreet(userRegistrationDto.street);
-        user.setDiscipleMakerMail(userRegistrationDto.discipleMakerMail);
         user.setPhone(userRegistrationDto.phone);
 
         if(userRegistrationDto.discipleMakerMail != null)

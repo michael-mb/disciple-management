@@ -16,71 +16,72 @@
         <div class="container-fluid">
             <div class="row bg-title">
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">Berichtdetail</h4> </div>
+                    <h4 class="page-title" th:text="#{report}"></h4>
+                </div>
             </div>
 
             <div class="row white-box-wrapper">
                 <div class="col-md-8 col-xs-12 white-box-container">
                     <div class="white-box">
                         <div class="row">
-                            <h3 class="box-title big">IM DETAIL ABLEGEN</h3><br>
-                            <h4>1 - DATUM</h4>
+                            <h3 class="box-title big" th:text="#{reportDetail}"></h3><br>
+                            <h4 th:text="#{reportDetail.date}"></h4>
                             <br>
                             <form class="form-horizontal form-material" method="post" th:action="@{/report-detail}" th:object="${reportDetailDto}">
                                 <div class="row ">
                                     <div class="form-group col-sm-12 col-md-6">
-                                        <label class="col-md-12" for="startDate">
-                                            Anfangsdatum</label>
+                                        <label class="col-md-12" for="startDate" th:text="#{reportDetail.firstDate}"></label>
                                         <div class="col-md-12 m-t-10" id="startDateWrapper">
                                             <input class="" type="date" id="startDate" name="startDate" required>
                                         </div>
                                     </div>
 
                                     <div class="form-group col-sm-12 col-md-6">
-                                        <label class="col-md-12" for="endDate">
-                                            Enddatum</label>
+                                        <label class="col-md-12" for="endDate" th:text="#{reportDetail.lastDate}"></label>
                                         <div class="col-md-12 m-t-10" id="endDateWrapper">
                                             <input class="" type="date" id="endDate" name="endDate" required>
                                         </div>
                                     </div>
                                 </div>
 
-                                <h4>2 - LESUNG</h4>
+                                <h4 th:text="#{reportDetail.reading}"></h4>
                                 <br>
                                 <div class="form-group">
-                                    <label class="col-md-12" for="bibleChapter">Gelesene Bibelkapitel</label>
+                                    <label class="col-md-12" for="bibleChapter" th:text="#{reportDetail.bibleChapter}"></label>
                                     <div class="col-md-12">
                                         <input min="0" type="number" name="bibleChapter" id="bibleChapter"
                                                class="form-control form-control-line" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-12" for="bibleChapterMinutes">Minuten beim Bibellesen</label>
+                                    <label class="col-md-12" for="bibleChapterMinutes" th:text="#{reportDetail.bibleChapterMinutes}"></label>
                                     <div class="col-md-12">
                                         <input min="0" type="number" name="bibleChapterMinutes" id="bibleChapterMinutes"
                                                class="form-control form-control-line" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-12">Buch</label>
+                                    <label class="col-md-12" th:text="#{reportDetail.book}"></label>
                                     <div class="col-md-12">
                                         <input type="text" name="book" id="book"
-                                               class="form-control form-control-line" placeholder="Welches Buch liest du gerade ?">
+                                               class="form-control form-control-line" th:placeholder="#{reportDetail.bookPlaceholder}">
                                     </div>
                                 </div>
                                 <br>
 
-                                <h4>3 - GEBET</h4>
+                                <h4 th:text="#{reportDetail.prayer}"></h4>
                                 <br>
                                 <div class="form-group">
-                                    <label class="col-md-12" for="prayerMinutesAlone">Gebet Minuten Allein</label>
+                                    <label class="col-md-12" for="prayerMinutesAlone"
+                                           th:text="#{reportDetail.prayerAlone}"></label>
                                     <div class="col-md-12">
                                         <input min="0" type="number" name="prayerMinutesAlone" id="prayerMinutesAlone"
                                                class="form-control form-control-line" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-12" for="prayerMinutesTogether">Gebet Minuten in Gruppen</label>
+                                    <label class="col-md-12" for="prayerMinutesTogether"
+                                           th:text="#{reportDetail.prayerInGroup}"></label>
                                     <div class="col-md-12">
                                         <input min="0" type="number" name="prayerMinutesTogether" id="prayerMinutesTogether"
                                                class="form-control form-control-line" required>
@@ -88,17 +89,18 @@
                                 </div>
                                 <br>
 
-                                <h4>4 - MEDITATION</h4>
+                                <h4 th:text="#{reportDetail.meditation}"></h4>
                                 <br>
                                 <div class="form-group">
-                                    <label class="col-md-12" for="meditationNumber">Anzahl der Meditation</label>
+                                    <label class="col-md-12" for="meditationNumber"
+                                           th:text="#{reportDetail.meditationNumber}"></label>
                                     <div class="col-md-12">
                                         <input min="0" type="number" name="meditationNumber" id="meditationNumber"
                                                class="form-control form-control-line" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-12">Minuten der Meditation</label>
+                                    <label class="col-md-12" th:text="#{reportDetail.meditationMinutes}"></label>
                                     <div class="col-md-12">
                                         <input min="0" type="number" name="meditationMinutes" id="meditationMinutes"
                                                class="form-control form-control-line" required>
@@ -106,10 +108,11 @@
                                 </div>
                                 <br>
 
-                                <h4>5 - EVANGELISIERUNG</h4>
+                                <h4 th:text="#{reportDetail.evangelization}"></h4>
                                 <br>
                                 <div class="form-group">
-                                    <label class="col-md-12" for="evangelizationMinutes">Minuten in der Evangelisierung</label>
+                                    <label class="col-md-12" for="evangelizationMinutes"
+                                           th:text="#{reportDetail.evangelizationMinutes}"></label>
                                     <div class="col-md-12">
                                         <input min="0" type="number" name="evangelizationMinutes" id="evangelizationMinutes"
                                                class="form-control form-control-line" required>
@@ -117,7 +120,8 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-md-12" for="evangelizedPeople">Evangelisierte Menschen</label>
+                                    <label class="col-md-12" for="evangelizedPeople"
+                                           th:text="#{reportDetail.evangelizedPeople}"></label>
                                     <div class="col-md-12">
                                         <input min="0" type="number" name="evangelizedPeople" id="evangelizedPeople"
                                                class="form-control form-control-line" required>
@@ -125,44 +129,48 @@
                                 </div>
                                 <br>
 
-                                <h4>6 - FASTEN</h4>
+                                <h4 th:text="#{reportDetail.fast}"></h4>
                                 <br>
                                 <div class="form-group">
-                                    <label class="col-md-12" for="fast">Fasten (Tagen)</label>
+                                    <label class="col-md-12" for="fast"
+                                    th:text="#{reportDetail.fastDays}"></label>
                                     <div class="col-md-12">
                                         <input min="0" type="number" name="fast" id="fast"
                                                class="form-control form-control-line" required>
                                     </div>
                                 </div>
 
-                                <h4>! - AM WICHTIGSTEN</h4>
+                                <h4 th:text="#{reportDetail.important}"></h4>
                                 <br>
-                                <div class="form-group">
-                                    <label for="message" class="col-md-12" style="position: absolute;">Nachricht
+                                <div class="form-group not-hidden">
+                                    <label for="message" class="col-md-12" style="position: absolute;">
+                                        <th:block th:text="#{reportDetail.message}"></th:block>
                                         <div class="tooltip">
                                             <picture>
                                                 <source type="image/webp" srcset="/plugins/images/info.webp">
                                                 <source type="image/png" srcset="/plugins/images/info.png">
                                                 <img alt="" height="20" src="/plugins/images/info.png" width="20">
                                             </picture>
-                                            <span class="tooltiptext"> Ich erwarte, dass du in diesem Feld die Folgenden Punkten bearbeitest:
-                                                <br> » Frage 1: Wie geht es dir körperlich ?
-                                                <br> » Frage 2: Kommmst du zurecht mit der Schule/Uni ?
-                                                <br> » Frage 3: Wie ist deine Moral?
-                                                <br> » Frage 4: Wie sind deine Gefühle und deine Belastungen?
-                                                <br> » Frage 5: Wie fühlst du deine Gemeinschaft mit Gott? Hast du Blockaden?
-                                                <br> BONUS: Eine Nachricht für dein DiscipleMaker ?</span>
+                                            <span class="tooltiptext">
+                                                <th:block th:text="#{reportDetail.tooltip}"></th:block>
+                                                <br><th:block th:text="#{reportDetail.tooltip1}"></th:block>
+                                                <br><th:block th:text="#{reportDetail.tooltip2}"></th:block>
+                                                <br><th:block th:text="#{reportDetail.tooltip3}"></th:block>
+                                                <br><th:block th:text="#{reportDetail.tooltip4}"></th:block>
+                                                <br><th:block th:text="#{reportDetail.tooltip5}"></th:block>
+                                                <br><th:block th:text="#{reportDetail.tooltip6}"></th:block>
+                                            </span>
                                         </div>
                                     </label>
                                     <div class="col-md-12" style="margin-top: 31px;">
-                                        <textarea placeholder="Um zu verstehen was Sie hier schreiben sollen , klicken Sie auf das Ausrufezeichen"
-                                                  rows="5" name="message" id="message" class="form-control form-control-line"></textarea>
+                                        <textarea th:placeholder="#{reportDetail.message.placeholder}"
+                                                rows="5" name="message" id="message" class="form-control form-control-line"></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <button class="btn btn-success">ABLEGEN</button>
+                                        <button class="btn btn-success" id="report-btn" th:text="#{reportDetail.report}">ABLEGEN</button>
                                     </div>
                                 </div>
                             </form>

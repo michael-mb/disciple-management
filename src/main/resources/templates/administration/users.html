@@ -17,14 +17,14 @@
         <div class="container-fluid">
             <div class="row bg-title">
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">Users</h4>
+                    <h4 class="page-title" th:text="#{users}"></h4>
                 </div>
             </div>
             <!-- /.row -->
             <div class="row">
                 <div class="col-sm-12">
                     <div class="white-box">
-                        <h3 class="box-title">ALL USERS </h3>
+                        <h3 class="box-title" th:text="#{users.allUsers}"></h3>
                         <div class="search-container">
                             <ul class="nav navbar-top-links hidden-xs">
                                 <li class="in">
@@ -42,12 +42,14 @@
                                 <h5 class="card-title" th:text="${index + ' : ' + user.firstname+ ' ' + user.lastname}"></h5>
                                 <h6 class="card-subtitle mb-2 text-muted" th:text="${user.email}"></h6>
                                 <p class="card-text" th:text="${user.authorities}"></p>
-                                <a th:href="@{/users/edit/}+${user.id}" class="btn btn-info card-link">
+                                <a th:href="@{/users/edit/}+${user.id}" class="btn btn-info card-link"
+                                th:id="${user.getEmail()+'.edit'}">
                                     <i class="fa fa-edit " aria-hidden="true"></i>
                                 </a>
                                 <a th:if="${!user.hasAutorithy('DISCIPLEMAKER')}" th:href="@{/users/delete/}+${user.id}"
                                    onclick="if (!(confirm('Wollen Sie wirklich löschen ?'))) return false"
-                                   class="btn btn-danger card-link">
+                                   class="btn btn-danger card-link"
+                                   th:id="${user.getEmail()+'.delete'}" >
                                     <i class="fa fa-trash " aria-hidden="true"></i>
                                 </a>
                             </div>

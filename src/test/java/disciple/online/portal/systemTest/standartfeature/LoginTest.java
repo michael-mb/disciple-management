@@ -22,7 +22,7 @@ public class LoginTest extends SystemTest {
     @Test
     @Description("Test login with invalid access data")
     void doUnsuccessfulLogin() {
-        assertThrows(IllegalStateException.class, () -> regularLogin("dada@dada.de","dada"));
+        assertThrows(IllegalStateException.class, () -> regularLogin("random@email.de","randompass"));
     }
 
 }

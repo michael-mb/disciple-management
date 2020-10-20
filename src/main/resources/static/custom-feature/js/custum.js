@@ -2,6 +2,7 @@ $(document).ready(function() {
     setupScreenWidth();
     setupUsersSearchFuntion();
     scrollTopFunction();
+    setupLanguageLink();
 });
 
 $(window).resize(function() {
@@ -54,6 +55,23 @@ function scrollTopFunction(){
         return false;
     });
 }
+
+function setupLanguageLink(){
+    $("#en").click(function (e){
+        e.preventDefault();
+        var pageURL = $(location).attr("href");
+        pageURL = pageURL.split('?')[0];
+        window.location = pageURL+"?lang=en";
+    })
+
+    $("#de").click(function (e){
+        e.preventDefault();
+        var pageURL = $(location).attr("href");
+        pageURL = pageURL.split('?')[0];
+        window.location = pageURL+"?lang=de";
+    })
+}
+
 String.prototype.isEmpty = function() {
     return (this.length === 0 || !this.trim());
-};
+}

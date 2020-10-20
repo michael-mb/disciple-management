@@ -31,22 +31,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean("messageSource")
-    public MessageSource messageSource() {
-        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("classpath:i18n/messages");
-        messageSource.setDefaultEncoding("UTF-8");
-        return messageSource;
-    }
-
-    @Bean
-    public LocaleResolver localeResolver() {
-        final AcceptHeaderLocaleResolver lr = new AcceptHeaderLocaleResolver();
-        lr.setDefaultLocale(Locale.GERMANY);
-        lr.setSupportedLocales(Collections.singletonList(Locale.GERMAN));
-        return lr;
-    }
-
     @Bean
     ServletRegistrationBean h2servletRegistration(){
         ServletRegistrationBean registrationBean = new ServletRegistrationBean( new WebServlet());

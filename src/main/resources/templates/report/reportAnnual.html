@@ -16,7 +16,7 @@
         <div class="container-fluid">
             <div class="row bg-title">
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">Jahresabschluss: <span th:text="${year}"></span></h4> </div>
+                    <h4 class="page-title"><th:block th:text="#{reportAnnual}"></th:block> <span th:text="${year}"></span></h4> </div>
             </div>
 
             <div class="row">
@@ -26,7 +26,7 @@
 
                         <div class="row pb-5 p-5">
                             <div class="col-md-6">
-                                <p class="font-weight-bold mb-4">WICHTIGE INFORMATIONEN</p>
+                                <p class="font-weight-bold mb-4" th:text="#{reportAnnual.info}"></p>
                                 <p class="mb-1" th:text="${user.getLastname() + ' ' + user.getFirstname()}"></p>
                                 <p th:text="${user.getEmail()}"></p>
                                 <p class="mb-1" th:text="${user.getPhone()}"></p>
@@ -40,17 +40,17 @@
                                 <p class="mb-1"><span class="text-muted">0145 0047 0556</span></p>
                             </div>
                         </div>
-                        <span class="month" th:text="Jahresabschluss + ${year}"></span>
+                        <span class="month" th:text="#{reportAnnual} + ${year}"></span>
                         <div class="row p-5">
                             <br><br>
                             <div class="col-md-12">
                                 <table class="table">
                                     <thead>
                                     <tr>
-                                        <th class="border-0 text-uppercase  font-weight-bold">Wochen Nr:</th>
-                                        <th class="border-0 text-uppercase  font-weight-bold">Bibel Kapitel:</th>
-                                        <th class="border-0 text-uppercase  font-weight-bold">Minuten beim Bibellesen:</th>
-                                        <th class="border-0 text-uppercase  font-weight-bold">Bücher:</th>
+                                        <th class="border-0 text-uppercase  font-weight-bold" th:text="#{reportAnnual.weekNumber}"></th>
+                                        <th class="border-0 text-uppercase  font-weight-bold" th:text="#{reportAnnual.bibleChapter}"></th>
+                                        <th class="border-0 text-uppercase  font-weight-bold" th:text="#{reportAnnual.bibleMinutes}"></th>
+                                        <th class="border-0 text-uppercase  font-weight-bold" th:text="#{reportAnnual.book}"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -67,11 +67,11 @@
 
                         <div class="d-flex bg-dark p-4">
                             <div class="py-3 px-5">
-                                <div class="mb-2">Total gelesene Bible Kapitel:</div>
+                                <div class="mb-2" th:text="#{reportAnnual.totalBibleChapter}"></div>
                                 <div class="h2 font-weight-light" th:text="${chapters}"></div>
                             </div>
                             <div class="py-3 px-5">
-                                <div class="mb-2">Total Stunden beim Bibellesen:</div>
+                                <div class="mb-2" th:text="#{reportAnnual.totalBibleHours}"></div>
                                 <div class="h2 font-weight-light" th:text="${bibleReadingHours}"></div>
                             </div>
                         </div>
@@ -83,11 +83,11 @@
                                 <table class="table">
                                     <thead>
                                     <tr>
-                                        <th class="border-0 text-uppercase  font-weight-bold">Wochen Nr:</th>
-                                        <th class="border-0 text-uppercase  font-weight-bold">Gebet Minuten Allein:</th>
-                                        <th class="border-0 text-uppercase  font-weight-bold">Gebet Minuten in Gruppen:</th>
-                                        <th class="border-0 text-uppercase  font-weight-bold">Anzahl der Meditation:</th>
-                                        <th class="border-0 text-uppercase  font-weight-bold">Minuten der Meditation:</th>
+                                        <th class="border-0 text-uppercase  font-weight-bold" th:text="#{reportAnnual.weekNumber}"></th>
+                                        <th class="border-0 text-uppercase  font-weight-bold" th:text="#{reportAnnual.prayerAlone}"></th>
+                                        <th class="border-0 text-uppercase  font-weight-bold" th:text="#{reportAnnual.prayerInGroup}"></th>
+                                        <th class="border-0 text-uppercase  font-weight-bold" th:text="#{reportAnnual.meditationNumber}"></th>
+                                        <th class="border-0 text-uppercase  font-weight-bold" th:text="#{reportAnnual.meditationMinutes}"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -104,19 +104,19 @@
                         </div>
                         <div class="d-flex bg-dark p-4">
                             <div class="py-3 px-5">
-                                <div class="mb-2">Total Gebet Stunden allein:</div>
+                                <div class="mb-2" th:text="#{reportAnnual.totalPrayerAlone}"></div>
                                 <div class="h2 font-weight-light" th:text="${totalPrayerAlone}"></div>
                             </div>
                             <div class="py-3 px-5">
-                                <div class="mb-2">Total Gebet Stunden in Gruppen:</div>
+                                <div class="mb-2" th:text="#{reportAnnual.totalPrayerInGroup}"></div>
                                 <div class="h2 font-weight-light" th:text="${totalPrayerTogether}"></div>
                             </div>
                             <div class="py-3 px-5">
-                                <div class="mb-2">Total Meditation Anzahl:</div>
+                                <div class="mb-2" th:text="#{reportAnnual.totalMeditationNumber}"></div>
                                 <div class="h2 font-weight-light" th:text="${meditationNumber}"></div>
                             </div>
                             <div class="py-3 px-5">
-                                <div class="mb-2">Total Meditation Stunden:</div>
+                                <div class="mb-2" th:text="#{reportAnnual.totalMeditationMinutes}"></div>
                                 <div class="h2 font-weight-light" th:text="${meditationTime}"></div>
                             </div>
                         </div>
@@ -127,10 +127,10 @@
                                     <table class="table">
                                         <thead>
                                         <tr>
-                                            <th class="border-0 text-uppercase  font-weight-bold">Wochen Nr:</th>
-                                            <th class="border-0 text-uppercase  font-weight-bold">Minuten in der Evangelisierung:</th>
-                                            <th class="border-0 text-uppercase  font-weight-bold">Evangelisierte Menschen:</th>
-                                            <th class="border-0 text-uppercase  font-weight-bold">Fasten (Tagen):</th>
+                                            <th class="border-0 text-uppercase  font-weight-bold" th:text="#{reportAnnual.weekNumber}"></th>
+                                            <th class="border-0 text-uppercase  font-weight-bold" th:text="#{reportAnnual.evangelizationMinutes}">Minuten in der Evangelisierung:</th>
+                                            <th class="border-0 text-uppercase  font-weight-bold" th:text="#{reportAnnual.evangelizationPeople}">Evangelisierte Menschen:</th>
+                                            <th class="border-0 text-uppercase  font-weight-bold" th:text="#{reportAnnual.Fast}">Fasten (Tagen):</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -147,22 +147,22 @@
 
                         <div class="d-flex bg-dark p-4">
                             <div class="py-3 px-5">
-                                <div class="mb-2">Total Stunden in der Evangelisierung:</div>
+                                <div class="mb-2" th:text="#{reportAnnual.totalEvangelizationMinutes}"></div>
                                 <div class="h2 font-weight-light" th:text="${evangelizationHours}"></div>
                             </div>
 
                             <div class="py-3 px-5">
-                                <div class="mb-2">Total Evangelisierte Menschen:</div>
+                                <div class="mb-2" th:text="#{reportAnnual.totalEvangelizedPeople}"></div>
                                 <div class="h2 font-weight-light" th:text="${evangelizedPeople}"></div>
                             </div>
 
                             <div class="py-3 px-5">
-                                <div class="mb-2">Total Fasten Tagen </div>
+                                <div class="mb-2" th:text="#{reportAnnual.TotalFastDays}"></div>
                                 <div class="h2 font-weight-light" th:text="${fastDays}"></div>
                             </div>
 
                             <div class="py-3 px-5 print-view">
-                                <div class="mb-2">Drucken:</div>
+                                <div class="mb-2" th:text="#{reportAnnual.print}"></div>
                                 <div class="h2 font-weight-light">
                                     <a class="btn btn-success" onClick="window.print()">
                                         <i class="fa fa-print"></i>

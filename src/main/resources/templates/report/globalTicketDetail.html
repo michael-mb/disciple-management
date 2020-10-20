@@ -16,20 +16,20 @@
         <div class="container-fluid">
             <div class="row bg-title">
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">Berichtdetail</h4> </div>
+                    <h4 class="page-title" th:text="#{detailReport}"></h4> </div>
             </div>
 
             <div class="row white-box-wrapper">
                 <div class="col-md-8 col-xs-12 white-box-container">
                     <div class="white-box">
                         <div class="row">
-                            <h3 class="box-title big">ALLGEMEIN ABLEGEN</h3><br>
+                            <h3 class="box-title big" th:text="#{reportGlobal}"></h3><br>
                             <form class="form-horizontal form-material" th:action="@{/report-global-update/}+${ticket.id}" th:object="${reportGlobalDto}" method="post">
-                                <h4>1 - WOCHE</h4>
+                                <h4 th:text="#{reportGlobal.week}"></h4>
                                 <br>
                                 <div class="row">
                                     <div class="form-group col-sm-12 col-md-6">
-                                        <label class="col-md-12" for="week">Wochennummer</label>
+                                        <label class="col-md-12" for="week" th:text="#{reportGlobal.weekNumber}"></label>
                                         <div class="col-md-12 m-t-10 " id="week-input">
                                             <input th:if="${!disable}" type="week" id="week" name="week" th:value="${ticket.week}" required>
                                             <input th:if="${disable}" type="week" id="week" name="week" th:value="${ticket.week}" disabled required>
@@ -38,9 +38,9 @@
                                 </div>
                                 <br>
 
-                                <h4>2 - LESUNG</h4>
+                                <h4 th:text="#{reportGlobal.reading}"></h4>
                                 <div class="form-group">
-                                    <label class="col-md-12" for="bibleChapter">Gelesene Bibelkapitel</label>
+                                    <label class="col-md-12" for="bibleChapter" th:text="#{reportGlobal.bibleChapter}"></label>
                                     <div class="col-md-12">
                                         <input th:if="${!disable}" min="0" type="number" name="bibleChapter" id="bibleChapter"
                                                class="form-control form-control-line" th:value="${ticket.bibleChapter}" required>
@@ -49,7 +49,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-12" for="bibleChapterMinutes">Minuten beim Bibellesen</label>
+                                    <label class="col-md-12" for="bibleChapterMinutes"
+                                           th:text="#{reportGlobal.bibleChapterMinutes}"></label>
                                     <div class="col-md-12">
                                         <input th:if="${!disable}" min="0" type="number" name="bibleChapterMinutes" id="bibleChapterMinutes"
                                                class="form-control form-control-line" th:value="${ticket.bibleChapter}" required>
@@ -58,7 +59,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-12">Buch</label>
+                                    <label class="col-md-12" th:text="#{reportGlobal.book}"></label>
                                     <div class="col-md-12">
                                         <input th:if="${!disable}" type="text" name="book" id="book"
                                                class="form-control form-control-line" th:value="${ticket.book}">
@@ -67,11 +68,11 @@
                                     </div>
                                 </div>
 
-                                <h4>3 - GEBET</h4>
+                                <h4 th:text="#{reportGlobal.prayer}"></h4>
                                 <br>
 
                                 <div class="form-group">
-                                    <label class="col-md-12" for="prayerMinutesAlone">Gebet Minuten Allein</label>
+                                    <label class="col-md-12" for="prayerMinutesAlone" th:text="#{reportGlobal.prayerAlone}"></label>
                                     <div class="col-md-12">
                                         <input min="0" th:if="${!disable}" type="number" name="prayerMinutesAlone" id="prayerMinutesAlone"
                                                class="form-control form-control-line" th:value="${ticket.prayerMinutesAlone}" required>
@@ -80,7 +81,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-12" for="prayerMinutesTogether">Gebet Minuten in Gruppen</label>
+                                    <label class="col-md-12" for="prayerMinutesTogether" th:text="#{reportGlobal.prayerInGroup}"></label>
                                     <div class="col-md-12">
                                         <input min="0" type="number" th:value="${ticket.prayerMinutesTogether}" name="prayerMinutesTogether" id="prayerMinutesTogether"
                                                th:if="${!disable}" class="form-control form-control-line" required>
@@ -89,10 +90,11 @@
                                     </div>
                                 </div>
 
-                                <h4>4 - MEDITATION</h4>
+                                <h4 th:text="#{reportGlobal.meditation}"></h4>
                                 <br>
                                 <div class="form-group">
-                                    <label class="col-md-12" for="meditationNumber">Anzahl der Meditation</label>
+                                    <label class="col-md-12" for="meditationNumber"
+                                           th:text="#{reportGlobal.meditationNumber}"></label>
                                     <div class="col-md-12">
                                         <input th:if="${!disable}" min="0" type="number" name="meditationNumber" id="meditationNumber"
                                                class="form-control form-control-line" th:value="${ticket.meditationNumber}" required>
@@ -101,7 +103,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-12">Minuten der Meditation</label>
+                                    <label class="col-md-12" th:text="#{reportGlobal.meditationMinutes}"></label>
                                     <div class="col-md-12">
                                         <input th:if="${!disable}" min="0" type="number" name="meditationMinutes" id="meditationMinutes"
                                                class="form-control form-control-line" th:value="${ticket.meditationMinutes}" required>
@@ -110,10 +112,11 @@
                                     </div>
                                 </div>
 
-                                <h4>5 - EVANGELISIERUNG</h4>
+                                <h4 th:text="#{reportGlobal.evangelization}"></h4>
                                 <br>
                                 <div class="form-group">
-                                    <label class="col-md-12" for="evangelizationMinutes">Minuten in der Evangelisierung</label>
+                                    <label class="col-md-12" for="evangelizationMinutes"
+                                           th:text="#{reportGlobal.evangelizationMinutes}"></label>
                                     <div class="col-md-12">
                                         <input min="0" th:if="${!disable}" type="number" th:value="${ticket.evangelizationMinutes}" name="evangelizationMinutes" id="evangelizationMinutes"
                                                class="form-control form-control-line" required>
@@ -123,7 +126,8 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-md-12" for="evangelizedPeople">Evangelisierte Menschen</label>
+                                    <label class="col-md-12" for="evangelizedPeople"
+                                           th:text="#{reportGlobal.evangelizedPeople}"></label>
                                     <div class="col-md-12">
                                         <input min="0" th:if="${!disable}" type="number" name="evangelizedPeople" id="evangelizedPeople"
                                                class="form-control form-control-line" th:value="${ticket.evangelizedPeople}" required>
@@ -133,10 +137,11 @@
                                 </div>
                                 <br>
 
-                                <h4>6 - FASTEN</h4>
+                                <h4 th:text="#{reportGlobal.fast}"></h4>
                                 <br>
                                 <div class="form-group">
-                                    <label class="col-md-12" for="fast">Fasten (Tagen)</label>
+                                    <label class="col-md-12" for="fast"
+                                           th:text="#{reportGlobal.fastDays}"></label>
                                     <div class="col-md-12">
                                         <input min="0" th:value="${ticket.fast}" type="number" name="fast" id="fast"
                                                th:if="${!disable}" class="form-control form-control-line" required>
@@ -145,33 +150,36 @@
                                     </div>
                                 </div>
 
-                                <h4>! - AM WICHTIGSTEN</h4>
+                                <h4 th:text="#{reportGlobal.important}"></h4>
                                 <br>
-                                <div class="form-group">
-                                    <label for="message" class="col-md-12" style="position: absolute;">Nachricht
+                                <div class="form-group not-hidden">
+                                    <label for="message" class="col-md-12" style="position: absolute;">
+                                        <th:block th:text="#{reportGlobal.message}"></th:block>
                                         <div class="tooltip">
                                             <picture>
                                                 <source type="image/webp" srcset="/plugins/images/info.webp">
                                                 <source type="image/png" srcset="/plugins/images/info.png">
                                                 <img alt="" height="20" src="/plugins/images/info.png" width="20">
                                             </picture>
-                                            <span class="tooltiptext"> Ich erwarte, dass du in diesem Feld die Folgenden Punkten bearbeitest:
-                                                <br> » Frage 1: Wie geht es dir körperlich ?
-                                                <br> » Frage 2: Kommmst du zurecht mit der Schule/Uni ?
-                                                <br> » Frage 3: Wie ist deine Moral?
-                                                <br> » Frage 4: Wie sind deine Gefühle und deine Belastungen?
-                                                <br> » Frage 5: Wie fühlst du deine Gemeinschaft mit Gott? Hast du Blockaden?
-                                                <br> BONUS: Eine Nachricht für dein DiscipleMaker ?</span>
+                                            <span class="tooltiptext">
+                                                <th:block th:text="#{reportGlobal.tooltip}"></th:block>
+                                                <br><th:block th:text="#{reportGlobal.tooltip1}"></th:block>
+                                                <br><th:block th:text="#{reportGlobal.tooltip2}"></th:block>
+                                                <br><th:block th:text="#{reportGlobal.tooltip3}"></th:block>
+                                                <br><th:block th:text="#{reportGlobal.tooltip4}"></th:block>
+                                                <br><th:block th:text="#{reportGlobal.tooltip5}"></th:block>
+                                                <br><th:block th:text="#{reportGlobal.tooltip6}"></th:block>
+                                            </span>
                                         </div>
                                     </label>
                                     <div class="col-md-12" style="margin-top: 31px;">
-                                        <textarea rows="5" name="message" id="message" placeholder="Um zu verstehen was Sie hier schreiben sollen , klicken Sie auf das Ausrufezeichen"
-                                                  class="form-control form-control-line"></textarea>
+                                        <textarea th:placeholder="#{reportGlobal.message.placeholder}"
+                                                  rows="5" name="message" id="message" class="form-control form-control-line"></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="message" class="col-md-12">Nachrichten</label>
+                                    <label for="message" class="col-md-12" th:text="#{reportGlobal.message}"></label>
                                     <div class="col-md-12">
                                         <textarea rows="8" th:text="${ticket.message}" class="form-control form-control-line" disabled></textarea>
                                     </div>
@@ -179,14 +187,15 @@
 
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <button class="btn btn-success">AKTUALISIEREN</button>
+                                        <button class="btn btn-success" th:text="#{reportGlobal.update}"></button>
                                     </div>
                                 </div>
 
                                 <div th:if="${!disable}" class="form-group">
                                     <div class="col-sm-12">
                                         <a th:href="@{/report/archiv/discipleMaker/}+${ticket.id}" class="btn btn-info"
-                                           onclick="if (!(confirm('Wollen Sie wirklich archivieren ?'))) return false">ARCHIVIEREN</a>
+                                           onclick="if (!(confirm('Wollen Sie wirklich archivieren ?'))) return false"
+                                        th:text="#{reportGlobal.archiv}"></a>
                                     </div>
                                 </div>
 
@@ -194,7 +203,8 @@
                                     <div class="col-sm-12">
                                         <a th:href="@{/report/archiv/discipleMaker/}+${ticket.id}"
                                            onclick="if (!(confirm('Wollen Sie wirklich archivieren ?'))) return false"
-                                           class="btn btn-info">ARCHIVIEREN</a>
+                                           class="btn btn-info"
+                                           th:text="#{reportGlobal.archiv}"></a>
                                     </div>
                                 </div>
 

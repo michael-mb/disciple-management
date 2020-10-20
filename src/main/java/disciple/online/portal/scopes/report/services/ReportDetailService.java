@@ -157,6 +157,13 @@ public class ReportDetailService {
         }
     }
 
+    public void deleteAllTicketFromUser(User user){
+        if (user == null) throw new NullPointerException("User must not be null.");
+        for (DetailTicket ticket : getDetailTicketOwnerByMail(user.getEmail())){
+            reportDetailRepository.delete(ticket);
+        }
+    }
+
     public Optional<DetailTicket> getDetailTicketById(long id){
         return reportDetailRepository.findById(id);
     }

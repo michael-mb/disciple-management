@@ -34,16 +34,16 @@ public class ResetPasswordService {
         }
     }
 
-    public void changePassword(String userMail , String token , String newPassword){
+    public boolean changePassword(String userMail , String token , String newPassword){
 
         if(!userMail.equals(tokenService.getEmailFromToken(token)))
-            return;
+            return false;
 
         Optional<User> user = userService.findUserByEmail(userMail);
         if(!user.isPresent())
-            return;
+            return false;
 
         userService.updatePassword(newPassword,user.get());
-
+        return true;
     }
 }

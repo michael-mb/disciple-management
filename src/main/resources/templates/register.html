@@ -17,7 +17,7 @@
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Registrieren</h4> </div>
+                        <h4 class="page-title" th:text="#{register.register}"></h4> </div>
                 </div>
                 <!-- /.row -->
                 <!-- .row -->
@@ -26,7 +26,7 @@
                         <div class="white-box">
                             <form class="form-horizontal form-material" th:action="@{/register}" method="post" th:object="${userRegistrationDto}">
                                 <div class="form-group">
-                                    <label class="col-md-12">Name</label>
+                                    <label class="col-md-12" th:text="#{register.name}"></label>
                                     <div class="col-md-12">
                                         <input type="text" name="lastName" id="lastName"
                                                placeholder="Doe" class="form-control form-control-line" required>
@@ -34,42 +34,75 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-md-12">Vorname</label>
+                                    <label class="col-md-12" th:text="#{register.surname}"></label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="Johnathan"
                                                name="firstName" id="firstName" class="form-control form-control-line" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="email" class="col-md-12">Email</label>
+                                    <label for="email" class="col-md-12" th:text="#{register.email}"></label>
                                     <div class="col-md-12">
                                         <input type="email" name="email"
                                                id="email" placeholder="johnathan@admin.com" class="form-control form-control-line" required>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-md-12">Passwort</label>
+                                <div class="form-group not-hidden">
+                                    <label for="password" class="col-md-12">
+                                        <th:block th:text="#{register.password}"></th:block>
+                                        <div class="tooltip">
+                                            <picture>
+                                                <source type="image/webp" srcset="/plugins/images/info.webp">
+                                                <source type="image/png" srcset="/plugins/images/info.png">
+                                                <img alt="" height="20" src="/plugins/images/info.png" width="20">
+                                            </picture>
+                                            <span class="tooltiptext">
+                                            <th:block th:text="#{register.tooltipInfo}"></th:block>
+                                                <br><th:block th:text="#{register.tooltipInfo1}"></th:block>
+                                                <br><th:block th:text="#{register.tooltipInfo2}"></th:block>
+                                                <br><th:block th:text="#{register.tooltipInfo3}"></th:block>
+                                                <br><th:block th:text="#{register.tooltipInfo4}"></th:block>
+                                            </span>
+                                        </div>
+                                    </label>
+
                                     <div class="col-md-12">
-                                        <input type="password" id="password"
+                                        <input type="password" id="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@\[-`{-~]).{6,64}$"
                                                name="password" class="form-control form-control-line" required>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-md-12">Passwort wiederholen</label>
+                                <div class="form-group not-hidden">
+                                    <label for="passwordAgain" class="col-md-12">
+                                        <th:block th:text="#{register.passwordAgain}"></th:block>
+                                        <div class="tooltip">
+                                            <picture>
+                                                <source type="image/webp" srcset="/plugins/images/info.webp">
+                                                <source type="image/png" srcset="/plugins/images/info.png">
+                                                <img alt="" height="20" src="/plugins/images/info.png" width="20">
+                                            </picture>
+                                            <span class="tooltiptext">
+                                            <th:block th:text="#{register.tooltipInfo}"></th:block>
+                                                <br><th:block th:text="#{register.tooltipInfo1}"></th:block>
+                                                <br><th:block th:text="#{register.tooltipInfo2}"></th:block>
+                                                <br><th:block th:text="#{register.tooltipInfo3}"></th:block>
+                                                <br><th:block th:text="#{register.tooltipInfo4}"></th:block>
+                                            </span>
+                                        </div>
+                                    </label>
                                     <div class="col-md-12">
-                                        <input type="password" id="passwordAgain" name="passwordAgain"
+                                        <input type="password" id="passwordAgain" name="passwordAgain" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@\[-`{-~]).{6,64}$"
                                                class="form-control form-control-line" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-12">Telefonnummer</label>
+                                    <label class="col-md-12" th:text="#{register.phoneNumber}"></label>
                                     <div class="col-md-12">
                                         <input type="text" id="phone"
                                                name="phone" placeholder="0176 445547995" class="form-control form-control-line" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="city" class="col-md-12">Stadt</label>
+                                    <label for="city" class="col-md-12" th:text="#{register.city}"></label>
                                     <div class="col-md-12">
                                         <input type="text" id="city"
                                                name="city" placeholder="Dresden" class="form-control form-control-line" required>
@@ -77,7 +110,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="street" class="col-md-12">Straße</label>
+                                    <label for="street" class="col-md-12" th:text="#{register.street}"></label>
                                     <div class="col-md-12">
                                         <input type="text" id="street"
                                                name="street" placeholder="Kamerunerstraße 44" class="form-control form-control-line" required>
@@ -85,7 +118,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="discipleMakerMail" class="col-sm-12">Disciplemaker auswählen </label>
+                                    <label for="discipleMakerMail" class="col-sm-12" th:text="#{register.discipleChoise}"> </label>
                                     <div class="col-sm-12">
                                         <select  id="discipleMakerMail" name="discipleMakerMail" class="form-control form-control-line" required>
                                             <th:block th:each="maker,iter : ${discipleMakers}">
@@ -98,7 +131,7 @@
 
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <button class="btn btn-success" id="register-button">Registrieren</button>
+                                        <button class="btn btn-success" id="register-button" th:text="#{register.register}">Registrieren</button>
                                     </div>
                                 </div>
                             </form>

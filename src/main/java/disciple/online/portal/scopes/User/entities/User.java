@@ -66,7 +66,6 @@ public class User implements UserDetails , Serializable {
     @NotNull
     private String street;
 
-
     @Column
     @NotBlank
     @NotEmpty
@@ -90,7 +89,8 @@ public class User implements UserDetails , Serializable {
         this.street = street;
         this.phone = phone;
         this.discipleMakerMail = discipleMakerMail;
-    };
+    }
+    
     public long getId() {
         return id;
     }
@@ -226,7 +226,7 @@ public class User implements UserDetails , Serializable {
               return true;
       }
       return false;
-    };
+    }
 
     @Override
     public String toString(){

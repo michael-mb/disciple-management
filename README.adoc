@@ -34,6 +34,14 @@ Some tests have been implemented with JUNIT and the Selenium Framework. Perform 
 === SMTP
 > Don't forget to configure SMTP in application.properties file for the Email notificaion System
 
+=== ALL DEFAULT USERS
+
+. All default users in the App
+image:/images/home2.png?raw=true[home2 page image]
+
+. All default users with password
+image:/images/home3.png?raw=true[home page image]
+
 === LEARN MORE
 
 . Spring boot https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/[documentation]

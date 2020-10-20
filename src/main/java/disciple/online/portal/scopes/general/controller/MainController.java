@@ -35,6 +35,9 @@ public class MainController {
         }
         Optional<User> user = userService.findUserByEmail(((User)authentication.getPrincipal()).getEmail());
 
+        if(user.isEmpty())
+            return "redirect:/login";
+        
         JSONArray categories = new JSONArray();
         JSONArray fastData = new JSONArray();
         JSONArray prayerAloneData = new JSONArray();

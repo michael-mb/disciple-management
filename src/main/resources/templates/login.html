@@ -16,7 +16,7 @@
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Einloggen</h4> </div>
+                        <h4 class="page-title" th:text="#{login.login}"></h4> </div>
                 </div>
                 <!-- /.row -->
                 <!-- .row -->
@@ -25,12 +25,12 @@
                         <div class="white-box login-form">
                             <form class="form-horizontal form-material" th:action="@{/login}" method="post" th:object="${loginDto}">
                                 <div class="form-group">
-                                    <label for="email" class="col-md-12">Email</label>
+                                    <label for="email" class="col-md-12" th:text="#{login.email}"></label>
                                     <div class="col-md-12">
                                         <input type="email" placeholder="johnathan@admin.com" class="form-control form-control-line" name="email" id="email"> </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-12" for="password">Passwort</label>
+                                    <label class="col-md-12" for="password" th:text="#{login.password}"></label>
                                     <div class="col-md-12">
                                         <input type="password" id="password" name="password"
                                                class="form-control form-control-line">
@@ -39,14 +39,14 @@
 
                                 <div class="form-group">
                                     <div class="col-6">
-                                        <button class="btn btn-success m-l-15" id="login-button">Einloggen</button>
-                                        <a href="/register" class="btn btn-info" id="register">Registrieren</a>
+                                        <button class="btn btn-success m-l-15" id="login-button" th:text="#{login.login}"></button>
+                                        <a href="/register" class="btn btn-info" id="register" th:text="#{login.register}"></a>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-6">
-                                        <a href="/reset-password" class="" id="request_password">Haben Sie Ihr Passwort vergessen ?</a>
+                                        <a href="/reset-password" class="" id="request_password" th:text="#{login.reset}"></a>
                                     </div>
                                 </div>
 

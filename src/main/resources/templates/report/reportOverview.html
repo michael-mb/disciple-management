@@ -16,14 +16,14 @@
         <div class="container-fluid">
             <div class="row bg-title">
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">Berichtübersicht</h4> </div>
+                    <h4 class="page-title" th:text="#{reportOverview}"></h4> </div>
             </div>
 
             <div class="row">
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="white-box">
-                            <h3 class="box-title">ALLGEMEINE BERICHTEÜBERSICHT
+                            <h3 class="box-title"><th:block th:text="#{reportOverview.global}"></th:block>
                                 <div  th:replace="util/import.html :: years(${year})"></div>
                             </h3>
                             <div class="table-responsive">
@@ -31,8 +31,8 @@
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Woche</th>
-                                        <th>Bearbeiten</th>
+                                        <th th:text="#{reportOverview.week}"></th>
+                                        <th th:text="#{reportOverview.edit}"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -51,7 +51,7 @@
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <a th:href="@{'/annual-report/'} + ${year}" class="btn btn-success">
-                                            Jahresabschluss für das Jahr: <span th:text="${year}"></span>
+                                            <th:block th:text="#{reportOverview.pdf}"></th:block><span th:text="${year}"></span>
                                         </a>
                                     </div>
                                 </div>
@@ -59,15 +59,15 @@
                         </div>
 
                         <div class="white-box">
-                            <h3 class="box-title">DETAILLIERTE BERICHTEÜBERSICHT</h3>
+                            <h3 class="box-title" th:text="#{reportOverview.detail}"></h3>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Von</th>
-                                        <th>Bis</th>
-                                        <th>Bearbeiten</th>
+                                        <th th:text="#{reportOverview.from}"></th>
+                                        <th th:text="#{reportOverview.to}"></th>
+                                        <th th:text="#{reportOverview.edit}"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -89,7 +89,7 @@
                                     <div class="col-sm-12">
                                         <a href="/resume-report" class="btn btn-success"
                                            onclick="if (!(confirm('Wollen Sie wirklich die Berichte zusammenfassen ?'))) return false"
-                                        >Zusammenfassen im wöchentlicher Bericht</a>
+                                        ><th:block th:text="#{reportOverview.sumup}"></th:block></a>
                                     </div>
                                 </div>
                             </div>
