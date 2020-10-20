@@ -39,7 +39,7 @@ Some tests have been implemented with JUNIT and the Selenium Framework. Perform 
 . All default users in the App
 image:/images/home2.png?raw=true[home2 page image]
 
-. All default users with password
+. All default users with password (src/main/java/disciple/online/portal/scopes/User/entities/TestUser.java)
 image:/images/home3.png?raw=true[home page image]
 
 === LEARN MORE
